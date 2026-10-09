@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EduTube Studio — Dasbor Pembelajaran Mahasiswa</title>
+<!-- Google Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Theme Configuration -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-background": "#131b2e",
+            "on-tertiary-container": "#9cabd5",
+            "surface-variant": "#dae2fd",
+            "on-primary-fixed": "#00164e",
+            "on-tertiary-fixed-variant": "#37466a",
+            "secondary-container": "#40c2fd",
+            "outline": "#757682",
+            "on-tertiary": "#ffffff",
+            "outline-variant": "#c5c5d3",
+            "inverse-primary": "#b6c4ff",
+            "inverse-surface": "#283044",
+            "primary": "#00236f",
+            "on-error": "#ffffff",
+            "on-surface": "#131b2e",
+            "error": "#ba1a1a",
+            "surface-container-low": "#f2f3ff",
+            "primary-fixed-dim": "#b6c4ff",
+            "on-secondary": "#ffffff",
+            "tertiary-fixed-dim": "#b6c6f1",
+            "secondary-fixed-dim": "#7bd0ff",
+            "primary-fixed": "#dce1ff",
+            "on-secondary-container": "#004d6a",
+            "surface": "#faf8ff",
+            "tertiary": "#19294b",
+            "surface-bright": "#faf8ff",
+            "on-primary": "#ffffff",
+            "surface-container-highest": "#dae2fd",
+            "surface-tint": "#4059aa",
+            "on-secondary-fixed-variant": "#004c69",
+            "surface-container-lowest": "#ffffff",
+            "background": "#faf8ff",
+            "tertiary-container": "#303f63",
+            "secondary": "#00668a",
+            "on-error-container": "#93000a",
+            "on-tertiary-fixed": "#081a3c",
+            "surface-container-high": "#e2e7ff",
+            "error-container": "#ffdad6",
+            "inverse-on-surface": "#eef0ff",
+            "on-secondary-fixed": "#001e2c",
+            "on-surface-variant": "#444651",
+            "tertiary-fixed": "#d9e2ff",
+            "secondary-fixed": "#c4e7ff",
+            "on-primary-fixed-variant": "#264191",
+            "surface-dim": "#d2d9f4",
+            "surface-container": "#eaedff",
+            "on-primary-container": "#90a8ff",
+            "primary-container": "#1e3a8a"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter-mobile": "1rem",
+            "space-xl": "2.5rem",
+            "margin": "2rem",
+            "space-xs": "0.25rem",
+            "gutter": "1.5rem",
+            "space-sm": "0.5rem",
+            "space-md": "1rem",
+            "space-lg": "1.5rem",
+            "margin-mobile": "1rem"
+          },
+          "fontFamily": {
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "code-sm": ["Inter"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "label-sm": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-xl": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "headline-xl-mobile": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "body-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "code-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0em", "fontWeight": "500" }],
+            "body-lg": ["16px", { "lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "400" }],
+            "headline-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.025em", "fontWeight": "700" }],
+            "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "headline-xl-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-background text-on-surface font-body-md text-body-md min-h-full flex flex-col antialiased selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- Top Navigation Bar (Shared Component Anchor Implementation) -->
+<header class="flex justify-between items-center w-full px-space-lg h-16 border-b border-outline-variant sticky top-0 z-50 bg-surface-container-lowest">
+<div class="flex items-center gap-space-lg flex-1 max-w-3xl">
+<!-- Brand Logo / Product Name -->
+<a class="flex items-center gap-space-sm group" href="#">
+<div class="w-9 h-9 rounded-lg bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[20px]" data-icon="play_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+</div>
+<span class="text-headline-sm font-headline-sm text-primary tracking-tight">EduTube Studio</span>
+</a>
+<!-- Quick Search Bar with Shortcut -->
+<div class="relative w-full max-w-md hidden sm:block">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-outline">
+<span class="material-symbols-outlined text-[18px]" data-icon="search">search</span>
+</div>
+<input class="w-full bg-surface-container-lowest text-on-surface placeholder:text-outline text-body-sm font-body-sm pl-9 pr-14 py-1.5 rounded-lg border border-outline-variant focus:outline-none focus:border-primary transition-colors duration-150 ease-in-out" placeholder="Cari kursus, materi, video..." type="text"/>
+<div class="absolute inset-y-0 right-0 pr-2.5 flex items-center pointer-events-none">
+<kbd class="px-1.5 py-0.5 text-label-sm font-code-sm bg-surface-container-low text-on-surface-variant border border-outline-variant rounded">⌘/K</kbd>
+</div>
+</div>
+</div>
+<!-- Navigation Links & Trailing Cluster -->
+<div class="flex items-center gap-space-lg">
+<nav class="hidden lg:flex items-center gap-space-lg">
+<a class="border-b-2 border-primary text-primary font-semibold pb-1 text-label-md font-label-md transition-colors duration-150 ease-in-out" href="#">Katalog</a>
+<a class="text-on-surface-variant hover:text-on-surface pb-1 text-label-md font-label-md transition-colors duration-150 ease-in-out" href="#">Kursus Saya</a>
+<a class="text-on-surface-variant hover:text-on-surface pb-1 text-label-md font-label-md transition-colors duration-150 ease-in-out" href="#">Alur Belajar</a>
+<a class="text-on-surface-variant hover:text-on-surface pb-1 text-label-md font-label-md transition-colors duration-150 ease-in-out" href="#">Analitik</a>
+</nav>
+<div class="h-5 w-[1px] bg-outline-variant hidden lg:block"></div>
+<!-- Action & Profile Group -->
+<div class="flex items-center gap-space-md">
+<!-- Notification Action -->
+<button aria-label="Notifikasi" class="relative p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-lg transition-colors duration-150 ease-in-out">
+<span class="material-symbols-outlined text-[20px]" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error border border-surface-container-lowest"></span>
+</button>
+<!-- Help Action -->
+<button aria-label="Bantuan dan Dokumentasi" class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-lg transition-colors duration-150 ease-in-out hidden sm:flex">
+<span class="material-symbols-outlined text-[20px]" data-icon="help_outline">help_outline</span>
+</button>
+<!-- User Profile Avatar -->
+<div class="flex items-center gap-space-sm pl-1 border-l border-outline-variant">
+<div class="relative cursor-pointer group">
+<img alt="Foto Profil Pengguna" class="w-8 h-8 rounded-full border border-outline-variant object-cover group-hover:border-primary transition-colors" data-alt="Professional studio portrait of an ambitious female computer science student with neat braided hair, warm studio rim lighting, wearing a navy cardigan against a neutral academic backdrop in clean high key modern light aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBn6SHg_2hIkBQrhY31m4zzUhRqUEp5zeA25ibPsNrBmhoUKZi2qbqJuZEoJ71I-TU9T8QB85iTOxaFpvBxKbJmbdZ-kI7X9lN2jQsR0MRee253XmQpj4WVZj3GqyrU_yvjbvQeL3r8g6KRhCUkjx0BkkYXEXaFmBNvTvulg8Cm7vVuiYXt2W1h63HGB4UJRnVTrZQ6rVYmNQ7jz-1ZEG5hY1AsU3lGqo_bDUaHD0S6"/>
+<span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-secondary-container border-2 border-surface-container-lowest rounded-full" title="Akun Student Pro"></span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Canvas Content -->
+<main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+<!-- Hero Banner: 'Continue Watching' highlight card -->
+<section class="w-full">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:border-outline transition-colors duration-200">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
+<!-- Information & Metadata (Col 7) -->
+<div class="p-6 sm:p-8 lg:col-span-7 flex flex-col justify-between space-y-6">
+<div>
+<!-- Micro Badges -->
+<div class="flex flex-wrap items-center gap-2 mb-3">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container-low text-primary text-label-sm font-label-sm border border-outline-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                  Kurikulum Aktif
+                </span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant text-label-sm font-code-sm">
+<span class="material-symbols-outlined text-[13px] text-error" data-icon="smart_display">smart_display</span>
+                  YouTube HD 4K
+                </span>
+<span class="text-label-sm font-label-sm text-outline">Terakhir diakses 2 jam yang lalu</span>
+</div>
+<!-- Titles -->
+<h1 class="text-headline-md font-headline-md text-primary tracking-tight mb-2">
+                Rekayasa Web Full-Stack dengan Next.js &amp; TypeScript
+              </h1>
+<p class="text-body-md font-body-md text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary" data-icon="play_circle_outline">full_hd</span>
+<span>Modul 4: Server Components &amp; Streaming SSR Execution</span>
+</p>
+</div>
+<!-- Progress Telemetry Bar -->
+<div class="space-y-2 pt-2">
+<div class="flex items-center justify-between text-label-md font-label-md">
+<span class="text-primary font-semibold">Progres Kursus: 68% Selesai</span>
+<span class="text-outline font-code-sm">24 menit tersisa di bab ini</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-primary rounded-full transition-all duration-300" style="width: 68%;"></div>
+</div>
+<div class="flex items-center justify-between text-label-sm font-label-sm text-outline pt-1">
+<span>32 dari 47 pelajaran diselesaikan</span>
+<span>Kuis berikutnya: Suspense Boundaries</span>
+</div>
+</div>
+<!-- CTAs -->
+<div class="flex flex-wrap items-center gap-space-md pt-2">
+<a class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="play_arrow" data-weight="fill" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                Lanjutkan Pelajaran
+              </a>
+<button class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-outline-variant bg-surface-container-lowest hover:bg-surface-container-low text-on-surface text-label-md font-label-md transition-colors duration-150">
+<span class="material-symbols-outlined text-[18px]" data-icon="bookmark_add">bookmark_add</span>
+                Silabus Kursus
+              </button>
+</div>
+</div>
+<!-- Video Preview Container (Col 5) -->
+<div class="lg:col-span-5 bg-tertiary relative flex items-center justify-center min-h-[260px] lg:min-h-full border-t lg:border-t-0 lg:border-l border-outline-variant overflow-hidden group">
+<img alt="Pratinjau Thumbnail Video" class="w-full h-full object-cover opacity-85 group-hover:scale-105 group-hover:opacity-95 transition-all duration-300" data-alt="Technical code editor viewport displaying Next.js app router code and server actions on an ultra-wide monitor, illuminated by cool ambient cyan and deep navy workstation lighting, clean academic programming presentation aesthetic with crisp typography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqgmLar3hfk5R4H-bfnnGL1j2_1MqAiIXgKpaT-IoDnzWXd2YqKXGL7me7ritm4YVv2XeB_Z4zvE3yBJasXIb2YgE3N-zkdpelTT7MOdUKlGZVqchBY_VgK_B1PzMgGRsSjEp-MJZ82NLWECicSE7iHmkH5aRcOcr-AYNoUiQcyf1oK84NTL1xaJbZy6r8-3gofRmvZXtxDdUypKGQ2BSRFHC7XpkFAQS-GxrGdMlY"/>
+<!-- Recessed Overlays -->
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent pointer-events-none"></div>
+<!-- YouTube Source Badge Overlay -->
+<div class="absolute top-4 right-4 flex items-center gap-1.5 px-2.5 py-1 rounded bg-tertiary/90 backdrop-blur-sm border border-outline/30 text-surface text-label-sm font-code-sm">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+              Streaming YouTube
+            </div>
+<!-- Centered Play Affordance -->
+<div class="absolute inset-0 flex items-center justify-center">
+<button aria-label="Putar video" class="w-14 h-14 rounded-full bg-surface-container-lowest/90 backdrop-blur-sm text-primary flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:bg-surface-container-lowest transition-all duration-200">
+<span class="material-symbols-outlined text-[32px] ml-1" data-icon="play_arrow" data-weight="fill" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+<!-- Timestamp Bar -->
+<div class="absolute bottom-4 left-4 right-4 flex items-center justify-between text-on-primary text-label-sm font-code-sm px-3 py-1.5 rounded bg-tertiary/80 backdrop-blur-sm">
+<span>Cap Waktu: 18:42 / 42:30</span>
+<span class="text-secondary-fixed">1080p60</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Course Catalog Grid Section -->
+<section class="space-y-6">
+<!-- Section Header with Filters -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-outline-variant pb-4">
+<div>
+<h2 class="text-headline-sm font-headline-sm text-primary">Kursus yang Diikuti</h2>
+<p class="text-body-sm font-body-sm text-outline">Kelola modul kurikulum aktif, alur belajar YouTube, dan kredensial.</p>
+</div>
+<!-- Filter Tabs -->
+<div class="flex items-center gap-1 p-1 bg-surface-container rounded-lg border border-outline-variant self-start sm:self-auto">
+<button class="px-3 py-1.5 text-label-md font-label-md rounded-md bg-surface-container-lowest text-primary shadow-xs font-semibold">
+            Semua (6)
+          </button>
+<button class="px-3 py-1.5 text-label-md font-label-md rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors">
+            Sedang Berjalan (4)
+          </button>
+<button class="px-3 py-1.5 text-label-md font-label-md rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors">
+            Selesai (1)
+          </button>
+<button class="px-3 py-1.5 text-label-md font-label-md rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors">
+            Disimpan (1)
+          </button>
+</div>
+</div>
+<!-- 6-Card Responsive Bento/Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col hover:border-outline hover:shadow-sm transition-all duration-150 group">
+<!-- Thumbnail Container 16:9 -->
+<div class="relative aspect-video bg-tertiary overflow-hidden">
+<img alt="Thumbnail Kursus" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Digital architectural blueprints and distributed cloud nodes with glowing network topologies rendered in deep midnight blue with crisp white laser lines, minimalist high-tech academic computer science aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVv07ENrt6yQ9HLWofdM21XG_HRfyosgolONEQtpw-s6qW1igWJR6af_FunMXAjtPPjpEjTadnEOrya1pqPFuVZe4fFv6SQPO2tQZ4aCIhEExllLCeR7WFRVX7zaRKpn9njUaQZ2Icde6-gmckFe1pGfO5vH0err-F0p4a_qZx_l4Aq6AbaDyTYdBcYSCtQNH99Nt-W_E2iYUcFbC3x1-3p9JbXX7cDEgDmt5YMLYN"/>
+<div class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-tertiary/90 text-on-primary text-label-sm font-code-sm">
+              18:45
+            </div>
+<div class="absolute top-2.5 left-2.5 flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-lowest/90 backdrop-blur-xs text-primary text-label-sm font-label-sm border border-outline-variant">
+<span class="material-symbols-outlined text-[13px] text-error" data-icon="smart_display">smart_display</span>
+              YouTube HD
+            </div>
+</div>
+<!-- Card Content -->
+<div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+<div class="space-y-2">
+<div class="flex items-center justify-between text-label-sm font-label-sm text-outline">
+<span>14 Modul • 48 Pelajaran</span>
+<span class="text-secondary font-semibold">Arsitektur Sistem</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface group-hover:text-primary transition-colors leading-snug">
+                Perancangan Sistem Modern dalam Skala Besar
+              </h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant">
+                Pengajar: Dr. Aris Thorne
+              </p>
+</div>
+<!-- Progress Meter -->
+<div class="space-y-3 pt-2 border-t border-outline-variant">
+<div>
+<div class="flex items-center justify-between text-label-sm font-label-sm mb-1">
+<span class="text-primary font-semibold">82% Selesai</span>
+<span class="text-outline">40/48 Ditonton</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 82%;"></div>
+</div>
+</div>
+<div class="flex items-center justify-between gap-2 pt-1">
+<a class="flex-1 text-center py-2 px-3 rounded-lg bg-surface-container-low hover:bg-primary hover:text-on-primary text-primary text-label-md font-label-md border border-outline-variant transition-colors duration-150" href="#">
+                  Lanjutkan Pelajaran
+                </a>
+<button class="p-2 rounded-lg text-outline hover:text-primary hover:bg-surface-container border border-outline-variant transition-colors" title="Tandai Kursus">
+<span class="material-symbols-outlined text-[18px]" data-icon="bookmark">bookmark</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col hover:border-outline hover:shadow-sm transition-all duration-150 group">
+<!-- Thumbnail Container 16:9 -->
+<div class="relative aspect-video bg-tertiary overflow-hidden">
+<img alt="Thumbnail Kursus" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Abstract computational data tree visualization with glowing balanced binary search nodes and graph theory vectors illuminated softly against a dark slate background, high fidelity clean academic aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwFSuoZCXssQ0gw8oP_P_g07diQ_gn0aN3n5vAZ5BBjkikqzPy-hZvv5ydj94JmbX5iO1v3_gujLQ_dwtoqyQONBTdiwXe1KEvPocmbpJwqaQqa6-ZRE7BQzH0a0GL_LxjnkmJ8jNQQ23mSC7IN4MFA4Nghws6nwJ0pIAtQ5_d9ArhXet5pe5-HobUSKVB6vVFyr7romLWICu2CdpWWS6EMWJEEbX7gXQlDebxFZzC"/>
+<div class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-tertiary/90 text-on-primary text-label-sm font-code-sm">
+              26:10
+            </div>
+<div class="absolute top-2.5 left-2.5 flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-lowest/90 backdrop-blur-xs text-primary text-label-sm font-label-sm border border-outline-variant">
+<span class="material-symbols-outlined text-[13px] text-error" data-icon="smart_display">smart_display</span>
+              YouTube HD
+            </div>
+</div>
+<!-- Card Content -->
+<div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+<div class="space-y-2">
+<div class="flex items-center justify-between text-label-sm font-label-sm text-outline">
+<span>18 Modul • 62 Pelajaran</span>
+<span class="text-secondary font-semibold">Algoritma</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface group-hover:text-primary transition-colors leading-snug">
+                Struktur Data &amp; Algoritma Tingkat Lanjut
+              </h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant">
+                Pengajar: Prof. Elena Rostova
+              </p>
+</div>
+<!-- Progress Meter -->
+<div class="space-y-3 pt-2 border-t border-outline-variant">
+<div>
+<div class="flex items-center justify-between text-label-sm font-label-sm mb-1">
+<span class="text-primary font-semibold">45% Selesai</span>
+<span class="text-outline">28/62 Ditonton</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 45%;"></div>
+</div>
+</div>
+<div class="flex items-center justify-between gap-2 pt-1">
+<a class="flex-1 text-center py-2 px-3 rounded-lg bg-surface-container-low hover:bg-primary hover:text-on-primary text-primary text-label-md font-label-md border border-outline-variant transition-colors duration-150" href="#">
+                  Lanjutkan Pelajaran
+                </a>
+<button class="p-2 rounded-lg text-outline hover:text-primary hover:bg-surface-container border border-outline-variant transition-colors" title="Tandai Kursus">
+<span class="material-symbols-outlined text-[18px]" data-icon="bookmark">bookmark</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col hover:border-outline hover:shadow-sm transition-all duration-150 group">
+<!-- Thumbnail Container 16:9 -->
+<div class="relative aspect-video bg-tertiary overflow-hidden">
+<img alt="Thumbnail Kursus" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Design system component matrix displaying pristine UI cards, design tokens, and modular button states arranged meticulously in Figma workspace, illuminated in high key clean daylight modern UI aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIa_fQU2-3R3tPGdyvex7UvHQ-4Mk12j9c7fyRCQIoB54QJ9VTDbmGIwnIrX11Tfw0xRT_atxGrK9JRlKBAG0PYVIZubjLosqsi9UgcvT6JgdSUuKKLqCBRTs2xxOPV2hpJUZrr9-AgP0MM3Jnfu0fd6Ycr6tXfWn6KaucIKDgV-0vCpmm32JIp7DOGy0Q3r5V4pFFti9p7wsRg3lb63DRnvPZ9BqWAZV2nJcZJv36"/>
+<div class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-tertiary/90 text-on-primary text-label-sm font-code-sm">
+              34:15
+            </div>
+<div class="absolute top-2.5 left-2.5 flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-lowest/90 backdrop-blur-xs text-primary text-label-sm font-label-sm border border-outline-variant">
+<span class="material-symbols-outlined text-[13px] text-error" data-icon="smart_display">smart_display</span>
+              YouTube HD
+            </div>
+</div>
+<!-- Card Content -->
+<div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+<div class="space-y-2">
+<div class="flex items-center justify-between text-label-sm font-label-sm text-outline">
+<span>12 Modul • 36 Pelajaran</span>
+<span class="text-secondary font-semibold">Rekayasa Desain</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface group-hover:text-primary transition-colors leading-snug">
+                Sistem Desain UI/UX di Figma &amp; Tailwind
+              </h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant">
+                Pengajar: Marcus Vance
+              </p>
+</div>
+<!-- Progress Meter -->
+<div class="space-y-3 pt-2 border-t border-outline-variant">
+<div>
+<div class="flex items-center justify-between text-label-sm font-label-sm mb-1">
+<span class="text-primary font-semibold">100% Selesai</span>
+<span class="text-on-surface-variant">36/36 Ditonton</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary-container rounded-full" style="width: 100%;"></div>
+</div>
+</div>
+<div class="flex items-center justify-between gap-2 pt-1">
+<a class="flex-1 text-center py-2 px-3 rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface text-label-md font-label-md border border-outline-variant transition-colors duration-150" href="#">
+                  Lihat Arsip
+                </a>
+<button class="p-2 rounded-lg text-secondary-container hover:bg-surface-container border border-outline-variant transition-colors" title="Lihat Sertifikat">
+<span class="material-symbols-outlined text-[18px]" data-icon="verified">verified</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 4 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col hover:border-outline hover:shadow-sm transition-all duration-150 group">
+<!-- Thumbnail Container 16:9 -->
+<div class="relative aspect-video bg-tertiary overflow-hidden">
+<img alt="Thumbnail Kursus" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Technical visualization of containerized Docker pods and Kubernetes cluster orchestrations in a deep navy terminal environment with geometric status indicators and clean enterprise DevOps aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBglEa8tj_RVd9XwUwqCYjQRPFt2RNlavGydbJN3sbg5P5CHFUIGQj2f5LlB4sT1M5EVr2ugKbbqUtJGKzDg1KYcDz4wn4uh-oDy2aE73XXm2wKefaMkytdnFLTlGJEICVAFhOaFy28wKU5-7_9eZf41ZaotJ_WAq2-8gpYP53LBj7kWItUJ7fxA5kEQEl2Zq_UTVjce8dDJU-V87RfXMwCofJc1yggJsFbsd_0B5Ej"/>
+<div class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-tertiary/90 text-on-primary text-label-sm font-code-sm">
+              21:05
+            </div>
+<div class="absolute top-2.5 left-2.5 flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-lowest/90 backdrop-blur-xs text-primary text-label-sm font-label-sm border border-outline-variant">
+<span class="material-symbols-outlined text-[13px] text-error" data-icon="smart_display">smart_display</span>
+              YouTube HD
+            </div>
+</div>
+<!-- Card Content -->
+<div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+<div class="space-y-2">
+<div class="flex items-center justify-between text-label-sm font-label-sm text-outline">
+<span>16 Modul • 54 Pelajaran</span>
+<span class="text-secondary font-semibold">Infrastruktur Cloud</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface group-hover:text-primary transition-colors leading-snug">
+                Arsitektur Microservices dengan Docker &amp; K8s
+              </h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant">
+                Pengajar: Devlin O'Connor
+              </p>
+</div>
+<!-- Progress Meter -->
+<div class="space-y-3 pt-2 border-t border-outline-variant">
+<div>
+<div class="flex items-center justify-between text-label-sm font-label-sm mb-1">
+<span class="text-primary font-semibold">22% Selesai</span>
+<span class="text-outline">12/54 Ditonton</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 22%;"></div>
+</div>
+</div>
+<div class="flex items-center justify-between gap-2 pt-1">
+<a class="flex-1 text-center py-2 px-3 rounded-lg bg-surface-container-low hover:bg-primary hover:text-on-primary text-primary text-label-md font-label-md border border-outline-variant transition-colors duration-150" href="#">
+                  Lanjutkan Pelajaran
+                </a>
+<button class="p-2 rounded-lg text-outline hover:text-primary hover:bg-surface-container border border-outline-variant transition-colors" title="Tandai Kursus">
+<span class="material-symbols-outlined text-[18px]" data-icon="bookmark">bookmark</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 5 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col hover:border-outline hover:shadow-sm transition-all duration-150 group">
+<!-- Thumbnail Container 16:9 -->
+<div class="relative aspect-video bg-tertiary overflow-hidden">
+<img alt="Thumbnail Kursus" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Deep learning neural network weights and mathematical matrix tensor computations visual diagram in clean white paper and dark ink technical illustration style with vibrant blue node connections." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRfaNv1kTkV_XJb6oHmIZrkCDrAaa7Cge6xUGlrmBnFF7i7h38Ivh968dhjvuJWVI0nraNl8o0Py6dh9N-H5AIBwct3gpfSzQOyqq2gJryYJDjQXOwiMBdL9ALELuXZnBTMjk9W__i6fo_3TqpMd_9YY81qJyLfh82qqYy9iZOYGB1-hMqaI0fsQuuwwwAYCovAybWFfi_g7GP5XAI35vnjaluq0nmzCYKLC2h4Jw-"/>
+<div class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-tertiary/90 text-on-primary text-label-sm font-code-sm">
+              41:20
+            </div>
+<div class="absolute top-2.5 left-2.5 flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-lowest/90 backdrop-blur-xs text-primary text-label-sm font-label-sm border border-outline-variant">
+<span class="material-symbols-outlined text-[13px] text-error" data-icon="smart_display">smart_display</span>
+              YouTube HD
+            </div>
+</div>
+<!-- Card Content -->
+<div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+<div class="space-y-2">
+<div class="flex items-center justify-between text-label-sm font-label-sm text-outline">
+<span>20 Modul • 70 Pelajaran</span>
+<span class="text-secondary font-semibold">Machine Learning</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface group-hover:text-primary transition-colors leading-snug">
+                Machine Learning Terapan &amp; Fondasi Tensor
+              </h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant">
+                Pengajar: Dr. Sarah Lin
+              </p>
+</div>
+<!-- Progress Meter -->
+<div class="space-y-3 pt-2 border-t border-outline-variant">
+<div>
+<div class="flex items-center justify-between text-label-sm font-label-sm mb-1">
+<span class="text-primary font-semibold">58% Selesai</span>
+<span class="text-outline">41/70 Ditonton</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 58%;"></div>
+</div>
+</div>
+<div class="flex items-center justify-between gap-2 pt-1">
+<a class="flex-1 text-center py-2 px-3 rounded-lg bg-surface-container-low hover:bg-primary hover:text-on-primary text-primary text-label-md font-label-md border border-outline-variant transition-colors duration-150" href="#">
+                  Lanjutkan Pelajaran
+                </a>
+<button class="p-2 rounded-lg text-outline hover:text-primary hover:bg-surface-container border border-outline-variant transition-colors" title="Tandai Kursus">
+<span class="material-symbols-outlined text-[18px]" data-icon="bookmark">bookmark</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 6 -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col hover:border-outline hover:shadow-sm transition-all duration-150 group">
+<!-- Thumbnail Container 16:9 -->
+<div class="relative aspect-video bg-tertiary overflow-hidden">
+<img alt="Thumbnail Kursus" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Rust language memory safety borrow checker visual concept showing pointer graphs and concurrency threads against an elegant structured minimalist navy blue background with clean white technical typography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDM2KZT4QrRDKrQKLyWdThbAR93wzIEB8WMAuuqNojXtrJVYrCroahYTTXxRPvFRiknh1adygDh_kYvq3kqQDOWwQeOgozDWNqRNGVmLDQOJq_ksvw50iJsnjLd2Sw3LS72Phy7cZwr7P3I2WAYO0_V72Nlr3_OfcYeXo_zltlsI6ht134hRfb0A28b3-oOgdjax8pP0e0lomt9gGt48SvMAEy3-JEb7DI1iysAptL6"/>
+<div class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-tertiary/90 text-on-primary text-label-sm font-code-sm">
+              15:40
+            </div>
+<div class="absolute top-2.5 left-2.5 flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-lowest/90 backdrop-blur-xs text-primary text-label-sm font-label-sm border border-outline-variant">
+<span class="material-symbols-outlined text-[13px] text-error" data-icon="smart_display">smart_display</span>
+              YouTube HD
+            </div>
+</div>
+<!-- Card Content -->
+<div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+<div class="space-y-2">
+<div class="flex items-center justify-between text-label-sm font-label-sm text-outline">
+<span>10 Modul • 32 Pelajaran</span>
+<span class="text-secondary font-semibold">Pengembangan Sistem</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface group-hover:text-primary transition-colors leading-snug">
+                Pemrograman Konkuren di Rust
+              </h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant">
+                Pengajar: Henrik Lindqvist
+              </p>
+</div>
+<!-- Progress Meter -->
+<div class="space-y-3 pt-2 border-t border-outline-variant">
+<div>
+<div class="flex items-center justify-between text-label-sm font-label-sm mb-1">
+<span class="text-outline font-semibold">Belum Dimulai (Disimpan)</span>
+<span class="text-outline">0/32 Ditonton</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-outline-variant rounded-full" style="width: 0%;"></div>
+</div>
+</div>
+<div class="flex items-center justify-between gap-2 pt-1">
+<a class="flex-1 text-center py-2 px-3 rounded-lg bg-primary hover:bg-primary-container text-on-primary text-label-md font-label-md transition-colors duration-150" href="#">
+                  Mulai Kursus
+                </a>
+<button class="p-2 rounded-lg text-primary hover:bg-surface-container border border-outline-variant transition-colors" title="Tandai Kursus">
+<span class="material-symbols-outlined text-[18px]" data-icon="bookmark" data-weight="fill" style="font-variation-settings: 'FILL' 1;">bookmark</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- Compound YouTube URL Ingestion Bar (Specialized Tooling Banner) -->
+<section class="bg-surface-container-low border border-outline-variant rounded-xl p-6 sm:p-8 space-y-4">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<span class="text-label-sm font-label-sm text-secondary uppercase tracking-wider font-semibold">PENYIMPANAN &amp; INTEGRASI KURSUS CEPAT</span>
+<h3 class="text-headline-sm font-headline-sm text-primary">Impor Playlist atau Video YouTube ke Silabus</h3>
+<p class="text-body-sm font-body-sm text-outline">Tempel URL YouTube publik untuk menghasilkan bab bertanda waktu, panduan belajar AI, dan pos pemeriksaan kuis secara otomatis.</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-1 rounded bg-surface-container-lowest text-on-surface-variant text-label-sm font-code-sm border border-outline-variant flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-green-500"></span>
+            API Sinkronisasi Siap
+          </span>
+</div>
+</div>
+<!-- Compound Input -->
+<div class="flex flex-col sm:flex-row items-stretch gap-2 bg-surface-container-lowest p-1.5 rounded-lg border border-outline-variant focus-within:border-primary transition-colors">
+<div class="flex items-center pl-3 pr-2 text-outline">
+<span class="material-symbols-outlined text-[20px] text-error" data-icon="smart_display">smart_display</span>
+</div>
+<input class="flex-1 border-0 bg-transparent text-body-md font-body-md text-on-surface placeholder:text-outline focus:ring-0 px-2 py-2" placeholder="https://www.youtube.com/watch?v=... atau playlist?list=..." type="url"/>
+<button class="px-5 py-2.5 rounded-md bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md transition-colors shrink-0 flex items-center justify-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]" data-icon="add_circle">add_circle</span>
+          Urai &amp; Daftarkan
+        </button>
+</div>
+</section>
+</main>
+<!-- Clean Minimalist Footer -->
+<footer class="mt-auto border-t border-outline-variant bg-surface-container-lowest py-6">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-label-sm font-label-sm text-outline">
+<div class="flex items-center gap-4">
+<span class="font-semibold text-primary">EduTube Studio LMS</span>
+<span>•</span>
+<span>Terhubung ke YouTube Data API v3</span>
+</div>
+<div class="flex items-center gap-6">
+<a class="hover:text-primary transition-colors" href="#">Dokumentasi</a>
+<a class="hover:text-primary transition-colors" href="#">Pintasan Keyboard</a>
+<a class="hover:text-primary transition-colors" href="#">Status API</a>
+<a class="hover:text-primary transition-colors" href="#">Privasi &amp; Syarat</a>
+</div>
+</div>
+</footer>
+</body></html>

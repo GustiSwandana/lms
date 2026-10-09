@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EduTube Studio - Membangun Server Actions yang Tangguh dengan Optimistic UI Updates</title>
+<!-- Google Fonts: Plus Jakarta Sans & Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with Forms and Container Queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-background": "#131b2e",
+            "on-tertiary-container": "#9cabd5",
+            "surface-variant": "#dae2fd",
+            "on-primary-fixed": "#00164e",
+            "on-tertiary-fixed-variant": "#37466a",
+            "secondary-container": "#40c2fd",
+            "outline": "#757682",
+            "on-tertiary": "#ffffff",
+            "outline-variant": "#c5c5d3",
+            "inverse-primary": "#b6c4ff",
+            "inverse-surface": "#283044",
+            "primary": "#00236f",
+            "on-error": "#ffffff",
+            "on-surface": "#131b2e",
+            "error": "#ba1a1a",
+            "surface-container-low": "#f2f3ff",
+            "primary-fixed-dim": "#b6c4ff",
+            "on-secondary": "#ffffff",
+            "tertiary-fixed-dim": "#b6c6f1",
+            "secondary-fixed-dim": "#7bd0ff",
+            "primary-fixed": "#dce1ff",
+            "on-secondary-container": "#004d6a",
+            "surface": "#faf8ff",
+            "tertiary": "#19294b",
+            "surface-bright": "#faf8ff",
+            "on-primary": "#ffffff",
+            "surface-container-highest": "#dae2fd",
+            "surface-tint": "#4059aa",
+            "on-secondary-fixed-variant": "#004c69",
+            "surface-container-lowest": "#ffffff",
+            "background": "#faf8ff",
+            "tertiary-container": "#303f63",
+            "secondary": "#00668a",
+            "on-error-container": "#93000a",
+            "on-tertiary-fixed": "#081a3c",
+            "surface-container-high": "#e2e7ff",
+            "error-container": "#ffdad6",
+            "inverse-on-surface": "#eef0ff",
+            "on-secondary-fixed": "#001e2c",
+            "on-surface-variant": "#444651",
+            "tertiary-fixed": "#d9e2ff",
+            "secondary-fixed": "#c4e7ff",
+            "on-primary-fixed-variant": "#264191",
+            "surface-dim": "#d2d9f4",
+            "surface-container": "#eaedff",
+            "on-primary-container": "#90a8ff",
+            "primary-container": "#1e3a8a"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter-mobile": "1rem",
+            "space-xl": "2.5rem",
+            "margin": "2rem",
+            "space-xs": "0.25rem",
+            "gutter": "1.5rem",
+            "space-sm": "0.5rem",
+            "space-md": "1rem",
+            "space-lg": "1.5rem",
+            "margin-mobile": "1rem"
+          },
+          "fontFamily": {
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "code-sm": ["Inter"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "label-sm": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-xl": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "headline-xl-mobile": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "body-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "code-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0em", "fontWeight": "500" }],
+            "body-lg": ["16px", { "lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "400" }],
+            "headline-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.025em", "fontWeight": "700" }],
+            "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "headline-xl-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    /* Equalizer bar wave animation for currently playing lesson */
+    @keyframes eqWave1 { 0%, 100% { height: 4px; } 50% { height: 16px; } }
+    @keyframes eqWave2 { 0%, 100% { height: 14px; } 50% { height: 6px; } }
+    @keyframes eqWave3 { 0%, 100% { height: 8px; } 50% { height: 18px; } }
+    .eq-bar-1 { animation: eqWave1 0.8s ease-in-out infinite; }
+    .eq-bar-2 { animation: eqWave2 0.9s ease-in-out infinite 0.2s; }
+    .eq-bar-3 { animation: eqWave3 0.75s ease-in-out infinite 0.4s; }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-full flex flex-col font-body-md selection:bg-surface-variant selection:text-primary">
+<!-- ==================== TOP NAVIGATION BAR ==================== -->
+<!-- Conforms to TopNavBar shared component specifications & brand tokens -->
+<header class="flex justify-between items-center w-full px-space-lg h-16 border-b border-outline-variant sticky top-0 z-50 bg-surface-container-lowest">
+<!-- Left Section: Back to Dashboard & Breadcrumbs -->
+<div class="flex items-center gap-space-md">
+<a class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-outline-variant bg-surface-container-lowest hover:bg-surface-container-low text-on-surface-variant hover:text-primary transition-colors duration-150 group" href="#dashboard" title="Kembali ke Dasbor">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+<span class="font-label-md text-label-md font-semibold hidden sm:inline">Kembali ke Dasbor</span>
+</a>
+<div class="h-5 w-px bg-outline-variant mx-1 hidden md:block"></div>
+<!-- Compact Breadcrumb Trail -->
+<nav aria-label="Breadcrumb" class="hidden sm:flex items-center gap-1.5 text-on-surface-variant font-label-md text-label-md">
+<a class="hover:text-primary transition-colors" href="#courses">Kursus</a>
+<span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span>
+<a class="hover:text-primary transition-colors max-w-[150px] md:max-w-none truncate" href="#fullstack">Rekayasa Web Full-Stack</a>
+<span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span>
+<span class="text-on-surface font-semibold truncate max-w-[160px] md:max-w-none">Modul 4: Server Components</span>
+</nav>
+</div>
+<!-- Center/Right Navigation Links & Actions -->
+<div class="flex items-center gap-space-md">
+<nav class="hidden xl:flex items-center gap-6 font-label-md text-label-md mr-2">
+<a class="text-on-surface-variant hover:text-on-surface pb-1 transition-colors duration-150" href="#catalog">Katalog</a>
+<a class="border-b-2 border-primary text-primary font-semibold pb-1" href="#my-courses">Kursus Saya</a>
+<a class="text-on-surface-variant hover:text-on-surface pb-1 transition-colors duration-150" href="#learning-paths">Alur Belajar</a>
+<a class="text-on-surface-variant hover:text-on-surface pb-1 transition-colors duration-150" href="#analytics">Analitik</a>
+</nav>
+<div class="flex items-center gap-2">
+<button aria-label="Notifikasi" class="p-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors duration-150 relative" type="button">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-secondary-container ring-2 ring-surface-container-lowest"></span>
+</button>
+<button aria-label="Bantuan &amp; Panduan" class="p-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors duration-150" type="button">
+<span class="material-symbols-outlined text-[20px]">help_outline</span>
+</button>
+</div>
+<div class="h-6 w-px bg-outline-variant"></div>
+<!-- Instructor/Student Account Menu -->
+<div class="flex items-center gap-2.5 pl-1">
+<div class="w-8 h-8 rounded-full ring-1 ring-outline-variant overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Foto profil pengguna beresolusi tinggi, siswa dengan kacamata modern dan pakaian kasual rapi." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOBirS3Jh6vlWSzPyv4Tcc6NO4HSi4UJngvgBuc4Nh2nqtFRHajC-lmFVtXe6gqO1-YoZ1cYwJNN2iBlyypJVuBBhoE-6hwyXroR-c-Uhpwb_46hEsG5EMPMZrs7RUAnZ56n4sBWK6Q7l-IZixkq9iK_J18XRp8rAkbvlb85WeAIlXQjqgrkYA1BQLrN39VWoIo7TUTxERfrtxyrZInUMhkRNf8d7W0mbaaQylAbWR"/>
+</div>
+<div class="hidden lg:flex flex-col text-left leading-none">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Alex Mercer</span>
+<span class="font-label-sm text-label-sm text-outline">Siswa Pro</span>
+</div>
+</div>
+</div>
+</header>
+<!-- ==================== MAIN LEARNING VIEW (SPLIT SCREEN) ==================== -->
+<main class="flex-1 w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- ==================== LEFT COLUMN (70% - 8/12 cols) ==================== -->
+<section class="lg:col-span-8 flex flex-col gap-6">
+<!-- Embedded 16:9 Modern Video Player UI Frame -->
+<div class="relative w-full aspect-video bg-[#0A192F] rounded-xl overflow-hidden border border-[#1E293B] shadow-sm flex flex-col justify-between group select-none">
+<!-- Mock Tutorial / Code Video Feed -->
+<div class="absolute inset-0 z-0 overflow-hidden">
+<img class="w-full h-full object-cover object-left-top opacity-95" data-alt="Editor kode modern menampilkan TypeScript React 19 Server Actions dengan optimasi status." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFSkecylWypPl1A1jjS_jgIWbtXUH6pnG465TKnsOXXkz7Q0GpuHCxm3hIOcLENjHTZEXcMHJ3QqSjhXOK615ULHPVPDHG1pl7-t7EPJpoZfdG2cl_9YH35r_AwGBmL48PjOLnEZTRjI0C4U_iBw6idGt8btzR8aU6QPeD80QD7fEbgsWEIcHx0Q7lzGUmBvQXfvFO2EkcOtzaqzpItzHsZC01Be0nw4rhFummtLO2"/>
+<!-- Ambient Vignette & Gradient Overlays -->
+<div class="absolute inset-0 bg-gradient-to-t from-[#0A192F]/90 via-transparent to-[#0A192F]/50"></div>
+</div>
+<!-- Top Video Header Controls (Watermark & Source Status) -->
+<div class="relative z-10 flex items-center justify-between p-4 bg-gradient-to-b from-[#0A192F]/80 to-transparent">
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#0F2042]/90 border border-slate-700/80 backdrop-blur-md">
+<span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+<span class="font-code-sm text-code-sm text-[#38BDF8] tracking-wide font-medium">Mesin YouTube 4K</span>
+</div>
+<span class="text-white/80 font-body-sm text-body-sm drop-shadow hidden sm:inline">Modul 4 • Pelajaran 4.3</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="text-white/80 hover:text-white p-1.5 rounded-lg hover:bg-white/10 transition-colors" title="Pengaturan &amp; Kode">
+<span class="material-symbols-outlined text-[20px]">code</span>
+</button>
+<button class="text-white/80 hover:text-white p-1.5 rounded-lg hover:bg-white/10 transition-colors" title="Picture in Picture">
+<span class="material-symbols-outlined text-[20px]">picture_in_picture_alt</span>
+</button>
+</div>
+</div>
+<!-- Center Play / Pause Indicator (Interactive Cue) -->
+<div class="relative z-10 self-center">
+<button class="w-16 h-16 rounded-full bg-[#1e3a8a]/80 hover:bg-[#1e3a8a] text-white flex items-center justify-center backdrop-blur-md border border-white/20 shadow-lg transform transition-transform active:scale-95 hover:scale-105">
+<span class="material-symbols-outlined text-[36px]" style="font-variation-settings: 'FILL' 1;">pause</span>
+</button>
+</div>
+<!-- Bottom Telemetry & Custom Media Controls Overlay -->
+<div class="relative z-10 p-4 bg-gradient-to-t from-[#0A192F] via-[#0A192F]/95 to-transparent flex flex-col gap-2.5">
+<!-- Scrubber Timeline with Chapter Markers -->
+<div class="relative w-full group/scrubber cursor-pointer pt-2">
+<div class="w-full h-1.5 bg-slate-700/70 rounded-full overflow-hidden flex relative">
+<!-- Chapter 1 (Completed) -->
+<div class="w-[35%] h-full bg-[#38BDF8] border-r-2 border-white/40"></div>
+<!-- Chapter 2 (Current Playback) -->
+<div class="w-[10%] h-full bg-[#38BDF8] relative">
+<!-- Playhead dot -->
+<div class="absolute right-0 top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-white shadow-md border-2 border-[#1e3a8a]"></div>
+</div>
+<!-- Chapter 2 remainder -->
+<div class="w-[15%] h-full bg-slate-600/50 border-r-2 border-white/40"></div>
+<!-- Chapter 3 (Remaining) -->
+<div class="w-[40%] h-full bg-slate-600/30"></div>
+</div>
+</div>
+<!-- Action Controls Row -->
+<div class="flex items-center justify-between text-white/90 pt-1">
+<div class="flex items-center gap-3">
+<button class="hover:text-white transition-colors" title="Putar / Jeda">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">pause</span>
+</button>
+<button class="hover:text-white transition-colors" title="Mundur 10 detik">
+<span class="material-symbols-outlined text-[22px]">replay_10</span>
+</button>
+<button class="hover:text-white transition-colors" title="Maju 10 detik">
+<span class="material-symbols-outlined text-[22px]">forward_10</span>
+</button>
+<!-- Volume Control -->
+<div class="flex items-center gap-2 group/volume pl-1">
+<button class="hover:text-white transition-colors" title="Volume">
+<span class="material-symbols-outlined text-[22px]">volume_up</span>
+</button>
+<div class="w-16 h-1 bg-slate-600 rounded-full overflow-hidden hidden sm:block">
+<div class="w-3/4 h-full bg-white"></div>
+</div>
+</div>
+<!-- Live Timestamp Chip -->
+<div class="px-2.5 py-0.5 rounded-full bg-[#0F2042] border border-slate-700/80 font-code-sm text-code-sm text-[#38BDF8] ml-2">
+                  12:45 <span class="text-slate-400">/ 28:10</span>
+</div>
+</div>
+<!-- Right Telemetry: Quality, Speed, Captions, Fullscreen -->
+<div class="flex items-center gap-3">
+<!-- YouTube Quality Badge -->
+<button class="px-2 py-0.5 rounded border border-slate-600 bg-slate-800/60 hover:bg-slate-700 font-label-sm text-label-sm font-semibold text-white tracking-wider flex items-center gap-1 transition-colors" title="Kualitas Video">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  1080p HD
+                </button>
+<!-- Playback Speed -->
+<button class="font-code-sm text-code-sm hover:text-white font-medium px-1.5 py-0.5 rounded hover:bg-white/10 transition-colors" title="Kecepatan Pemutaran">
+                  1.25x
+                </button>
+<!-- Subtitles CC -->
+<button class="hover:text-white transition-colors text-white/80" title="Subtitel (CC)">
+<span class="material-symbols-outlined text-[22px]">closed_caption</span>
+</button>
+<!-- Fullscreen -->
+<button class="hover:text-white transition-colors" title="Layar Penuh">
+<span class="material-symbols-outlined text-[22px]">fullscreen</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- ==================== LESSON DETAILS & ACTION HEADER ==================== -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 flex flex-col gap-5">
+<div class="flex flex-col xl:flex-row xl:items-start justify-between gap-4">
+<div class="flex flex-col gap-2.5">
+<!-- Meta Badges & Course Status Pill -->
+<div class="flex flex-wrap items-center gap-2">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-low text-primary font-label-md text-label-md font-semibold border border-surface-container-highest">
+<span class="material-symbols-outlined text-[14px]">school</span>
+                  Arsitektur React 19
+                </span>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-blue-50 text-primary-container font-label-sm text-label-sm font-semibold border border-blue-200">
+                  Sedang Berjalan • Pelajaran 3 dari 4
+                </span>
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-outline">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+                  Durasi 28 menit
+                </span>
+</div>
+<!-- Main Lesson Title -->
+<h1 class="font-headline-md text-headline-md font-bold text-on-surface text-balance">
+                Membangun Server Actions yang Tangguh dengan Optimistic UI Updates
+              </h1>
+<!-- Instructor Avatar & Bio Line -->
+<div class="flex items-center gap-3 pt-1">
+<div class="w-9 h-9 rounded-full overflow-hidden ring-1 ring-outline-variant bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Potret studio profesional arsitek perangkat lunak senior, Dr. Sarah Vance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJDpBK39HZZ80cpWUaVKxmePthTY687HjKC1kqLSUC3FlyyL6390hUzLHUhdD8JAfSfneqLCSZUOjt2sFjToPTybLsBidVLjcOoN-h6EZw1Vh7w__NLjrxvMy3HS-iegZcFYATI3getHypPDnt8TbHoCVPZWPAwlPphKs-IyzfGn8MqnwoWzje0341tI-NVkHJ85xzNdgDsRWIoQnVOneyLCezMn8DAbG76FqdCEYt"/>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-on-surface">Dr. Sarah Vance</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Senior Engineer &amp; Pengajar • Stanford Software Labs</span>
+</div>
+</div>
+</div>
+<!-- Primary & Secondary Interactive Action CTAs -->
+<div class="flex flex-wrap sm:flex-nowrap items-center gap-2.5 shrink-0 self-start pt-2 xl:pt-0">
+<button class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest hover:bg-surface-container-low text-on-surface font-label-md text-label-md font-semibold transition-colors">
+<span class="material-symbols-outlined text-[18px]">skip_previous</span>
+                Sebelumnya
+              </button>
+<button class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md font-semibold shadow-sm transition-colors duration-150">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                Tandai Selesai
+              </button>
+<button class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest hover:bg-surface-container-low text-on-surface font-label-md text-label-md font-semibold transition-colors">
+                Berikutnya
+                <span class="material-symbols-outlined text-[18px]">skip_next</span>
+</button>
+</div>
+</div>
+</div>
+<!-- ==================== LESSON TABS: OVERVIEW / RESOURCES / DISCUSSION ==================== -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden">
+<!-- Tab Navigation Bar -->
+<div class="flex border-b border-outline-variant bg-surface-container-low/50 px-6 gap-8">
+<button class="flex items-center gap-2 py-3.5 border-b-2 border-primary text-primary font-label-md text-label-md font-semibold -mb-px">
+<span class="material-symbols-outlined text-[18px]">article</span>
+              Ringkasan
+            </button>
+<button class="flex items-center gap-2 py-3.5 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface font-label-md text-label-md font-medium transition-colors">
+<span class="material-symbols-outlined text-[18px]">folder_open</span>
+              Sumber Daya
+              <span class="px-1.5 py-0.2 rounded-full bg-surface-container font-label-sm text-label-sm text-on-surface-variant">3</span>
+</button>
+<button class="flex items-center gap-2 py-3.5 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface font-label-md text-label-md font-medium transition-colors">
+<span class="material-symbols-outlined text-[18px]">forum</span>
+              Diskusi
+              <span class="px-1.5 py-0.2 rounded-full bg-surface-container font-label-sm text-label-sm text-on-surface-variant">14</span>
+</button>
+</div>
+<div class="p-6 flex flex-col gap-6">
+<!-- Tab Pane 1: Overview & Key Takeaways -->
+<div class="flex flex-col gap-4">
+<h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Rangkuman Pelajaran</h2>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                Dalam sesi ini, kita mempelajari cara memadukan kait <code class="px-1.5 py-0.5 rounded bg-surface-container font-code-sm text-code-sm text-primary">useOptimistic</code> dengan Server Actions asinkron. Anda akan belajar menangani fluktuasi latensi jaringan dengan baik, melakukan rollback pada mutasi yang dibatalkan akibat kegagalan koneksi, serta menjamin responsivitas pengalaman pengguna (UX) yang tinggi tanpa mengorbankan integritas transaksi database.
+              </p>
+<!-- Key Takeaways Bento Card -->
+<div class="bg-surface-container-low rounded-lg p-4 border border-outline-variant/60 flex flex-col gap-3">
+<span class="font-label-md text-label-md font-bold uppercase tracking-wider text-primary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+                  POIN KUNCI
+                </span>
+<ul class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 font-body-sm text-body-sm text-on-surface">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[18px] text-emerald-600 shrink-0 mt-0.5">check_small</span>
+<span>Hilangkan pergeseran tata letak melalui antrean optimistik langsung di sisi klien.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[18px] text-emerald-600 shrink-0 mt-0.5">check_small</span>
+<span>Terapkan mutasi server yang idempoten dengan nonce kriptografis.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[18px] text-emerald-600 shrink-0 mt-0.5">check_small</span>
+<span>Kelola rollback otomatis saat mutasi gagal menggunakan aksi dispatch optimistik React.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[18px] text-emerald-600 shrink-0 mt-0.5">check_small</span>
+<span>Revalidasi tag jalur dengan <code class="text-primary font-code-sm">revalidateTag</code> Next.js.</span>
+</li>
+</ul>
+</div>
+</div>
+<!-- Tab Section: Downloadable Resources Strip -->
+<div class="border-t border-outline-variant pt-5 flex flex-col gap-3">
+<h3 class="font-label-md text-label-md font-bold text-on-surface uppercase tracking-wider">Materi Pelajaran &amp; Berkas Sumber</h3>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+<a class="flex items-center gap-3 p-3 rounded-lg border border-outline-variant hover:border-outline bg-surface-container-lowest hover:bg-surface-container-low transition-colors group" href="#pdf-download">
+<div class="w-9 h-9 rounded bg-red-100 text-red-700 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">picture_as_pdf</span>
+</div>
+<div class="flex flex-col truncate">
+<span class="font-label-md text-label-md font-semibold text-on-surface truncate group-hover:text-primary">Lembar Contekan Optimistic UI</span>
+<span class="font-label-sm text-label-sm text-outline">1.2 MB • Panduan PDF</span>
+</div>
+</a>
+<a class="flex items-center gap-3 p-3 rounded-lg border border-outline-variant hover:border-outline bg-surface-container-lowest hover:bg-surface-container-low transition-colors group" href="#github-repo">
+<div class="w-9 h-9 rounded bg-surface-container text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">terminal</span>
+</div>
+<div class="flex flex-col truncate">
+<span class="font-label-md text-label-md font-semibold text-on-surface truncate group-hover:text-primary">Repositori GitHub (Branch 4.3)</span>
+<span class="font-label-sm text-label-sm text-outline">Tautan Eksternal • youtube-code</span>
+</div>
+</a>
+<a class="flex items-center gap-3 p-3 rounded-lg border border-outline-variant hover:border-outline bg-surface-container-lowest hover:bg-surface-container-low transition-colors group" href="#starter-zip">
+<div class="w-9 h-9 rounded bg-blue-100 text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">folder_zip</span>
+</div>
+<div class="flex flex-col truncate">
+<span class="font-label-md text-label-md font-semibold text-on-surface truncate group-hover:text-primary">starter-boilerplate.zip</span>
+<span class="font-label-sm text-label-sm text-outline">4.8 MB • Arsip</span>
+</div>
+</a>
+</div>
+</div>
+<!-- Tab Section: Discussion & Community Thread Preview -->
+<div class="border-t border-outline-variant pt-5 flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Tanya Jawab Komunitas</h3>
+<span class="font-label-sm text-label-sm text-outline">Urutkan: Suara Terbanyak</span>
+</div>
+<!-- Comment Input Box -->
+<div class="flex gap-3">
+<div class="w-9 h-9 rounded-full ring-1 ring-outline-variant overflow-hidden shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Avatar siswa di depan kelas." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBoY4O0aKO7tA8GYo4DEruAXftiZGxWRV-JoxqZdoBn5xHHMOghsi5vrukcaycNvmUFm_TpLDXKmfl1o-7H0g03fgO8FV_4L-LngoVsdHrh1UfCSHESqfleTI8c47TuwwU9ka4R_1z8WXUCwrkUM_7QWVEOBQyig8pAqZ00CrF0NjI5A51tHHaW6fyVuHbEHgzkSVSSIGYfVje3-5DCNemdoMprMkW4R9xYbMjBGt3"/>
+</div>
+<div class="flex-1 flex flex-col gap-2">
+<textarea class="w-full rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface font-body-sm text-body-sm p-3 focus:border-primary focus:ring-1 focus:ring-primary placeholder:text-outline resize-none" placeholder="Tulis pertanyaan atau bagikan catatan timestamp tentang pelajaran ini..." rows="2"></textarea>
+<div class="flex justify-end">
+<button class="px-4 py-1.5 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md font-semibold transition-colors">
+                      Kirim Pertanyaan
+                    </button>
+</div>
+</div>
+</div>
+<!-- Existing High-Value Question Item -->
+<div class="flex items-start gap-3 p-3.5 rounded-lg bg-surface-container-low border border-outline-variant/60">
+<div class="flex flex-col items-center gap-1 shrink-0 p-1 rounded bg-surface-container-lowest border border-outline-variant">
+<button class="text-outline hover:text-primary transition-colors" title="Beri Dukungan">
+<span class="material-symbols-outlined text-[18px]">thumb_up</span>
+</button>
+<span class="font-code-sm text-code-sm font-bold text-primary">24</span>
+</div>
+<div class="flex flex-col gap-1 flex-1">
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md font-bold text-on-surface">Elena Rostova</span>
+<span class="font-label-sm text-label-sm text-outline">• 2 hari lalu</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-[#00668a] font-label-sm text-label-sm">pada 14:12</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Apakah antrean server action menjamin urutan eksekusi jika klien mengirimkan dua pembaruan optimistik berturut-turut pada koneksi lambat 3G seluler?
+                  </p>
+<div class="flex items-center gap-4 text-outline font-label-sm text-label-sm pt-1">
+<button class="hover:text-primary font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">reply</span> 4 Balasan
+                    </button>
+<button class="hover:text-primary">Bagikan</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ==================== RIGHT COLUMN (30% - 4/12 cols) ==================== -->
+<!-- Sticky Course Curriculum Sidebar -->
+<aside class="lg:col-span-4 sticky top-20 flex flex-col gap-4">
+<!-- Overall Progress Summary Card -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-5 shadow-sm flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-bold text-primary tracking-wide uppercase">SILABUS KURSUS</span>
+<span class="font-label-md text-label-md font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full">
+              72% Selesai
+            </span>
+</div>
+<div class="flex flex-col gap-1.5">
+<div class="flex justify-between items-baseline">
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Modul 4 dari 12</h2>
+<span class="font-code-sm text-code-sm text-outline">18/25 Pelajaran</span>
+</div>
+<!-- Progress Track -->
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full transition-all duration-300" style="width: 72%;"></div>
+</div>
+</div>
+</div>
+<!-- Accordion Curriculum Module List -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden shadow-sm flex flex-col divide-y divide-outline-variant">
+<!-- Module 3: Collapsed (Completed) -->
+<div class="flex flex-col">
+<button class="w-full p-4 flex items-center justify-between text-left bg-surface-container-lowest hover:bg-surface-container-low transition-colors group">
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md font-bold text-on-surface group-hover:text-primary transition-colors">
+                    Modul 3: Client vs Server Hydration
+                  </h3>
+<p class="font-label-sm text-label-sm text-outline">4/4 Selesai • 1j 12m</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-[20px] text-outline group-hover:text-on-surface transition-transform">expand_more</span>
+</button>
+</div>
+<!-- Module 4: Active Expanded Module -->
+<div class="flex flex-col bg-surface-container-low/30">
+<button class="w-full p-4 flex items-center justify-between text-left bg-surface-container-low/70 border-l-4 border-primary">
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 rounded-full bg-primary text-on-primary flex items-center justify-center font-code-sm text-code-sm font-bold shrink-0">
+                  4
+                </div>
+<div>
+<h3 class="font-label-md text-label-md font-bold text-primary">
+                    Modul 4: Server Components &amp; Streaming
+                  </h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">3 dari 4 sedang berjalan • 1j 23m</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-[20px] text-primary">expand_less</span>
+</button>
+<!-- Module 4 Lessons List -->
+<div class="flex flex-col divide-y divide-outline-variant/60">
+<!-- Lesson 4.1: Completed -->
+<a class="p-3.5 pl-6 flex items-center justify-between hover:bg-surface-container transition-colors group" href="#lesson-4-1">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="flex flex-col truncate">
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface truncate">
+                      4.1: Pengenalan React Server Components
+                    </span>
+<span class="font-code-sm text-code-sm text-outline">14:20 • Selesai</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-[18px] text-outline group-hover:text-primary shrink-0" title="Putar Ulang">replay</span>
+</a>
+<!-- Lesson 4.2: Completed -->
+<a class="p-3.5 pl-6 flex items-center justify-between hover:bg-surface-container transition-colors group" href="#lesson-4-2">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="flex flex-col truncate">
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface truncate">
+                      4.2: Pola Pengambilan Data
+                    </span>
+<span class="font-code-sm text-code-sm text-outline">21:05 • Selesai</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-[18px] text-outline group-hover:text-primary shrink-0" title="Putar Ulang">replay</span>
+</a>
+<!-- Lesson 4.3: CURRENTLY PLAYING (HIGHLIGHTED) -->
+<div class="p-3.5 pl-5 border-l-4 border-primary bg-surface-container-lowest flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-3 min-w-0">
+<!-- Animated Wave Equalizer -->
+<div class="w-5 h-5 rounded flex items-end justify-center gap-0.5 pb-0.5 shrink-0 bg-primary/10">
+<div class="w-1 bg-primary rounded-t eq-bar-1"></div>
+<div class="w-1 bg-primary rounded-t eq-bar-2"></div>
+<div class="w-1 bg-primary rounded-t eq-bar-3"></div>
+</div>
+<div class="flex flex-col truncate">
+<span class="font-body-sm text-body-sm font-bold text-primary truncate">
+                      4.3: Optimistic UI &amp; Server Actions
+                    </span>
+<div class="flex items-center gap-2">
+<span class="font-code-sm text-code-sm font-semibold text-secondary">Sedang Diputar</span>
+<span class="text-outline">•</span>
+<span class="font-code-sm text-code-sm text-outline">28:10</span>
+</div>
+</div>
+</div>
+<div class="px-2 py-0.5 rounded bg-primary-container text-white font-label-sm text-label-sm font-semibold shrink-0">
+                  Aktif
+                </div>
+</div>
+<!-- Lesson 4.4: Upcoming Locked/Play -->
+<a class="p-3.5 pl-6 flex items-center justify-between hover:bg-surface-container transition-colors group" href="#lesson-4-4">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-5 h-5 rounded-full border border-outline-variant flex items-center justify-center text-outline group-hover:text-primary shrink-0">
+<span class="material-symbols-outlined text-[13px]">play_arrow</span>
+</div>
+<div class="flex flex-col truncate">
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface truncate">
+                      4.4: Streaming dengan Suspense Boundaries
+                    </span>
+<span class="font-code-sm text-code-sm text-outline">19:40 • Pelajaran Berikutnya</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-[18px] text-outline" title="Terkunci">lock</span>
+</a>
+</div>
+</div>
+<!-- Module 5: Collapsed -->
+<div class="flex flex-col">
+<button class="w-full p-4 flex items-center justify-between text-left bg-surface-container-lowest hover:bg-surface-container-low transition-colors group">
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 rounded-full bg-surface-container text-outline flex items-center justify-center font-code-sm text-code-sm font-semibold shrink-0">
+                  5
+                </div>
+<div>
+<h3 class="font-label-md text-label-md font-semibold text-on-surface group-hover:text-primary transition-colors">
+                    Modul 5: Autentikasi &amp; Manajemen Sesi
+                  </h3>
+<p class="font-label-sm text-label-sm text-outline">6 Pelajaran • 2j 05m</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-[20px] text-outline group-hover:text-on-surface transition-transform">expand_more</span>
+</button>
+</div>
+<!-- Module 6: Collapsed Preview -->
+<div class="flex flex-col">
+<button class="w-full p-4 flex items-center justify-between text-left bg-surface-container-lowest hover:bg-surface-container-low transition-colors group">
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 rounded-full bg-surface-container text-outline flex items-center justify-center font-code-sm text-code-sm font-semibold shrink-0">
+                  6
+                </div>
+<div>
+<h3 class="font-label-md text-label-md font-semibold text-on-surface group-hover:text-primary transition-colors">
+                    Modul 6: Penerapan Edge di Lingkungan Produksi
+                  </h3>
+<p class="font-label-sm text-label-sm text-outline">5 Pelajaran • 1j 40m</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-[20px] text-outline group-hover:text-on-surface transition-transform">expand_more</span>
+</button>
+</div>
+</div>
+<!-- Instructor Support / Discord Live Help CTA Card -->
+<div class="bg-gradient-to-br from-surface-container-low to-surface-container border border-outline-variant p-4 rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-primary text-white flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">support_agent</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-on-surface">Butuh Bantuan Praktikum?</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Jam Konsultasi: Dr. Sarah Vance</span>
+</div>
+</div>
+<button class="px-2.5 py-1.5 rounded-lg border border-outline-variant bg-surface-container-lowest hover:bg-surface-container-high text-primary font-label-sm text-label-sm font-bold transition-colors">
+            Tanya Asisten (TA)
+          </button>
+</div>
+</aside>
+</div>
+</main>
+</body></html>
