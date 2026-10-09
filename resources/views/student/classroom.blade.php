@@ -412,6 +412,8 @@
 
     <!-- ==================== AUTO-NEXT 5-SECOND COUNTDOWN TOAST ==================== -->
     <div x-show="showAutoNextToast" 
+         x-cloak
+         style="display: none;"
          x-transition:enter="transition ease-out duration-300"
          x-transition:enter-start="opacity-0 translate-y-4"
          x-transition:enter-end="opacity-100 translate-y-0"
@@ -933,7 +935,10 @@
                 </div>
 
                 <!-- Graduation Certificate Trigger / Status Requirements Card -->
-                <div x-show="certificateUrl" class="pt-3 border-t border-slate-100 flex flex-col gap-2">
+                <div x-show="certificateUrl" 
+                     x-cloak 
+                     @if(! $certificate) style="display: none;" @endif 
+                     class="pt-3 border-t border-slate-100 flex flex-col gap-2">
                     <div class="flex items-center justify-between text-[11px] text-emerald-700 bg-emerald-50 px-2.5 py-1.5 rounded-lg border border-emerald-100 font-medium">
                         <span class="flex items-center gap-1.5">
                             <span class="material-symbols-outlined text-[16px] text-emerald-600" style="font-variation-settings: 'FILL' 1;">verified</span>
@@ -948,7 +953,10 @@
                     </a>
                 </div>
 
-                <div x-show="!certificateUrl" class="pt-3 border-t border-slate-100 flex flex-col gap-2">
+                <div x-show="!certificateUrl" 
+                     x-cloak 
+                     @if($certificate) style="display: none;" @endif 
+                     class="pt-3 border-t border-slate-100 flex flex-col gap-2">
                     <div class="flex items-center justify-between text-xs font-semibold text-slate-700">
                         <span class="flex items-center gap-1.5">
                             <span class="material-symbols-outlined text-[16px] text-slate-400">lock</span>
@@ -962,28 +970,28 @@
                             <span class="flex items-center gap-1.5">
                                 <span class="material-symbols-outlined text-[15px]" 
                                       :class="completedCount >= totalCount ? 'text-emerald-600' : 'text-slate-400'"
-                                      x-text="completedCount >= totalCount ? 'check_circle' : 'radio_button_unchecked'"></span>
+                                      x-text="completedCount >= totalCount ? 'check_circle' : 'radio_button_unchecked'">{{ $completedLessonsCount >= $totalLessonsCount ? 'check_circle' : 'radio_button_unchecked' }}</span>
                                 <span>Tonton Semua Video</span>
                             </span>
                             <span class="font-mono text-[10px] font-semibold" 
                                   :class="completedCount >= totalCount ? 'text-emerald-600' : 'text-slate-500'"
-                                  x-text="completedCount + '/' + totalCount"></span>
+                                  x-text="completedCount + '/' + totalCount">{{ $completedLessonsCount }}/{{ $totalLessonsCount }}</span>
                         </div>
 
-                        <template x-if="totalQuizzes > 0">
+                        @if($totalQuizzesCount > 0)
                             <!-- Syarat 2: Kuis Diselesaikan & Lulus -->
                             <div class="flex items-center justify-between" :class="hasPassedQuizzes ? 'text-emerald-700' : 'text-slate-600'">
                                 <span class="flex items-center gap-1.5">
                                     <span class="material-symbols-outlined text-[15px]" 
                                           :class="hasPassedQuizzes ? 'text-emerald-600' : 'text-slate-400'"
-                                          x-text="hasPassedQuizzes ? 'check_circle' : 'radio_button_unchecked'"></span>
+                                          x-text="hasPassedQuizzes ? 'check_circle' : 'radio_button_unchecked'">{{ $hasPassedAllQuizzes ? 'check_circle' : 'radio_button_unchecked' }}</span>
                                     <span>Kerjakan & Lulus Kuis</span>
                                 </span>
                                 <span class="font-mono text-[10px] font-semibold" 
                                       :class="hasPassedQuizzes ? 'text-emerald-600' : 'text-amber-600'"
-                                      x-text="passedQuizzes + '/' + totalQuizzes"></span>
+                                      x-text="passedQuizzes + '/' + totalQuizzes">{{ $passedQuizzesCount }}/{{ $totalQuizzesCount }}</span>
                             </div>
-                        </template>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -1091,6 +1099,7 @@
 
     <!-- ==================== GRADUATION CELEBRATION MODAL ==================== -->
     <div x-show="showGraduationModal"
+         x-cloak
          x-transition:enter="transition ease-out duration-300"
          x-transition:enter-start="opacity-0"
          x-transition:enter-end="opacity-100"
