@@ -4,25 +4,24 @@
  * Script Generator Buku Panduan Penggunaan EduTube LMS (.docx)
  * Menghasilkan dokumen Microsoft Word OpenXML (.docx) resmi lengkap dengan format, styling, tabel, dan 4 gambar screenshot.
  */
-
-$outputDocx = __DIR__ . '/Panduan_Penggunaan_EduTube_LMS.docx';
-$publicDocxDir = __DIR__ . '/public/docs';
-if (!is_dir($publicDocxDir)) {
+$outputDocx = __DIR__.'/Panduan_Penggunaan_EduTube_LMS.docx';
+$publicDocxDir = __DIR__.'/public/docs';
+if (! is_dir($publicDocxDir)) {
     mkdir($publicDocxDir, 0755, true);
 }
-$publicDocx = $publicDocxDir . '/Panduan_Penggunaan_EduTube_LMS.docx';
+$publicDocx = $publicDocxDir.'/Panduan_Penggunaan_EduTube_LMS.docx';
 
 // Sumber gambar
 $imgPaths = [
-    'img1' => __DIR__ . '/Assets LMS/dasbor_siswa_katalog_kursus/screen.png',
-    'img2' => __DIR__ . '/Assets LMS/tampilan_pemutar_video_kursus/screen.png',
-    'img3' => __DIR__ . '/Assets LMS/dasbor_admin_manajer_kursus_video/screen.png',
-    'img4' => __DIR__ . '/Assets LMS/modal_admin_impor_tautan_youtube/screen.png',
+    'img1' => __DIR__.'/Assets LMS/dasbor_siswa_katalog_kursus/screen.png',
+    'img2' => __DIR__.'/Assets LMS/tampilan_pemutar_video_kursus/screen.png',
+    'img3' => __DIR__.'/Assets LMS/dasbor_admin_manajer_kursus_video/screen.png',
+    'img4' => __DIR__.'/Assets LMS/modal_admin_impor_tautan_youtube/screen.png',
 ];
 
 foreach ($imgPaths as $key => $p) {
-    if (!file_exists($p)) {
-        die("Error: Gambar $p tidak ditemukan!\n");
+    if (! file_exists($p)) {
+        exit("Error: Gambar $p tidak ditemukan!\n");
     }
 }
 
@@ -142,14 +141,17 @@ $stylesXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 </w:styles>';
 
 // Helper XML builders
-function escapeXml($str) {
+function escapeXml($str)
+{
     return htmlspecialchars($str, ENT_QUOTES | ENT_XML1, 'UTF-8');
 }
 
-function p($text, $bold = false, $italic = false, $color = '334155', $size = 22, $align = 'left', $before = 0, $after = 120) {
+function p($text, $bold = false, $italic = false, $color = '334155', $size = 22, $align = 'left', $before = 0, $after = 120)
+{
     $bXml = $bold ? '<w:b/>' : '';
     $iXml = $italic ? '<w:i/>' : '';
     $alignXml = $align !== 'left' ? "<w:jc w:val=\"$align\"/>" : '';
+
     return "<w:p>
       <w:pPr>
         $alignXml
@@ -162,82 +164,86 @@ function p($text, $bold = false, $italic = false, $color = '334155', $size = 22,
           <w:color w:val=\"$color\"/>
           <w:sz w:val=\"$size\"/>
         </w:rPr>
-        <w:t xml:space=\"preserve\">" . escapeXml($text) . "</w:t>
+        <w:t xml:space=\"preserve\">".escapeXml($text).'</w:t>
       </w:r>
-    </w:p>";
+    </w:p>';
 }
 
-function h1($text) {
-    return "<w:p>
+function h1($text)
+{
+    return '<w:p>
       <w:pPr>
-        <w:pStyle w:val=\"Heading1\"/>
-        <w:spacing w:before=\"400\" w:after=\"160\"/>
+        <w:pStyle w:val="Heading1"/>
+        <w:spacing w:before="400" w:after="160"/>
         <w:pBdr>
-          <w:bottom w:val=\"single\" w:sz=\"12\" w:space=\"4\" w:color=\"CBD5E1\"/>
+          <w:bottom w:val="single" w:sz="12" w:space="4" w:color="CBD5E1"/>
         </w:pBdr>
         <w:keepNext/>
       </w:pPr>
       <w:r>
         <w:rPr>
-          <w:rFonts w:ascii=\"Segoe UI Semibold\" w:hAnsi=\"Segoe UI Semibold\"/>
+          <w:rFonts w:ascii="Segoe UI Semibold" w:hAnsi="Segoe UI Semibold"/>
           <w:b/>
-          <w:sz w:val=\"34\"/>
-          <w:color w:val=\"1E3A8A\"/>
+          <w:sz w:val="34"/>
+          <w:color w:val="1E3A8A"/>
         </w:rPr>
-        <w:t>" . escapeXml($text) . "</w:t>
+        <w:t>'.escapeXml($text).'</w:t>
       </w:r>
-    </w:p>";
+    </w:p>';
 }
 
-function h2($text) {
-    return "<w:p>
+function h2($text)
+{
+    return '<w:p>
       <w:pPr>
-        <w:pStyle w:val=\"Heading2\"/>
-        <w:spacing w:before=\"300\" w:after=\"120\"/>
+        <w:pStyle w:val="Heading2"/>
+        <w:spacing w:before="300" w:after="120"/>
         <w:keepNext/>
       </w:pPr>
       <w:r>
         <w:rPr>
-          <w:rFonts w:ascii=\"Segoe UI Semibold\" w:hAnsi=\"Segoe UI Semibold\"/>
+          <w:rFonts w:ascii="Segoe UI Semibold" w:hAnsi="Segoe UI Semibold"/>
           <w:b/>
-          <w:sz w:val=\"28\"/>
-          <w:color w:val=\"4338CA\"/>
+          <w:sz w:val="28"/>
+          <w:color w:val="4338CA"/>
         </w:rPr>
-        <w:t>" . escapeXml($text) . "</w:t>
+        <w:t>'.escapeXml($text).'</w:t>
       </w:r>
-    </w:p>";
+    </w:p>';
 }
 
-function h3($text) {
-    return "<w:p>
+function h3($text)
+{
+    return '<w:p>
       <w:pPr>
-        <w:pStyle w:val=\"Heading3\"/>
-        <w:spacing w:before=\"200\" w:after=\"80\"/>
+        <w:pStyle w:val="Heading3"/>
+        <w:spacing w:before="200" w:after="80"/>
         <w:keepNext/>
       </w:pPr>
       <w:r>
         <w:rPr>
-          <w:rFonts w:ascii=\"Segoe UI Semibold\" w:hAnsi=\"Segoe UI Semibold\"/>
+          <w:rFonts w:ascii="Segoe UI Semibold" w:hAnsi="Segoe UI Semibold"/>
           <w:b/>
-          <w:sz w:val=\"24\"/>
-          <w:color w:val=\"0F172A\"/>
+          <w:sz w:val="24"/>
+          <w:color w:val="0F172A"/>
         </w:rPr>
-        <w:t>" . escapeXml($text) . "</w:t>
+        <w:t>'.escapeXml($text).'</w:t>
       </w:r>
-    </w:p>";
+    </w:p>';
 }
 
-function bullet($text, $level = 0, $boldPrefix = '', $normalSuffix = '') {
+function bullet($text, $level = 0, $boldPrefix = '', $normalSuffix = '')
+{
     $indent = 360 + ($level * 360);
     $runs = '';
     if ($boldPrefix) {
-        $runs .= "<w:r><w:rPr><w:b/><w:color w:val=\"0F172A\"/><w:sz w:val=\"22\"/></w:rPr><w:t xml:space=\"preserve\">" . escapeXml($boldPrefix) . " </w:t></w:r>";
+        $runs .= '<w:r><w:rPr><w:b/><w:color w:val="0F172A"/><w:sz w:val="22"/></w:rPr><w:t xml:space="preserve">'.escapeXml($boldPrefix).' </w:t></w:r>';
     }
     if ($normalSuffix) {
-        $runs .= "<w:r><w:rPr><w:color w:val=\"334155\"/><w:sz w:val=\"22\"/></w:rPr><w:t xml:space=\"preserve\">" . escapeXml($normalSuffix) . "</w:t></w:r>";
+        $runs .= '<w:r><w:rPr><w:color w:val="334155"/><w:sz w:val="22"/></w:rPr><w:t xml:space="preserve">'.escapeXml($normalSuffix).'</w:t></w:r>';
     }
-    if (!$boldPrefix && !$normalSuffix) {
-        $runs .= "<w:r><w:rPr><w:color w:val=\"334155\"/><w:sz w:val=\"22\"/></w:rPr><w:t xml:space=\"preserve\">" . escapeXml($text) . "</w:t></w:r>";
+    if (! $boldPrefix && ! $normalSuffix) {
+        $runs .= '<w:r><w:rPr><w:color w:val="334155"/><w:sz w:val="22"/></w:rPr><w:t xml:space="preserve">'.escapeXml($text).'</w:t></w:r>';
     }
 
     return "<w:p>
@@ -257,14 +263,15 @@ function bullet($text, $level = 0, $boldPrefix = '', $normalSuffix = '') {
     </w:p>";
 }
 
-function callout($title, $content, $type = 'info') {
-    $borderColor = match($type) {
+function callout($title, $content, $type = 'info')
+{
+    $borderColor = match ($type) {
         'success' => '10B981',
         'warning' => 'F59E0B',
         'alert' => 'EF4444',
         default => '4F46E5',
     };
-    $bgColor = match($type) {
+    $bgColor = match ($type) {
         'success' => 'ECFDF5',
         'warning' => 'FFFBEB',
         'alert' => 'FEF2F2',
@@ -275,13 +282,13 @@ function callout($title, $content, $type = 'info') {
     $lines = explode("\n", $normalized);
     $contentParagraphs = '';
     foreach ($lines as $line) {
-        $contentParagraphs .= "<w:p>
-            <w:pPr><w:spacing w:before=\"0\" w:after=\"60\"/></w:pPr>
+        $contentParagraphs .= '<w:p>
+            <w:pPr><w:spacing w:before="0" w:after="60"/></w:pPr>
             <w:r>
-              <w:rPr><w:color w:val=\"334155\"/><w:sz w:val=\"21\"/></w:rPr>
-              <w:t xml:space=\"preserve\">" . escapeXml($line) . "</w:t>
+              <w:rPr><w:color w:val="334155"/><w:sz w:val="21"/></w:rPr>
+              <w:t xml:space="preserve">'.escapeXml($line).'</w:t>
             </w:r>
-          </w:p>";
+          </w:p>';
     }
 
     return "<w:tbl>
@@ -309,7 +316,7 @@ function callout($title, $content, $type = 'info') {
             <w:pPr><w:spacing w:before=\"60\" w:after=\"60\"/></w:pPr>
             <w:r>
               <w:rPr><w:b/><w:color w:val=\"$borderColor\"/><w:sz w:val=\"22\"/></w:rPr>
-              <w:t>" . escapeXml($title) . "</w:t>
+              <w:t>".escapeXml($title)."</w:t>
             </w:r>
           </w:p>
           $contentParagraphs
@@ -319,7 +326,8 @@ function callout($title, $content, $type = 'info') {
     <w:p><w:pPr><w:spacing w:before=\"0\" w:after=\"100\"/></w:pPr></w:p>";
 }
 
-function imageDrawing($relId, $cx, $cy, $caption = '', $imgId = 1) {
+function imageDrawing($relId, $cx, $cy, $caption = '', $imgId = 1)
+{
     $imgXml = "<w:p>
       <w:pPr>
         <w:jc w:val=\"center\"/>
@@ -366,30 +374,32 @@ function imageDrawing($relId, $cx, $cy, $caption = '', $imgId = 1) {
     </w:p>";
 
     if ($caption) {
-        $imgXml .= "<w:p>
+        $imgXml .= '<w:p>
           <w:pPr>
-            <w:jc w:val=\"center\"/>
-            <w:spacing w:before=\"40\" w:after=\"200\"/>
+            <w:jc w:val="center"/>
+            <w:spacing w:before="40" w:after="200"/>
           </w:pPr>
           <w:r>
             <w:rPr>
               <w:i/>
-              <w:color w:val=\"64748B\"/>
-              <w:sz w:val=\"19\"/>
+              <w:color w:val="64748B"/>
+              <w:sz w:val="19"/>
             </w:rPr>
-            <w:t>" . escapeXml($caption) . "</w:t>
+            <w:t>'.escapeXml($caption).'</w:t>
           </w:r>
-        </w:p>";
+        </w:p>';
     }
 
     return $imgXml;
 }
 
-function pageBreak() {
+function pageBreak()
+{
     return '<w:p><w:r><w:br w:type="page"/></w:r></w:p>';
 }
 
-function tableRoles() {
+function tableRoles()
+{
     return '<w:tbl>
       <w:tblPr>
         <w:tblW w:w="9200" w:type="dxa"/>
@@ -445,161 +455,297 @@ $docBody .= '<w:p><w:pPr><w:spacing w:before="0" w:after="400"/><w:jc w:val="cen
 
 $docBody .= pageBreak();
 
-// DAFTAR ISI RINGKAS
+// DAFTAR ISI RESMI LENGKAP
 $docBody .= h1('Daftar Isi Buku Panduan');
-$docBody .= bullet('Bab 1: Pendahuluan & Gambaran Umum Sistem', 0, '1.', 'Visi platform, arsitektur, dan matriks hak akses pengguna');
-$docBody .= bullet('Bab 2: Panduan Penggunaan untuk Siswa (Learner Journey)', 0, '2.', 'Akses katalog, pemutar video, catatan berwaktu, diskusi, kuis, dan sertifikat');
-$docBody .= bullet('Bab 3: Panduan untuk Admin Sekolah & Instruktur (Teacher Journey)', 0, '3.', 'Manajer kursus, Course Builder, impor video YouTube, kurikulum, dan manajemen siswa');
-$docBody .= bullet('Bab 4: Panduan untuk Super Administrator (Platform Management)', 0, '4.', 'Multi-sekolah, administrasi user, master kategori, konfigurasi platform, dan helpdesk');
-$docBody .= bullet('Bab 5: Ketentuan Penerbitan Sertifikat Kelulusan', 0, '5.', 'Syarat 100% video selesai dan lulus seluruh kuis checkpoint evaluasi');
-$docBody .= bullet('Bab 6: Tanya Jawab Umum (FAQ) & Solusi Kendala Teknis', 0, '6.', 'Penyelesaian masalah umum dan verifikasi kode sertifikat');
+$docBody .= bullet('Bab 1: Pendahuluan & Gambaran Umum Sistem', 0, 'Bab 1.', 'Fondasi platform, visi, alur kerja, dan matriks hak akses pengguna');
+$docBody .= bullet('1.1 Visi & Latar Belakang EduTube LMS', 1, '1.1', 'Transformasi kurasi video YouTube menjadi platform belajar akademis');
+$docBody .= bullet('1.2 Keunggulan Utama EduTube LMS', 1, '1.2', 'Bebas distraksi, hemat kuota server, kurikulum bertingkat, kuis checkpoint');
+$docBody .= bullet('1.3 Alur Kerja Pembelajaran Terpadu (Learning Workflow)', 1, '1.3', 'Alur siswa, instruktur, dan otomatisasi kelulusan');
+$docBody .= bullet('1.4 Matriks Hak Akses & Peran Pengguna (RBAC Matrix)', 1, '1.4', 'Tabel wewenang Super Admin, Admin Sekolah/Guru, dan Siswa');
+
+$docBody .= bullet('Bab 2: Panduan Penggunaan untuk Siswa (Learner Journey)', 0, 'Bab 2.', 'Akses katalog, pemutar video, catatan berwaktu, diskusi, kuis, dan sertifikat');
+$docBody .= bullet('2.1 Akses Masuk (Login) & Pengenalan Dasbor Siswa', 1, '2.1', 'Prosedur login, kartu statistik ringkasan, dan navigasi utama');
+$docBody .= bullet('2.2 Eksplorasi Katalog Kursus & Fitur Pencarian Cerdas', 1, '2.2', 'Pencarian instan topik/instruktur, filter status, dan penanda bookmark');
+$docBody .= bullet('2.3 Ruang Belajar & Pemutar Video Interaktif (Classroom)', 1, '2.3', 'Pemutar video YouTube nocookie, kontrol kecepatan, dan auto-next');
+$docBody .= bullet('2.4 Fitur Produktivitas Belajar Siswa', 1, '2.4', 'Catatan berwaktu (timestamped notes), forum diskusi, unduh sumber daya');
+$docBody .= bullet('2.5 Pengerjaan Kuis Checkpoint & Evaluasi Hasil Ujian', 1, '2.5', 'Pengerjaan soal pilihan ganda, submit jawaban, passing grade, dan pembahasan');
+$docBody .= bullet('2.6 Klaim, Unduh, dan Cetak Sertifikat Digital', 1, '2.6', 'Akses halaman verifikasi, pencetakan lembar resmi, dan validasi QR Code');
+
+$docBody .= bullet('Bab 3: Panduan untuk Admin Sekolah & Instruktur (Teacher Journey)', 0, 'Bab 3.', 'Manajer kursus, Course Builder, impor YouTube, kurikulum, dan manajemen siswa');
+$docBody .= bullet('3.1 Dasbor Admin Sekolah & Ringkasan Metrik Pembelajaran', 1, '3.1', 'Total video aktif, jam tonton siswa, kesehatan API, dan analitik kelas');
+$docBody .= bullet('3.2 Manajemen Kursus & Pembuatan Kursus Baru', 1, '3.2', 'Formulir pembuatan kursus, penetapan kategori, tingkat kesulitan, dan thumbnail');
+$docBody .= bullet('3.3 Menambahkan Materi Video dengan Impor YouTube Cepat', 1, '3.3', 'Tempel tautan YouTube, ekstraksi instan judul & durasi, simpan draf/publikasi');
+$docBody .= bullet('3.4 Penyusun Kurikulum (Single-Page Course Builder)', 1, '3.4', 'Pengorganisasian modul, pengurutan pelajaran, dan struktur silabus');
+$docBody .= bullet('3.5 Pembuatan Kuis Evaluasi & Bank Soal Materi', 1, '3.5', 'Penyusunan pertanyaan, passing grade kelulusan, opsi acak, dan pembahasan');
+$docBody .= bullet('3.6 Manajemen Berkas Sumber Daya Pembelajaran (Lesson Resources)', 1, '3.6', 'Penyematan materi PDF, slide presentasi, dan repositori praktikum');
+$docBody .= bullet('3.7 Administrasi Siswa: Pendaftaran Manual, Impor CSV, & Ekspor Data', 1, '3.7', 'Pendaftaran mandiri, template CSV massal, reset kata sandi, dan unduh data');
+$docBody .= bullet('3.8 Pusat Dukungan Sekolah & Pengajuan Tiket Bantuan (School Support)', 1, '3.8', 'Penyampaian kendala operasional ke Super Admin dan pelacakan status tiket');
+
+$docBody .= bullet('Bab 4: Panduan untuk Super Administrator (Platform Management)', 0, 'Bab 4.', 'Multi-sekolah, administrasi user, master kategori, konfigurasi platform, dan helpdesk');
+$docBody .= bullet('4.1 Dasbor Pengawasan Global & Metrik Ekosistem Multi-Sekolah', 1, '4.1', 'Pemantauan lintas instansi, total pengguna platform, dan antrean helpdesk');
+$docBody .= bullet('4.2 Manajemen Master Sekolah Mitra (Multi-Tenancy)', 1, '4.2', 'Pendaftaran instansi baru, penetapan penanggung jawab, dan aktivasi sekolah');
+$docBody .= bullet('4.3 Manajemen Pengguna Global & Penetapan Hak Akses (User Management)', 1, '4.3', 'Penetapan peran (Role Assignment), penonaktifan akun, dan reset akses');
+$docBody .= bullet('4.4 Manajemen Master Kategori Kursus', 1, '4.4', 'Taksonomi keilmuan, penetapan slug, ikon kategori, dan warna visual');
+$docBody .= bullet('4.5 Pengaturan Konfigurasi Platform Global', 1, '4.5', 'Identitas institusi, nama platform, kontak resmi, dan batas durasi sesi');
+$docBody .= bullet('4.6 Helpdesk Pusat, Penanganan Tiket, & Diagnostik Sistem Server', 1, '4.6', 'Inbox tiket pusat, pengiriman tanggapan resmi, dan audit kesehatan server');
+
+$docBody .= bullet('Bab 5: Ketentuan Penerbitan Sertifikat Kelulusan', 0, 'Bab 5.', 'Dua syarat mutlak kelulusan, transparansi checklist, dan keamanan dokumen');
+$docBody .= bullet('5.1 Dua Syarat Mutlak Penerbitan Sertifikat', 1, '5.1', '100% video selesai ditonton dan seluruh kuis dinyatakan lulus');
+$docBody .= bullet('5.2 Checklist Transparan pada Silabus Kelas', 1, '5.2', 'Kartu status kelulusan di sidebar kelas dan indikator kelengkapan materi');
+$docBody .= bullet('5.3 Standar Keamanan & Verifikasi Sertifikat Resmi', 1, '5.3', 'Kode unik alfanumerik, verifikasi publik QR Code, dan tata letak dokumen');
+
+$docBody .= bullet('Bab 6: Tanya Jawab Umum (FAQ) & Solusi Kendala Teknis', 0, 'Bab 6.', 'Penyelesaian masalah umum, kebijakan video, dan panduan kendala teknis');
+$docBody .= bullet('6.1 Solusi Video YouTube Tidak Dapat Diputar (Private/Embedding)', 1, '6.1', 'Penyebab restriksi YouTube dan cara mengaktifkan perizinan semat');
+$docBody .= bullet('6.2 Solusi Progres 100% Video tetapi Sertifikat Belum Terbit', 1, '6.2', 'Pemeriksaan status kelulusan kuis materi atau checkpoint evaluasi');
+$docBody .= bullet('6.3 Penambahan Kuis di Tengah Kursus yang Sedang Berjalan', 1, '6.3', 'Perhitungan ulang otomatis kelayakan sertifikat bagi peserta kursus');
+$docBody .= bullet('6.4 Verifikasi Keaslian Sertifikat Digital oleh Pihak Ketiga', 1, '6.4', 'Langkah pemindaian QR Code dan akses tautan publik tanpa login');
+$docBody .= bullet('6.5 Panduan Reset Kata Sandi Akun Siswa dan Guru', 1, '6.5', 'Langkah penanganan akun lupa password oleh administrator');
 
 $docBody .= pageBreak();
 
-// BAB 1: PENDAHULUAN
+// ==================== BAB 1: PENDAHULUAN ====================
 $docBody .= h1('Bab 1: Pendahuluan & Gambaran Umum Sistem');
 $docBody .= p('EduTube LMS adalah Learning Management System (LMS) modern generasi terbaru yang dirancang untuk mengintegrasikan potensi tak terbatas konten edukasi YouTube ke dalam ekosistem pembelajaran yang terstruktur, terarah, bebas distraksi, dan terukur secara akademis.');
-$docBody .= p('Melalui EduTube LMS, institusi pendidikan dan guru dapat menyusun kurikulum berbasis video YouTube tanpa iklan, melengkapi materi dengan kuis checkpoint interaktif, menyediakan catatan berwaktu (timestamped notes), serta secara otomatis menerbitkan sertifikat digital resmi ber-QR Code bagi siswa yang telah menuntaskan seluruh materi dan lulus ujian.');
+$docBody .= p('Platform ini mentransformasikan video pembelajaran daring menjadi kurikulum akademik bertingkat yang dilengkapi pos pemeriksaan pemahaman siswa (Checkpoint Quiz), catatan pembelajaran berwaktu (timestamped notes), forum interaksi dua arah, serta penerbitan sertifikat kompetensi digital resmi ber-QR Code.');
 
-$docBody .= h2('1.1 Keunggulan Utama EduTube LMS');
-$docBody .= bullet('Streaming Cepat & Hemat Bandwidth:', 0, '•', 'Memanfaatkan infrastruktur CDN global YouTube sehingga pemutaran video berjalan mulus tanpa membebani server lokal sekolah.');
-$docBody .= bullet('Bebas Distraksi & Iklan:', 0, '•', 'Pemutar video tertanam secara khusus mematikan rekomendasi acak YouTube, menjaga fokus belajar siswa tetap tinggi.');
-$docBody .= bullet('Kurikulum Bertingkat (Modular):', 0, '•', 'Materi tersusun rapi dalam modul-modul tematik yang dapat dibuka secara progresif.');
-$docBody .= bullet('Checkpoint Kuis Terintegrasi:', 0, '•', 'Setiap materi penting dapat disertai kuis evaluasi untuk memvalidasi pemahaman materi sebelum siswa dapat lulus.');
-$docBody .= bullet('Sertifikasi Digital Ber-QR Code:', 0, '•', 'Sertifikat otomatis terbit jika siswa telah menonton 100% video dan lulus seluruh kuis, dilengkapi verifikasi publik anti-pemalsuan.');
+$docBody .= h2('1.1 Visi & Latar Belakang EduTube LMS');
+$docBody .= p('YouTube merupakan repositori materi pembelajaran terbesar di dunia. Namun, pembelajaran mandiri langsung di YouTube seringkali gagal mencapai tujuan akademis akibat beberapa hambatan:');
+$docBody .= bullet('Distraksi Rekomendasi Algoritma:', 0, '1.', 'Siswa rentan teralihkan oleh video hiburan atau konten non-edukasi yang terus disodorkan oleh algoritma beranda.');
+$docBody .= bullet('Iklan yang Mengganggu Konsentrasi:', 0, '2.', 'Iklan komersial di tengah-tengah video memutus alur pemikiran dan menurunkan efektivitas belajar.');
+$docBody .= bullet('Ketiadaan Evaluasi & Akuntabilitas:', 0, '3.', 'Menonton video saja tidak menjamin siswa memahami materi tanpa adanya kuis evaluasi terukur.');
+$docBody .= p('EduTube LMS hadir sebagai solusi menyeluruh dengan mengurasi materi YouTube berkualitas ke dalam lingkungan belajar sekolah yang kondusif, terisolasi dari gangguan eksternal, dan dilengkapi instrumen pengukuran kompetensi siswa.');
 
-$docBody .= h2('1.2 Matriks Hak Akses & Peran Pengguna');
-$docBody .= p('EduTube LMS menerapkan Role-Based Access Control (RBAC) ketat dengan tiga level peran utama:');
+$docBody .= h2('1.2 Keunggulan Utama EduTube LMS');
+$docBody .= bullet('Streaming Cepat & Hemat Bandwidth Server:', 0, '•', 'Pemutaran video memanfaatkan infrastruktur CDN global YouTube yang andal sehingga sekolah tidak perlu berinvestasi pada server penyimpanan video berbiaya tinggi.');
+$docBody .= bullet('Pemutar Bebas Distraksi & Iklan:', 0, '•', 'Implementasi pemutar video resmi YouTube Player API dengan parameter khusus yang mematikan rekomendasi video pihak ketiga.');
+$docBody .= bullet('Kurikulum Bertingkat (Modular Hierarchy):', 0, '•', 'Materi pelajaran tersusun rapi dalam struktur hierarki: Kursus → Modul Pembelajaran → Pelajaran Video → Kuis Evaluasi.');
+$docBody .= bullet('Pos Pemeriksaan Pemahaman (Checkpoint Quiz):', 0, '•', 'Kuis pilihan ganda terintegrasi langsung pada setiap topik penting dengan sistem koreksi instan dan pembahasan.');
+$docBody .= bullet('Sertifikasi Kompetensi Digital Otomatis:', 0, '•', 'Sistem menerbitkan sertifikat digital ber-QR Code secara instan ketika siswa berhasil menuntaskan seluruh video dan lulus kuis.');
+
+$docBody .= h2('1.3 Alur Kerja Pembelajaran Terpadu (Learning Workflow)');
+$docBody .= p('Alur kerja operasional dalam platform EduTube LMS berjalan melalui siklus terintegrasi berikut:');
+$docBody .= bullet('Fase 1: Konfigurasi Institusi & Kategori (Super Admin)', 0, 'a.', 'Super Admin mendaftarkan sekolah mitra, menunjuk Administrator Sekolah, dan menetapkan master kategori keilmuan.');
+$docBody .= bullet('Fase 2: Penyusunan Kurikulum & Impor Video (Guru / Admin Sekolah)', 0, 'b.', 'Guru membuat kursus baru, menyusun modul tematik, mengimpor tautan YouTube, melampirkan berkas penunjang, dan menyusun kuis checkpoint.');
+$docBody .= bullet('Fase 3: Pembelajaran Aktif & Interaksi Siswa (Siswa)', 0, 'c.', 'Siswa mengakses ruang belajar, memutar video tanpa jeda iklan, membuat catatan berwaktu, berdiskusi di forum, dan mengunduh berkas materi.');
+$docBody .= bullet('Fase 4: Evaluasi & Penerbitan Sertifikat (Sistem Otomatis)', 0, 'd.', 'Siswa menyelesaikan kuis evaluasi. Sistem menghitung kelengkapan belajar secara real-time dan menerbitkan sertifikat resmi saat syarat terpenuhi 100%.');
+
+$docBody .= h2('1.4 Matriks Hak Akses & Peran Pengguna (RBAC Matrix)');
+$docBody .= p('EduTube LMS menerapkan Role-Based Access Control (RBAC) yang memisahkan wewenang secara tegas demi menjaga integritas data dan kelancaran operasional:');
 $docBody .= tableRoles();
 
 $docBody .= pageBreak();
 
-// BAB 2: PANDUAN SISWA
-$docBody .= h1('Bab 2: Panduan Penggunaan untuk Siswa');
-$docBody .= p('Sebagai siswa, Anda dapat menjelajahi seluruh kursus yang disediakan oleh sekolah, memantau kemajuan belajar, mengambil catatan berwaktu, berdiskusi di forum materi, dan mengklaim sertifikat kelulusan.');
+// ==================== BAB 2: PANDUAN SISWA ====================
+$docBody .= h1('Bab 2: Panduan Penggunaan untuk Siswa (Learner Journey)');
+$docBody .= p('Sebagai siswa, Anda dapat menjelajahi seluruh kursus yang disediakan oleh sekolah, memantau kemajuan belajar secara real-time, mengambil catatan berwaktu, berinteraksi di forum diskusi materi, dan mengklaim sertifikat kelulusan.');
 
-$docBody .= h2('2.1 Dasbor Siswa & Eksplorasi Katalog Kursus');
-$docBody .= p('Saat pertama kali masuk (login) sebagai siswa, Anda akan diarahkan ke halaman Dasbor Utama dan Katalog Kursus. Halaman ini dirancang sangat intuitif dengan statistik kemajuan belajar real-time.');
-$docBody .= bullet('Pencarian Kursus Instan:', 0, '1.', 'Gunakan kotak pencarian di bagian atas untuk menemukan kursus berdasarkan judul, topik, atau nama instruktur.');
-$docBody .= bullet('Filter Status Belajar:', 0, '2.', 'Tersedia tab filter "Semua", "Sedang Berjalan", "Selesai", dan "Tersimpan (Bookmark)" untuk mengelompokkan kursus.');
-$docBody .= bullet('Kartu Kursus Interaktif:', 0, '3.', 'Setiap kartu menampilkan gambar thumbnail, nama pengajar, jumlah pelajaran, durasi, progress bar, dan tombol aksi langsung.');
+$docBody .= h2('2.1 Akses Masuk (Login) & Pengenalan Dasbor Siswa');
+$docBody .= p('Untuk memulai proses belajar di EduTube LMS, ikuti langkah-langkah berikut:');
+$docBody .= bullet('Buka Peramban:', 0, '1.', 'Buka Google Chrome, Mozilla Firefox, Microsoft Edge, atau Safari di komputer, tablet, maupun ponsel pintar Anda.');
+$docBody .= bullet('Kunjungi URL Aplikasi:', 0, '2.', 'Akses tautan resmi LMS sekolah Anda (contoh: https://demo.gustiswandana.space atau portal sekolah terkait).');
+$docBody .= bullet('Masukkan Kredensial:', 0, '3.', 'Ketik alamat surel (email) dan kata sandi yang telah diberikan oleh pihak sekolah, lalu klik tombol "Masuk ke Akun".');
+$docBody .= bullet('Tinjau Ringkasan Belajar:', 0, '4.', 'Di bagian atas dasbor, Anda akan melihat kartu statistik yang menampilkan: Total Kursus Diikuti, Jumlah Kursus Selesai, Total Menit Waktu Belajar, dan Sertifikat yang Telah Diraih.');
+
+$docBody .= h2('2.2 Eksplorasi Katalog Kursus & Fitur Pencarian Cerdas');
+$docBody .= p('Halaman Katalog Kursus menyajikan seluruh materi pembelajaran yang terbuka untuk sekolah Anda:');
+$docBody .= bullet('Kotak Pencarian Instan:', 0, '•', 'Ketik topik, judul teknologi, atau nama instruktur pada bilah pencarian untuk menyaring daftar kursus seketika.');
+$docBody .= bullet('Tab Filter Status:', 0, '•', 'Gunakan tab "Semua", "Sedang Berjalan", "Selesai", dan "Disimpan (Bookmark)" untuk mengelompokkan tampilan kursus sesuai kebutuhan Anda.');
+$docBody .= bullet('Kartu Kursus Interaktif:', 0, '•', 'Setiap kartu menampilkan gambar pratinjau (thumbnail), nama pengajar, tingkat kesulitan (Pemula, Menengah, Mahir), jumlah materi pelajaran, indikator progress bar belajar, dan tombol aksi "Mulai Belajar" atau "Lanjutkan Belajar".');
 
 // GAMBAR 1
 $docBody .= imageDrawing('rId2', 4000000, 5688888, 'Gambar 2.1: Tampilan Dasbor Siswa dan Katalog Kursus EduTube LMS', 1);
 
-$docBody .= h2('2.2 Ruang Belajar & Pemutar Video Interaktif (Classroom)');
-$docBody .= p('Klik tombol "Mulai Belajar" atau "Lanjutkan Belajar" pada kartu kursus untuk memasuki Ruang Belajar (Classroom). Layar belajar terbagi menjadi dua area utama:');
-$docBody .= bullet('Area Kiri (Pemutar Video & Konten):', 0, 'a.', 'Menampilkan video YouTube dengan kontrol pemutaran, lompat waktu, pengaturan kecepatan (0.5x - 2x), tombol "Tandai Selesai", serta tombol materi "Sebelumnya" dan "Berikutnya".');
-$docBody .= bullet('Area Kanan (Silabus & Kemajuan):', 0, 'b.', 'Menampilkan daftar modul dan materi pelajaran yang dapat diklik langsung, status centang hijau pada materi yang telah selesai, dan indikator kelulusan sertifikat.');
+$docBody .= h2('2.3 Ruang Belajar & Pemutar Video Interaktif (Classroom)');
+$docBody .= p('Klik kartu kursus untuk memasuki Ruang Belajar (Classroom). Antarmuka ruang belajar dirancang modern dengan tata letak dua kolom:');
+$docBody .= bullet('Kolom Kiri (Pemutar Video & Kontrol):', 0, 'a.', 'Menampilkan video YouTube beresolusi tinggi dengan kendali pemutaran penuh: putar/jeda, pengaturan volume, opsi layar penuh (full screen), dan pengatur kecepatan pemutaran (0.5x, 1x, 1.25x, 1.5x, hingga 2x).');
+$docBody .= bullet('Tombol Navigasi Materi:', 0, 'b.', 'Di bawah pemutar video terdapat tombol "Materi Sebelumnya", tombol "Tandai Selesai", dan tombol "Materi Berikutnya".');
+$docBody .= bullet('Hitung Mundur Otomatis (Auto-Next Countdown):', 0, 'c.', 'Saat video selesai diputar hingga detik akhir, sistem secara otomatis menandai materi telah selesai dan menampilkan hitung mundur 5 detik sebelum memutar materi selanjutnya secara mulus.');
+$docBody .= bullet('Kolom Kanan (Silabus & Kemajuan):', 0, 'd.', 'Menampilkan daftar modul dan silabus lengkap. Materi yang telah ditonton akan ditandai dengan ikon centang hijau. Di bagian atas silabus terdapat kartu indikator persyaratan sertifikat kelulusan.');
 
 // GAMBAR 2
 $docBody .= imageDrawing('rId3', 4000000, 5382674, 'Gambar 2.2: Tampilan Ruang Belajar (Classroom), Pemutar Video, dan Silabus', 2);
 
-$docBody .= h2('2.3 Fitur Produktivitas Belajar Siswa');
-$docBody .= bullet('Catatan Berwaktu (Timestamped Notes):', 0, '•', 'Siswa dapat mencatat poin penting saat video berjalan. Catatan otomatis menyimpan menit & detik video. Saat catatan diklik nanti, pemutar video akan langsung melompat ke detik tersebut.');
-$docBody .= bullet('Forum Diskusi & Tanya Jawab:', 0, '•', 'Ajukan pertanyaan langsung di bawah video. Siswa lain dan instruktur dapat memberikan jawaban dan menyukai tanggapan yang bermanfaat.');
-$docBody .= bullet('Berkas Sumber Daya (Resources):', 0, '•', 'Unduh materi pendukung seperti PDF, slide presentasi, tautan repositori GitHub, atau file latihan praktikum.');
-$docBody .= bullet('Auto-Next Countdown:', 0, '•', 'Setelah video selesai ditonton hingga akhir, sistem secara otomatis menghitung mundur 5 detik dan memutar materi berikutnya.');
+$docBody .= h2('2.4 Fitur Produktivitas Belajar Siswa');
+$docBody .= p('Tepat di bawah video pelajaran, tersedia tab penunjang belajar untuk memaksimalkan retensi materi:');
+$docBody .= bullet('Catatan Berwaktu (Timestamped Notes):', 0, '•', 'Tulis ringkasan atau konsep penting saat video sedang berlangsung. Sistem secara otomatis mencatat posisi menit dan detik video saat tombol simpan ditekan. Kapanpun Anda mengklik tanda waktu tersebut di kemudian hari, pemutar video akan langsung melompat ke detik yang dimaksud.');
+$docBody .= bullet('Forum Diskusi & Tanya Jawab:', 0, '•', 'Gunakan tab diskusi untuk mengajukan pertanyaan bila menemui kendala pada materi tersebut. Guru pengampu dan teman sekelas dapat menjawab pertanyaan Anda secara terbuka.');
+$docBody .= bullet('Sumber Daya Materi (Lesson Resources):', 0, '•', 'Unduh berkas pendukung yang telah diunggah guru, seperti dokumen PDF modul, slide presentasi materi, atau tautan repositori kode praktikum.');
 
-$docBody .= h2('2.4 Mengerjakan Kuis Checkpoint & Evaluasi');
-$docBody .= p('Jika suatu materi dilengkapi kuis evaluasi, tombol kuis akan aktif di tab pelajaran:');
-$docBody .= bullet('Jawab semua soal pilihan ganda yang disajikan.', 0, '1.');
-$docBody .= bullet('Klik tombol "Kirim Jawaban Kuis".', 0, '2.');
-$docBody .= bullet('Sistem langsung mengoreksi jawaban, menampilkan skor perolehan, batas nilai kelulusan (Passing Grade, default 75), dan penjelasan pembahasan soal.', 0, '3.');
-$docBody .= bullet('Jika nilai belum mencapai batas lulus, siswa dapat meninjau materi kembali dan mengulang kuis hingga dinyatakan Lulus.', 0, '4.');
+$docBody .= h2('2.5 Pengerjaan Kuis Checkpoint & Evaluasi Hasil Ujian');
+$docBody .= p('Untuk menguji pemahaman konsep, modul pembelajaran dapat dilengkapi kuis checkpoint pilihan ganda:');
+$docBody .= bullet('Membuka Kuis:', 0, '1.', 'Pilih tab "Kuis Evaluasi" di ruang belajar atau klik tombol materi kuis di daftar silabus.');
+$docBody .= bullet('Menjawab Pertanyaan:', 0, '2.', 'Baca setiap pertanyaan dengan teliti dan pilih opsi jawaban yang Anda yakini benar (opsi A, B, C, atau D).');
+$docBody .= bullet('Mengirimkan Lembar Ujian:', 0, '3.', 'Setelah seluruh soal terjawab, klik tombol "Kirim Jawaban Kuis".');
+$docBody .= bullet('Koreksi Otomatis & Pembahasan:', 0, '4.', 'Sistem seketika menghitung nilai Anda, menampilkan status kelulusan (Lulus atau Belum Lulus) berdasarkan batas nilai minimal (passing grade), serta menyajikan pembahasan terperinci pada setiap butir soal.');
+$docBody .= bullet('Mekanisme Remedial:', 0, '5.', 'Apabila skor perolehan Anda belum mencapai batas kelulusan, Anda dipersilakan meninjau kembali video pelajaran terkait dan mengulang pengerjaan kuis.');
+
+$docBody .= h2('2.6 Klaim, Unduh, dan Cetak Sertifikat Digital');
+$docBody .= p('Setelah seluruh materi video ditonton (100%) dan seluruh kuis evaluasi berhasil lulus:');
+$docBody .= bullet('Kartu sertifikat di sidebar silabus otomatis beralih dari status "TERKUNCI" menjadi "LULUS".');
+$docBody .= bullet('Sistem menampilkan jendela pop-up perayaan kelulusan dan mengaktifkan tombol "Lihat & Cetak Sertifikat".');
+$docBody .= bullet('Pada halaman sertifikat resmi, Anda dapat mencetak dokumen langsung ke printer atau menyimpannya sebagai berkas PDF beresolusi tinggi.');
+$docBody .= bullet('Sertifikat dilengkapi Kode Registrasi Unik dan QR Code resmi yang dapat diverifikasi keasliannya oleh siapapun secara publik.');
 
 $docBody .= pageBreak();
 
-// BAB 3: PANDUAN ADMIN & GURU
-$docBody .= h1('Bab 3: Panduan Admin Sekolah & Instruktur');
-$docBody .= p('Instruktur dan Admin Sekolah memiliki wewenang penuh untuk merancang kurikulum, mengunggah materi berbasis YouTube, mengelola soal ujian, serta mengadministrasi data siswa sekolah.');
+// ==================== BAB 3: PANDUAN ADMIN & GURU ====================
+$docBody .= h1('Bab 3: Panduan Admin Sekolah & Instruktur (Teacher Journey)');
+$docBody .= p('Instruktur dan Admin Sekolah memiliki hak istimewa untuk mengelola kurikulum sekolah, mengunggah materi berbasis YouTube, menyusun soal kuis checkpoint, melampirkan berkas modul, serta mengadministrasi data siswa.');
 
-$docBody .= h2('3.1 Dasbor Admin & Manajer Kursus');
-$docBody .= p('Dasbor Admin menyajikan ringkasan metrik kesehatan sistem dan aktivitas belajar di sekolah Anda:');
-$docBody .= bullet('Total Video Pelajaran:', 0, '•', 'Jumlah video materi aktif yang telah tersinkronisasi.');
-$docBody .= bullet('Kursus Aktif:', 0, '•', 'Total kursus berstatus terpublikasi dan draf.');
-$docBody .= bullet('Kesehatan YouTube API:', 0, '•', 'Status koneksi API dan validitas tautan video.');
-$docBody .= bullet('Total Waktu Tonton:', 0, '•', 'Agregat jam belajar yang telah dihabiskan siswa.');
+$docBody .= h2('3.1 Dasbor Admin Sekolah & Ringkasan Metrik Pembelajaran');
+$docBody .= p('Setelah masuk dengan akun Admin Sekolah, Anda akan disambut oleh Dasbor Analitik yang memberikan pandangan menyeluruh terhadap efektivitas belajar di sekolah Anda:');
+$docBody .= bullet('Total Video Pelajaran Aktif:', 0, '•', 'Menampilkan jumlah materi video yang telah tersinkronisasi dan dapat diakses siswa.');
+$docBody .= bullet('Total Kursus Terpublikasi:', 0, '•', 'Menghitung kursus yang sudah siap dipelajari dibandingkan kursus yang masih berupa draf.');
+$docBody .= bullet('Akumulasi Jam Belajar Siswa:', 0, '•', 'Metrik jam tonton kumulatif seluruh siswa di sekolah Anda untuk mengukur tingkat keaktifan.');
+$docBody .= bullet('Status YouTube Player Service:', 0, '•', 'Indikator kesehatan koneksi API video dan validitas penayangan.');
 
 // GAMBAR 3
 $docBody .= imageDrawing('rId4', 5400000, 4320000, 'Gambar 3.1: Dasbor Utama Admin dan Pengelola Video Pembelajaran', 3);
 
-$docBody .= h2('3.2 Menambahkan Materi Video dengan Impor YouTube Cepat');
-$docBody .= p('EduTube LMS menyediakan fitur impor cerdas yang memotong 90% waktu pembuatan materi. Anda hanya membutuhkan tautan (URL) video YouTube:');
-$docBody .= bullet('Pilih Kursus Target dan Modul/Bab yang dituju.', 0, '1.');
-$docBody .= bullet('Tempelkan URL video YouTube (mendukung format youtube.com, youtu.be, maupun YouTube Shorts).', 0, '2.');
-$docBody .= bullet('Klik tombol "Ambil Otomatis": Sistem akan mengekstrak judul video, durasi presisi, thumbnail kualitas tinggi, dan status video secara otomatis.', 0, '3.');
-$docBody .= bullet('Lengkapi deskripsi materi menggunakan teks kaya atau Markdown.', 0, '4.');
-$docBody .= bullet('Klik "Publikasikan Pelajaran" untuk merilis materi ke siswa, atau "Simpan sebagai Draf" jika masih dalam peninjauan.', 0, '5.');
+$docBody .= h2('3.2 Manajemen Kursus & Pembuatan Kursus Baru');
+$docBody .= p('Untuk membuat kursus baru bagi siswa sekolah Anda:');
+$docBody .= bullet('Buka menu "Manajer Kursus" di bilah navigasi kiri, lalu klik tombol "+ Buat Kursus Baru".', 0, '1.');
+$docBody .= bullet('Isi Formulir Identitas Kursus:', 0, '2.', 'Ketik Judul Kursus, Deskripsi Lengkap, dan pilih Kategori Keilmuan yang sesuai.');
+$docBody .= bullet('Pilih Tingkat Kesulitan:', 0, '3.', 'Tentukan level materi: Pemula (Beginner), Menengah (Intermediate), atau Mahir (Advanced).');
+$docBody .= bullet('Unggah Gambar Sampul (Thumbnail):', 0, '4.', 'Pilih gambar beresolusi 1280x720 piksel (rasio 16:9) yang mewakili topik pembelajaran.');
+$docBody .= bullet('Simpan Kursus:', 0, '5.', 'Klik "Simpan Kursus". Kursus baru otomatis terbentuk dan siap untuk diisi modul serta materi video.');
+
+$docBody .= h2('3.3 Menambahkan Materi Video dengan Impor YouTube Cepat');
+$docBody .= p('Fitur Impor YouTube Cepat adalah salah satu keunggulan terbesar EduTube LMS. Anda tidak perlu mengunggah berkas video berukuran gigabyte:');
+$docBody .= bullet('Pilih Kursus dan Modul Pembelajaran target.', 0, '1.');
+$docBody .= bullet('Tempelkan Tautan (URL) Video YouTube:', 0, '2.', 'Sistem mendukung seluruh varian tautan YouTube (https://www.youtube.com/watch?v=..., https://youtu.be/..., maupun format YouTube Shorts).');
+$docBody .= bullet('Klik Tombol "Ambil Otomatis":', 0, '3.', 'Sistem seketika memproses tautan, mengekstrak 11 karakter unik Video ID, menarik thumbnail kualitas HD, dan mendeteksi judul materi.');
+$docBody .= bullet('Tulis Catatan / Rangkuman Modul:', 0, '4.', 'Lengkapi penjelasan materi yang akan tampil di bawah video bagi siswa.');
+$docBody .= bullet('Tentukan Status Publikasi:', 0, '5.', 'Pilih "Publikasikan" agar langsung dapat diakses siswa, atau "Draf" bila materi masih dalam tahap penyusunan.');
 
 // GAMBAR 4
 $docBody .= imageDrawing('rId5', 5400000, 4320000, 'Gambar 3.2: Modal Impor Video YouTube Cepat dan Otomatisasi Metadata', 4);
 
-$docBody .= h2('3.3 Single-Page Course Builder & Pembuatan Kuis');
-$docBody .= p('Melalui antarmuka Course Builder terpadu (/admin/courses/{id}/builder), instruktur dapat:');
-$docBody .= bullet('Menyusun struktur modul pembelajaran dengan drag-and-drop urutan materi.', 0, '•');
-$docBody .= bullet('Mengatur status publikasi kursus (Draf atau Publikasi).', 0, '•');
-$docBody .= bullet('Membuat Kuis Evaluasi Kursus: Menentukan judul kuis, passing grade (misal: 80), serta opsi acak urutan soal (shuffle).', 0, '•');
-$docBody .= bullet('Membuat Soal Kuis Materi: Memasukkan pertanyaan, opsi jawaban pilihan ganda (A, B, C, D), menentukan kunci jawaban benar, dan menuliskan teks pembahasan mendalam.', 0, '•');
+$docBody .= h2('3.4 Penyusun Kurikulum (Single-Page Course Builder) & Modul Bertingkat');
+$docBody .= p('Melalui antarmuka Penyusun Kurikulum (/admin/curriculum), instruktur dapat menyusun peta jalan belajar yang terstruktur:');
+$docBody .= bullet('Membuat Modul Tematik:', 0, '•', 'Kelompokkan materi ke dalam bab-bab logis (contoh: Bab 1: Dasar HTML & CSS, Bab 2: JavaScript Modern, Bab 3: Proyek Akhir).');
+$docBody .= bullet('Mengatur Urutan Materi Pembelajaran:', 0, '•', 'Gunakan kontrol posisi untuk mengurutkan materi dari materi dasar hingga materi lanjutan.');
+$docBody .= bullet('Meninjau Durasi Belajar Modul:', 0, '•', 'Sistem secara otomatis menjumlahkan total durasi video dalam setiap bab untuk memberikan estimasi waktu belajar kepada siswa.');
 
-$docBody .= h2('3.4 Manajemen Siswa: Impor CSV & Ekspor Data');
-$docBody .= p('Admin Sekolah dapat mengelola akun siswa dengan mudah tanpa harus mendaftarkan satu per satu:');
-$docBody .= bullet('Impor Siswa Massal via CSV:', 0, '•', 'Unduh template CSV yang disediakan di menu Siswa, isi data nama, email, dan kata sandi siswa, lalu unggah berkas CSV. Ratusan akun siswa siap digunakan dalam hitungan detik.');
-$docBody .= bullet('Ekspor Data Siswa CSV:', 0, '•', 'Unduh seluruh riwayat siswa, sekolah, dan status akun ke dalam format lembar kerja Excel/CSV.');
-$docBody .= bullet('Reset Password Siswa:', 0, '•', 'Jika siswa lupa kata sandi, admin dapat langsung mereset kata sandi melalui tombol aksi di tabel siswa.');
+$docBody .= h2('3.5 Pembuatan Kuis Evaluasi, Bank Soal, & Batas Nilai Kelulusan');
+$docBody .= p('Untuk menjamin pemahaman siswa terhadap materi yang diajarkan, instruktur dapat menambahkan kuis evaluasi:');
+$docBody .= bullet('Pilih Pelajaran Target dan Buka Tab Kuis:', 0, '1.', 'Di antarmuka Course Builder atau Kurikulum, pilih tombol kuis materi.');
+$docBody .= bullet('Tetapkan Batas Nilai Kelulusan (Passing Grade):', 0, '2.', 'Tentukan ambang batas nilai minimal (standar: 75% atau 80%). Siswa wajib mencapai nilai ini agar materi kuis dinyatakan tuntas.');
+$docBody .= bullet('Aktifkan Opsi Acak Soal (Shuffle):', 0, '3.', 'Fitur ini mengacak urutan nomor soal dan opsi jawaban bagi masing-masing siswa untuk meminimalisir kemungkinan saling menyontek.');
+$docBody .= bullet('Tambahkan Butir Soal Pilihan Ganda:', 0, '4.', 'Tuliskan teks pertanyaan, isi opsi jawaban A, B, C, D, centang salah satu sebagai kunci jawaban yang benar, dan sertakan teks pembahasan untuk memfasilitasi proses remedial mandiri.');
+
+$docBody .= h2('3.6 Manajemen Berkas Sumber Daya & Lampiran Modul (Lesson Resources)');
+$docBody .= p('Selain video YouTube, pengajar dapat melampirkan berkas pendukung langsung pada setiap materi pelajaran:');
+$docBody .= bullet('Menambah Sumber Daya Baru:', 0, '•', 'Klik "+ Tambah Lampiran", ketik judul lampiran (contoh: "Panduan Praktikum CSS Flexbox.pdf" atau "Repositori Starter Github"), lalu masukkan tautan unduh atau berkas yang relevan.');
+$docBody .= bullet('Pengelolaan Lampiran:', 0, '•', 'Lampiran dapat diedit atau dihapus kapan saja jika terdapat pembaruan silabus.');
+
+$docBody .= h2('3.7 Administrasi Siswa: Pendaftaran Manual, Impor CSV, & Ekspor Data');
+$docBody .= p('Admin Sekolah bertanggung jawab atas administrasi akun siswa di sekolahnya:');
+$docBody .= bullet('Pendaftaran Siswa Mandiri:', 0, '1.', 'Buka menu "Siswa / Mahasiswa", klik "+ Tambah Siswa Baru", isi nama lengkap, NIS/NIM, alamat surel, dan kata sandi sementara.');
+$docBody .= bullet('Impor Massal via CSV (Fitur Unggulan):', 0, '2.', 'Untuk mendaftarkan satu kelas atau satu angkatan sekaligus, klik "Unduh Template CSV", isi berkas spreadsheet dengan kolom [name, email, password], lalu unggah kembali berkas CSV tersebut. Ratusan akun siswa terdaftar dalam waktu hitungan detik.');
+$docBody .= bullet('Ekspor Data Siswa:', 0, '3.', 'Klik tombol "Ekspor CSV" untuk mengunduh rekapitulasi data seluruh siswa dan progres belajarnya ke format Excel.');
+$docBody .= bullet('Reset Kata Sandi Siswa:', 0, '4.', 'Bila ada siswa yang lupa kata sandi, admin sekolah cukup mengklik tombol "Reset Password" di baris nama siswa terkait.');
+
+$docBody .= h2('3.8 Pusat Dukungan Sekolah & Pengajuan Tiket Bantuan (School Support)');
+$docBody .= p('Jika menemui kendala teknis atau memiliki permohonan fitur baru:');
+$docBody .= bullet('Buka menu "Dukungan & Log" pada bilah navigasi admin.');
+$docBody .= bullet('Klik tombol "Buat Tiket Bantuan", pilih kategori kendala (Teknis, Kurikulum, atau Akun), tulis judul dan rincian masalah, lalu kirimkan.');
+$docBody .= bullet('Tiket akan langsung masuk ke antrean Super Admin Pusat dan setiap tanggapan resmi dapat dipantau riwayatnya di halaman tersebut.');
 
 $docBody .= pageBreak();
 
-// BAB 4: PANDUAN SUPER ADMIN
-$docBody .= h1('Bab 4: Panduan Super Administrator');
-$docBody .= p('Peran Super Administrator bertindak sebagai pengelola sistem global yang memfasilitasi operasional seluruh sekolah mitra pada instalasi EduTube LMS.');
+// ==================== BAB 4: PANDUAN SUPER ADMIN ====================
+$docBody .= h1('Bab 4: Panduan untuk Super Administrator (Platform Management)');
+$docBody .= p('Peran Super Administrator memegang kendali tertinggi atas seluruh infrastruktur platform EduTube LMS, melayani pengelolaan multi-sekolah, master kategori global, konfigurasi keamanan, dan penanganan tiket pusat.');
 
-$docBody .= h2('4.1 Manajemen Sekolah Mitra');
-$docBody .= bullet('Mendaftarkan profil sekolah baru, alamat, logo, dan penanggung jawab sekolah.', 0, '•');
-$docBody .= bullet('Mengatur status aktif/non-aktif institusi pendidikan mitra.', 0, '•');
-$docBody .= bullet('Menghubungkan akun Admin Sekolah dengan data sekolah masing-masing.', 0, '•');
+$docBody .= h2('4.1 Dasbor Pengawasan Global & Metrik Ekosistem Multi-Sekolah');
+$docBody .= p('Dasbor Super Admin dirancang untuk menyajikan status kesehatan ekosistem platform secara makro:');
+$docBody .= bullet('Agregat Sekolah Mitra Aktif:', 0, '•', 'Jumlah institusi pendidikan yang saat ini aktif beroperasi menggunakan platform.');
+$docBody .= bullet('Populasi Pengguna Global:', 0, '•', 'Total gabungan Super Admin, Admin Sekolah, Guru, dan Siswa di seluruh lembaga.');
+$docBody .= bullet('Volume Konten & Jam Belajar:', 0, '•', 'Total kumulatif video pelajaran dan jam waktu tonton yang telah dilayani oleh platform.');
+$docBody .= bullet('Status Antrean Tiket Bantuan:', 0, '•', 'Jumlah tiket kendala dari sekolah yang memerlukan tanggapan dari tim pengelola pusat.');
 
-$docBody .= h2('4.2 Master Kategori Kursus');
-$docBody .= p('Super Admin mengatur taksonomi kategori pembelajaran global (misalnya: Pemrograman Web, Desain UI/UX, Cloud & DevOps, Kecerdasan Buatan, dan Jaringan Komputer). Seluruh kursus yang dibuat oleh instruktur akan diklasifikasikan ke dalam kategori ini.');
+$docBody .= h2('4.2 Manajemen Master Sekolah Mitra (Multi-Tenancy)');
+$docBody .= p('Super Admin mengatur ketersediaan layanan untuk masing-masing institusi mitra melalui menu Master Sekolah (/admin/schools):');
+$docBody .= bullet('Pendaftaran Sekolah Baru:', 0, '1.', 'Klik "+ Tambah Sekolah", masukkan Nama Resmi Lembaga (contoh: "SMK Negeri 1 Denpasar"), Nomor Pokok Sekolah Nasional (NPSN), alamat lengkap, email kontak resmi, dan unggah logo sekolah.');
+$docBody .= bullet('Pengaturan Status Keaktifan:', 0, '2.', 'Super Admin dapat mengubah status sekolah menjadi "Aktif" atau "Ditangguhkan" (Suspend) sesuai perjanjian kerja sama.');
+$docBody .= bullet('Perubahan Informasi Lembaga:', 0, '3.', 'Profil dan data kontak sekolah mitra dapat diperbarui kapan saja melalui tombol "Ubah Data".');
 
-$docBody .= h2('4.3 Pengaturan Platform Global & Tiket Bantuan');
-$docBody .= bullet('Konfigurasi Global:', 0, '•', 'Mengatur nama instansi, logo platform, kontak dukungan, dan batas durasi sesi login.');
-$docBody .= bullet('Manajemen Tiket Dukungan (Helpdesk):', 0, '•', 'Menerima dan merespons tiket pertanyaan atau kendala teknis yang dikirimkan oleh Admin Sekolah. Setiap tanggapan otomatis mengirimkan notifikasi surel resmi.');
+$docBody .= h2('4.3 Manajemen Pengguna Global & Penetapan Hak Akses (User Management)');
+$docBody .= p('Melalui menu Manajemen Pengguna (/admin/users), Super Admin memiliki kendali penuh terhadap seluruh akun pengguna:');
+$docBody .= bullet('Pembuatan Akun Admin Sekolah:', 0, '1.', 'Klik "+ Tambah Admin Sekolah", masukkan identitas akun, dan tautkan akun tersebut ke sekolah mitra yang bersangkutan.');
+$docBody .= bullet('Penetapan Peran (Role Assignment):', 0, '2.', 'Super Admin dapat mengubah wewenang pengguna (misalnya menaikkan akun Guru menjadi Admin Sekolah).');
+$docBody .= bullet('Aktivasi & Penonaktifan Akun:', 0, '3.', 'Akun yang melanggar ketentuan dapat dinonaktifkan seketika tanpa menghapus riwayat belajar yang bersangkutan.');
+$docBody .= bullet('Reset Akses Keamanan:', 0, '4.', 'Fitur pemulihan kata sandi cepat untuk akun tingkat tinggi yang kehilangan kredensial login.');
+
+$docBody .= h2('4.4 Manajemen Master Kategori Kursus');
+$docBody .= p('Taksonomi keilmuan kursus diatur terpusat oleh Super Admin di menu Kategori Kursus (/admin/categories):');
+$docBody .= bullet('Standarisasi Kategori:', 0, '•', 'Mencegah duplikasi nama kategori dengan menetapkan kategori baku (contoh: Rekayasa Perangkat Lunak, Desain Komunikasi Visual, Cloud Computing, dsb.).');
+$docBody .= bullet('Penetapan Visual:', 0, '•', 'Setiap kategori dilengkapi dengan nama slug URL, ikon visual Material Symbols, dan warna tema unik untuk memudahkan navigasi siswa.');
+$docBody .= bullet('Struktur Hierarki:', 0, '•', 'Kategori dapat dikaitkan dengan kursus lintas sekolah mitra.');
+
+$docBody .= h2('4.5 Pengaturan Konfigurasi Platform Global');
+$docBody .= p('Di menu Pengaturan Sistem (/admin/settings), Super Admin mengontrol parameter global aplikasi:');
+$docBody .= bullet('Identitas Platform:', 0, '•', 'Nama resmi platform pembelajaran, favicon browser, logo utama, dan teks hak cipta.');
+$docBody .= bullet('Kebijakan Sesi & Keamanan:', 0, '•', 'Batas waktu kedaluwarsa sesi login pengguna (*session lifetime*) dan aturan kompleksitas kata sandi.');
+$docBody .= bullet('Informasi Bantuan Pusat:', 0, '•', 'Surel dukungan teknis, nomor WhatsApp pengaduan, dan jam operasional helpdesk.');
+
+$docBody .= h2('4.6 Helpdesk Pusat, Penanganan Tiket, & Diagnostik Sistem Server');
+$docBody .= p('Melalui menu Dukungan & Log (/admin/support), tim pusat menjaga kestabilan operasional platform:');
+$docBody .= bullet('Kotak Masuk Tiket Pusat:', 0, '•', 'Menerima dan membalas keluhan dari administrator sekolah mitra secara resmi.');
+$docBody .= bullet('Panel Diagnostik Teknis:', 0, '•', 'Memantau versi runtime PHP, versi framework Laravel, tipe driver database MySQL, status caching, dan latensi pemutar video YouTube.');
 
 $docBody .= pageBreak();
 
-// BAB 5: KETENTUAN SERTIFIKAT KELULUSAN
+// ==================== BAB 5: KETENTUAN SERTIFIKAT KELULUSAN ====================
 $docBody .= h1('Bab 5: Ketentuan Penerbitan Sertifikat Kelulusan');
-$docBody .= p('EduTube LMS menerapkan standar jaminan mutu pembelajaran yang ketat. Sertifikat kelulusan tidak diberikan secara cuma-cuma, melainkan sebagai bukti kompetensi nyata siswa.');
+$docBody .= p('EduTube LMS menerapkan standar mutu kelulusan yang ketat dan transparan. Sertifikat kelulusan tidak diberikan semata-mata karena siswa terdaftar, melainkan sebagai bukti kompetensi nyata bahwa siswa telah menyimak seluruh materi dan lulus ujian.');
 
 $docBody .= callout('ATURAN RESMI PEMBUKAAN SERTIFIKAT KELULUSAN', 'Sertifikat Kelulusan HANYA AKAN TERBUKA dan diterbitkan oleh sistem jika memenuhi DUA SYARAT MUTLAK secara bersamaan:\n1. Siswa telah menonton dan menyelesaikan 100% video materi dalam kursus tersebut.\n2. Siswa telah mengerjakan dan DINYATAKAN LULUS pada seluruh kuis evaluasi materi dan kuis kursus.', 'warning');
 
-$docBody .= h2('5.1 Checklist Transparan pada Silabus Kelas');
-$docBody .= p('Untuk menjamin transparansi, ruang belajar siswa menyajikan kartu status kelulusan di sidebar silabus:');
-$docBody .= bullet('Saat Sertifikat Masih Terkunci:', 0, '•', 'Tampil status "TERKUNCI" dengan checklist interaktif: status tontonan video (misal: 4/7 Selesai) dan status kuis (misal: 0/1 Kuis Lulus). Siswa tahu persis syarat mana yang belum dipenuhi.');
-$docBody .= bullet('Saat Seluruh Syarat Terpenuhi:', 0, '•', 'Kartu otomatis berubah menjadi hijau dengan lencana "LULUS" dan tombol hijau terang "Lihat & Cetak Sertifikat Kelulusan". Selain itu, modal perayaan kelulusan akan muncul seketika di layar.');
+$docBody .= h2('5.1 Dua Syarat Mutlak Penerbitan Sertifikat');
+$docBody .= p('Untuk mendapatkan sertifikat kelulusan, siswa wajib menuntaskan dua pilar evaluasi berikut:');
+$docBody .= bullet('Pilar 1: Penyelesaian Seluruh Video Materi (100% Video Progress):', 0, '1.', 'Setiap pelajaran video dalam seluruh modul harus ditonton hingga selesai dan berstatus centang hijau.');
+$docBody .= bullet('Pilar 2: Kelulusan Seluruh Kuis Checkpoint (100% Quiz Passing):', 0, '2.', 'Setiap kuis evaluasi materi yang dirancang oleh instruktur harus dikerjakan dengan perolehan nilai sama dengan atau di atas passing grade (batas kelulusan). Jika terdapat 1 saja kuis yang belum lulus, sertifikat tetap terkunci.');
 
-$docBody .= h2('5.2 Fitur Keamanan Sertifikat EduTube LMS');
-$docBody .= bullet('Kode Registrasi Sertifikat Unik:', 0, '•', 'Setiap sertifikat memiliki nomor registrasi alfanumerik unik (contoh: CERT-92HP3CFPLY).');
-$docBody .= bullet('QR Code Verifikasi Publik:', 0, '•', 'Sertifikat memuat kode QR yang dapat dipindai oleh siapapun (termasuk universitas atau calon perusahaan perekrut) untuk memverifikasi keaslian dokumen secara online.');
-$docBody .= bullet('Cetak Langsung & Unduh Digital:', 0, '•', 'Siswa dapat mencetak sertifikat langsung dari browser atau mengunduh lembar sertifikat resmi beresolusi tinggi.');
+$docBody .= h2('5.2 Checklist Transparan pada Silabus Kelas');
+$docBody .= p('Ruang belajar siswa menampilkan kartu status kelulusan yang dinamis di bagian atas sidebar silabus:');
+$docBody .= bullet('Kondisi Terkunci (Locked State):', 0, '•', 'Tampil status "TERKUNCI" berwarna kuning/abu-abu dengan rincian persentase: jumlah video tersisa (misal: "4 dari 7 Video Selesai") dan jumlah kuis yang belum lulus (misal: "0 dari 1 Kuis Lulus"). Siswa mengetahui secara pasti hal apa yang masih harus diselesaikan.');
+$docBody .= bullet('Kondisi Terbuka (Unlocked / Passed State):', 0, '•', 'Begitu syarat terakhir terpenuhi, kartu seketika berubah menjadi hijau cerah dengan lencana "LULUS" dan tombol aksi aktif "Lihat & Cetak Sertifikat Kelulusan". Selain itu, jendela perayaan kelulusan akan muncul di layar siswa.');
+
+$docBody .= h2('5.3 Standar Keamanan & Verifikasi Sertifikat Resmi');
+$docBody .= p('Setiap sertifikat digital yang diterbitkan oleh EduTube LMS dilindungi oleh tiga lapis pengamanan:');
+$docBody .= bullet('Nomor Registrasi Sertifikat Unik:', 0, '•', 'Setiap lembar sertifikat memiliki kode alfanumerik acak anti-duplikasi (contoh: CERT-92HP3CFPLY) yang tercatat permanen di database pusat.');
+$docBody .= bullet('Kode QR Dinamis (Verifikasi Publik):', 0, '•', 'Sertifikat memuat kode QR yang dapat dipindai oleh pihak eksternal (kampus, sekolah, maupun calon perusahaan kerja) menggunakan kamera ponsel pintar tanpa perlu login untuk memverifikasi keaslian nama pemilik, nama kursus, dan tanggal kelulusan.');
+$docBody .= bullet('Format Cetak Berstandar Dokumen Resmi:', 0, '•', 'Tata letak sertifikat dirancang profesional dengan perpaduan bingkai elegan, tipografi resmi, logo institusi sekolah, dan tanda tangan digital penanggung jawab.');
 
 $docBody .= pageBreak();
 
-// BAB 6: FAQ & TROUBLESHOOTING
+// ==================== BAB 6: FAQ & TROUBLESHOOTING ====================
 $docBody .= h1('Bab 6: Tanya Jawab Umum & Solusi Kendala Teknis');
+$docBody .= p('Berikut adalah ringkasan pertanyaan yang paling sering diajukan beserta panduan pemecahan masalah teknis:');
 
-$docBody .= h2('Q1: Mengapa video YouTube di kelas tidak dapat diputar?');
-$docBody .= p('Jawab: Pastikan video YouTube yang diimpor tidak disetel ke mode "Private" (Pribadi). Video harus berstatus "Public" atau "Unlisted". Selain itu, pastikan pembuat video tidak menonaktifkan fitur "Allow Embedding" di YouTube Studio.');
+$docBody .= h2('6.1 Solusi Video YouTube Tidak Dapat Diputar (Private / Embedding)');
+$docBody .= p('Kendala: Layar pemutar video menampilkan pesan error "Video unavailable" atau "Playback on other websites has been disabled by the video owner".');
+$docBody .= bullet('Penyebab 1: Video Disetel ke Mode Privat (Private).', 0, '•', 'Solusi: Buka YouTube Studio pemilik video, ubah visibilitas video menjadi "Unlisted" (Tidak Publik) atau "Public" (Publik). Video yang disetel ke Privat tidak dapat disematkan di situs manapun.');
+$docBody .= bullet('Penyebab 2: Opsi Embedding Dimatikan.', 0, '•', 'Solusi: Di setelan lanjutan video YouTube Studio, pastikan opsi "Izinkan Penyematan" (Allow Embedding) dalam keadaan dicentang.');
 
-$docBody .= h2('Q2: Progres video saya sudah 100%, mengapa sertifikat belum terbuka?');
-$docBody .= p('Jawab: Periksa kartu "Syarat Sertifikat" di sidebar kanan. Kemungkinan besar kursus tersebut memiliki soal kuis evaluasi atau checkpoint yang belum Anda kerjakan atau belum mencapai passing grade kelulusan. Kerjakan kuis tersebut hingga berstatus Lulus agar sertifikat langsung terbit.');
+$docBody .= h2('6.2 Solusi Progres 100% Video tetapi Sertifikat Belum Terbit');
+$docBody .= p('Kendala: Seluruh video pelajaran telah ditonton dan ditandai selesai, namun tombol cetak sertifikat masih berstatus terkunci.');
+$docBody .= p('Solusi: Periksa checklist pada kartu "Syarat Sertifikat" di sidebar kanan ruang belajar. Pastikan seluruh kuis checkpoint atau ujian akhir kursus telah dikerjakan dan memperoleh nilai di atas passing grade. Jika nilai kuis Anda masih di bawah ambang batas lulus, klik tab Kuis dan lakukan pengerjaan ulang (remedial) hingga lulus.');
 
-$docBody .= h2('Q3: Apakah guru bisa menambahkan kuis checkpoint di tengah-tengah kursus yang sedang berjalan?');
-$docBody .= p('Jawab: Ya. Guru dapat menambahkan atau memperbarui soal kuis kapan saja melalui menu Course Builder. Sistem akan secara otomatis menghitung ulang kelayakan sertifikat berdasarkan daftar kuis aktif terbaru.');
+$docBody .= h2('6.3 Penambahan Kuis di Tengah Kursus yang Sedang Berjalan');
+$docBody .= p('Pertanyaan: Apakah guru dapat menambahkan kuis checkpoint baru pada kursus yang sudah memiliki siswa aktif?');
+$docBody .= p('Jawaban: Ya. Guru dapat menambahkan modul atau soal kuis kapan saja. Sistem secara otomatis akan memperbarui daftar checklist kelulusan. Siswa yang belum mengklaim sertifikat akan diminta menyelesaikan kuis tambahan tersebut.');
 
-$docBody .= h2('Q4: Bagaimana cara memverifikasi keabsahan sertifikat siswa?');
-$docBody .= p('Jawab: Cukup buka peramban dan kunjungi alamat URL yang tertera di sertifikat: http://domain-lms/sertifikat/{kode}, atau pindai QR Code yang tercetak di sudut bawah lembar sertifikat menggunakan kamera ponsel pintar Anda.');
+$docBody .= h2('6.4 Verifikasi Keaslian Sertifikat Digital oleh Pihak Ketiga');
+$docBody .= p('Pertanyaan: Bagaimana cara perusahaan perekrut atau pihak luar memverifikasi keaslian sertifikat siswa?');
+$docBody .= p('Jawaban: Sangat mudah! Pihak ketiga cukup membuka kamera ponsel dan memindai QR Code yang tercetak di sudut bawah lembar sertifikat, atau langsung mengunjungi tautan URL publik: https://domain-lms/sertifikat/{kode}. Halaman verifikasi publik akan menampilkan data sah pemilik sertifikat tanpa meminta login.');
+
+$docBody .= h2('6.5 Panduan Reset Kata Sandi Siswa dan Admin');
+$docBody .= p('Kendala: Siswa atau staf guru lupa kata sandi akunnya.');
+$docBody .= bullet('Bagi Siswa:', 0, '•', 'Hubungi Admin Sekolah Anda. Admin sekolah dapat membuka menu "Siswa / Mahasiswa" dan mengklik tombol "Reset Password" pada baris nama Anda untuk mengatur kata sandi baru.');
+$docBody .= bullet('Bagi Admin Sekolah:', 0, '•', 'Hubungi Super Administrator melalui formulir tiket bantuan atau kontak pengurus platform pusat untuk mendapatkan tautan pemulihan kata sandi.');
 
 $docBody .= '<w:p><w:pPr><w:spacing w:before="400" w:after="100"/><w:jc w:val="center"/></w:pPr><w:r><w:rPr><w:rFonts w:ascii="Calibri" w:hAnsi="Calibri"/><w:i/><w:color w:val="94A3B8"/><w:sz w:val="20"/></w:rPr><w:t>— Akhir Dokumen Panduan Penggunaan EduTube LMS —</w:t></w:r></w:p>';
 
@@ -622,7 +768,7 @@ $documentXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
             xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
             xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">
   <w:body>
-    ' . $docBody . '
+    '.$docBody.'
   </w:body>
 </w:document>';
 
@@ -631,9 +777,9 @@ if (file_exists($outputDocx)) {
     unlink($outputDocx);
 }
 
-$zip = new ZipArchive();
+$zip = new ZipArchive;
 if ($zip->open($outputDocx, ZipArchive::CREATE) !== true) {
-    die("Error: Gagal membuat arsip zip $outputDocx\n");
+    exit("Error: Gagal membuat arsip zip $outputDocx\n");
 }
 
 $zip->addFromString('[Content_Types].xml', $contentTypes);
@@ -654,5 +800,5 @@ $zip->close();
 copy($outputDocx, $publicDocx);
 
 echo "Berhasil membuat berkas DOCX!\n";
-echo "Lokasi Root: " . $outputDocx . " (" . round(filesize($outputDocx) / 1024, 2) . " KB)\n";
-echo "Lokasi Publik: " . $publicDocx . "\n";
+echo 'Lokasi Root: '.$outputDocx.' ('.round(filesize($outputDocx) / 1024, 2)." KB)\n";
+echo 'Lokasi Publik: '.$publicDocx."\n";
