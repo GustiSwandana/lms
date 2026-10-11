@@ -85,7 +85,7 @@ class AuthController extends Controller
      */
     public function switchRole(Request $request, string $role): RedirectResponse
     {
-        if (! app()->environment('local', 'testing') && ! config('app.debug')) {
+        if (! app()->environment('local', 'testing') && ! config('app.debug') && ! str_contains(request()->getHost(), 'demo')) {
             abort(403, 'Aksi peralihan peran demo dinonaktifkan pada lingkungan produksi.');
         }
 
