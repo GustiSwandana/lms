@@ -15,6 +15,7 @@ use App\Models\LessonResource;
 use App\Models\QuizAttempt;
 use App\Models\QuizQuestion;
 use App\Models\School;
+use App\Models\SupportTicket;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -56,17 +57,7 @@ class DatabaseSeeder extends Seeder
             $c->delete();
         }
 
-        // 1. Seed Master Schools (Only Manado area schools)
-        $schoolCentral = School::updateOrCreate(
-            ['name' => 'BKKBN Perwakilan Sulawesi Utara'],
-            [
-                'npsn' => '70000001',
-                'slug' => 'bkkbn-perwakilan-sulawesi-utara',
-                'address' => 'Jl. 17 Agustus No. 69, Wanea, Kota Manado, Sulawesi Utara',
-                'is_active' => true,
-            ]
-        );
-
+        // 1. Seed Master Schools (ONLY 2 Schools: SMP Negeri 1 Bitung & Sekolah Rakyat Menengah Atas 44 Minahasa)
         $schoolBitung1 = School::updateOrCreate(
             ['name' => 'SMP Negeri 1 Bitung'],
             [
@@ -87,19 +78,39 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        $schoolManado1 = School::updateOrCreate(
-            ['name' => 'SMA Negeri 1 Manado'],
-            [
-                'npsn' => '40102685',
-                'slug' => 'sma-negeri-1-manado',
-                'address' => 'Jl. Sam Ratulangi No. 106, Wenang Selatan, Kota Manado, Sulawesi Utara',
-                'is_active' => true,
-            ]
-        );
+        // Limpahkan materi kursus dari sekolah lain ke SMP Negeri 1 Bitung
+        Course::whereNotIn('school_name', [
+            'SMP Negeri 1 Bitung',
+            'Sekolah Rakyat Menengah Atas 44 Minahasa',
+        ])->update([
+            'school_id' => $schoolBitung1->id,
+            'school_name' => 'SMP Negeri 1 Bitung',
+        ]);
+
+        // Re-assign tiket bantuan dari sekolah lain
+        SupportTicket::whereNotIn('school_name', [
+            'SMP Negeri 1 Bitung',
+            'Sekolah Rakyat Menengah Atas 44 Minahasa',
+        ])->whereNotNull('school_name')->update([
+            'school_id' => $schoolBitung1->id,
+            'school_name' => 'SMP Negeri 1 Bitung',
+        ]);
+
+        // Hapus asosiasi sekolah selain kedua sekolah tersebut pada pengguna
+        User::whereNotIn('school_name', [
+            'SMP Negeri 1 Bitung',
+            'Sekolah Rakyat Menengah Atas 44 Minahasa',
+        ])->whereNotNull('school_name')->update([
+            'school_id' => null,
+            'school_name' => null,
+        ]);
+
+        // Hapus seluruh sekolah lain dari master tabel schools
+        School::whereNotIn('id', [$schoolBitung1->id, $schoolMinahasa44->id])->delete();
 
         // =========================================================================
         // 2. RBAC USERS (5 DISTINCT ROLES: Admin Pusat, Operator Sekolah, Guru, Siswa, Penyuluh/Guest)
-        // All assigned strictly to Manado area schools
+        // All assigned strictly to official partner schools or Central BKKBN
         // =========================================================================
 
         // Role 1: Admin Pusat (Central Admin / Super Admin)
@@ -111,8 +122,8 @@ class DatabaseSeeder extends Seeder
                 'role' => 'admin_pusat',
                 'address' => 'Jl. 17 Agustus No. 69, Wanea, Kota Manado',
                 'phone' => '08114321001',
-                'school_id' => $schoolCentral->id,
-                'school_name' => $schoolCentral->name,
+                'school_id' => null,
+                'school_name' => null,
                 'is_active' => true,
                 'avatar_url' => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
             ]
@@ -126,8 +137,8 @@ class DatabaseSeeder extends Seeder
                 'role' => 'super_admin',
                 'address' => 'Jl. 17 Agustus No. 69, Wanea, Kota Manado',
                 'phone' => '08114321000',
-                'school_id' => $schoolCentral->id,
-                'school_name' => $schoolCentral->name,
+                'school_id' => null,
+                'school_name' => null,
                 'is_active' => true,
                 'avatar_url' => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
             ]
@@ -265,8 +276,8 @@ class DatabaseSeeder extends Seeder
                 'role' => 'penyuluh',
                 'address' => 'Wenang, Kota Manado, Sulawesi Utara',
                 'phone' => '08114300998',
-                'school_id' => $schoolCentral->id,
-                'school_name' => $schoolCentral->name,
+                'school_id' => null,
+                'school_name' => null,
                 'is_active' => true,
                 'avatar_url' => 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&auto=format&fit=crop&q=80',
             ]
@@ -281,7 +292,7 @@ class DatabaseSeeder extends Seeder
                 'address' => 'Kota Manado',
                 'phone' => '081100223344',
                 'school_id' => null,
-                'school_name' => 'Masyarakat Umum',
+                'school_name' => null,
                 'is_active' => true,
                 'avatar_url' => 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80',
             ]
@@ -360,18 +371,18 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // Course 3: Pencegahan & Penanganan Kekerasan Seksual (PPKS) (School: SMA Negeri 1 Manado | Visible to Guest: true)
+        // Course 3: Pencegahan & Penanganan Kekerasan Seksual (PPKS) (School: SMP Negeri 1 Bitung | Visible to Guest: true)
         $coursePpks = Course::updateOrCreate(
             ['slug' => 'pencegahan-dan-penanganan-kekerasan-seksual-ppks'],
             [
                 'category_id' => $catKekerasanSexual->id,
-                'school_id' => $schoolManado1->id,
+                'school_id' => $schoolBitung1->id,
                 'created_by' => $adminPusat->id,
-                'school_name' => 'SMA Negeri 1 Manado',
+                'school_name' => 'SMP Negeri 1 Bitung',
                 'title' => 'Pencegahan & Penanganan Kekerasan Seksual (PPKS)',
                 'description' => 'Panduan komprehensif bagi pelajar dan tenaga pendidik mengenai pemahaman batasan diri, edukasi kesehatan reproduksi remaja, pembentukan Satgas PPKS, serta mekanisme pelaporan kasus kekerasan seksual di sekolah.',
                 'instructor_name' => 'Dra. Maria Sondakh, M.Si',
-                'instructor_title' => 'Fasilitator PPKS & Konselor Remaja • Perwakilan BKKBN Sulut',
+                'instructor_title' => 'Fasilitator PPKS & Konselor Remaja • BKKBN Sulut & SMP Negeri 1 Bitung',
                 'instructor_avatar' => 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80',
                 'thumbnail_url' => 'https://img.youtube.com/vi/x8PgjAKr-h8/maxresdefault.jpg',
                 'status' => 'published',

@@ -36,7 +36,7 @@ class StudentController extends Controller
                 'email' => 'guest@siagabumi.id',
                 'password' => bcrypt('password'),
                 'role' => 'student',
-                'school_name' => 'SMA Negeri 1 Manado',
+                'school_name' => 'SMP Negeri 1 Bitung',
             ]);
     }
 

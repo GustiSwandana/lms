@@ -324,7 +324,7 @@
                 @csrf
                 <div>
                     <label class="block text-xs font-semibold text-slate-900 mb-1">Nama Resmi Sekolah / Instansi <span class="text-rose-500">*</span></label>
-                    <input type="text" name="name" required placeholder="Contoh: SMA Negeri 1 Manado"
+                    <input type="text" name="name" required placeholder="Contoh: SMP Negeri 1 Bitung"
                            class="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs focus:border-indigo-600 focus:outline-none"/>
                 </div>
 
