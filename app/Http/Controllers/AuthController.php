@@ -81,6 +81,64 @@ class AuthController extends Controller
     }
 
     /**
+     * Show user registration form.
+     */
+    public function showRegister(): View|RedirectResponse
+    {
+        if (Auth::check()) {
+            $user = Auth::user();
+            if ($user->isAdmin()) {
+                return redirect()->route('admin.dashboard');
+            }
+
+            return redirect()->route('student.dashboard');
+        }
+
+        return view('auth.register');
+    }
+
+    /**
+     * Handle user self-registration.
+     */
+    public function register(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'address' => 'required|string|max:500',
+            'email' => 'required|email|max:255|unique:users,email',
+            'phone' => 'required|string|max:25',
+            'password' => 'required|string|min:6|confirmed',
+        ], [
+            'name.required' => 'Nama lengkap wajib diisi.',
+            'address.required' => 'Alamat lengkap tempat tinggal wajib diisi.',
+            'email.required' => 'Alamat email wajib diisi.',
+            'email.email' => 'Format alamat email tidak valid.',
+            'email.unique' => 'Alamat email ini sudah terdaftar.',
+            'phone.required' => 'Nomor HP aktif wajib diisi.',
+            'password.required' => 'Kata sandi wajib diisi.',
+            'password.min' => 'Kata sandi minimal 6 karakter.',
+            'password.confirmed' => 'Konfirmasi kata sandi tidak cocok.',
+        ]);
+
+        $user = User::create([
+            'name' => $validated['name'],
+            'address' => $validated['address'],
+            'email' => $validated['email'],
+            'phone' => $validated['phone'],
+            'password' => Hash::make($validated['password']),
+            'role' => 'siswa',
+            'is_active' => true,
+            'avatar_url' => 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80',
+        ]);
+
+        Auth::login($user);
+        $request->session()->regenerate();
+
+        return redirect()->route('student.dashboard')
+            ->with('success', "Selamat datang di SIAGA BUMI-SSK, {$user->name}! Akun Siswa Anda berhasil didaftarkan.");
+    }
+
+    /**
      * Quick role switcher for testing and demonstration.
      */
     public function switchRole(Request $request, string $role): RedirectResponse
@@ -90,43 +148,84 @@ class AuthController extends Controller
         }
 
         $targetRole = match ($role) {
-            'super_admin', 'superadmin', 'admin_pusat' => 'super_admin',
-            'school_admin', 'schooladmin', 'admin_sekolah' => 'school_admin',
-            default => 'student',
+            'super_admin', 'superadmin', 'admin_pusat' => 'admin_pusat',
+            'school_admin', 'schooladmin', 'operator_sekolah', 'admin_sekolah' => 'operator_sekolah',
+            'guru', 'teacher' => 'guru',
+            'penyuluh', 'guest' => 'penyuluh',
+            default => 'siswa',
         };
 
-        // Find existing user or seed a demo user
+        // Find existing user or fallback to compatibility role
         $user = User::where('role', $targetRole)->first();
 
         if (! $user) {
-            if ($targetRole === 'super_admin') {
+            if ($targetRole === 'admin_pusat') {
+                $user = User::where('role', 'super_admin')->first();
+            } elseif ($targetRole === 'operator_sekolah') {
+                $user = User::where('role', 'school_admin')->first();
+            } elseif ($targetRole === 'siswa') {
+                $user = User::where('role', 'student')->first();
+            }
+        }
+
+        if (! $user) {
+            if ($targetRole === 'admin_pusat') {
                 $user = User::create([
-                    'name' => 'Alex Vance, PhD',
-                    'email' => 'superadmin@edutube.org',
+                    'name' => 'Dr. Hendra Sompotan, M.Si',
+                    'email' => 'adminpusat@siagabumi.id',
                     'password' => Hash::make('password'),
-                    'role' => 'super_admin',
+                    'role' => 'admin_pusat',
+                    'address' => 'Jl. 17 Agustus No. 69, Manado',
+                    'phone' => '08114321001',
                     'is_active' => true,
                     'avatar_url' => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
                 ]);
-            } elseif ($targetRole === 'school_admin') {
+            } elseif ($targetRole === 'operator_sekolah') {
                 $user = User::create([
-                    'name' => 'Bambang S., S.Kom',
-                    'email' => 'smkn1@edutube.org',
+                    'name' => 'Meivy Karundeng, S.Kom',
+                    'email' => 'operator.bitung@siagabumi.id',
                     'password' => Hash::make('password'),
-                    'role' => 'school_admin',
-                    'school_name' => 'SMKN 1 Jakarta',
+                    'role' => 'operator_sekolah',
+                    'school_name' => 'SMP Negeri 1 Bitung',
+                    'address' => 'Jl. Sam Ratulangi No. 12, Bitung',
+                    'phone' => '081244001122',
                     'is_active' => true,
                     'avatar_url' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
                 ]);
+            } elseif ($targetRole === 'guru') {
+                $user = User::create([
+                    'name' => 'Ibu Martha Runtuwene, S.Pd',
+                    'email' => 'guru.minahasa@siagabumi.id',
+                    'password' => Hash::make('password'),
+                    'role' => 'guru',
+                    'school_name' => 'Sekolah Rakyat Menengah Atas 44 Minahasa',
+                    'address' => 'Jl. Raya Tanawangko No. 44, Minahasa',
+                    'phone' => '081355667788',
+                    'is_active' => true,
+                    'avatar_url' => 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80',
+                ]);
+            } elseif ($targetRole === 'penyuluh') {
+                $user = User::create([
+                    'name' => 'Drs. Ronald Lumempouw',
+                    'email' => 'penyuluh@siagabumi.id',
+                    'password' => Hash::make('password'),
+                    'role' => 'penyuluh',
+                    'address' => 'Wenang, Kota Manado',
+                    'phone' => '08114300998',
+                    'is_active' => true,
+                    'avatar_url' => 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&auto=format&fit=crop&q=80',
+                ]);
             } else {
                 $user = User::create([
-                    'name' => 'Sarah Connor',
-                    'email' => 'student@edutube.org',
+                    'name' => 'Reza Mokodongan',
+                    'email' => 'siswa.bitung@siagabumi.id',
                     'password' => Hash::make('password'),
-                    'role' => 'student',
-                    'school_name' => 'SMKN 1 Jakarta',
+                    'role' => 'siswa',
+                    'school_name' => 'SMP Negeri 1 Bitung',
+                    'address' => 'Jl. Girian Indah No. 5, Bitung',
+                    'phone' => '085299887766',
                     'is_active' => true,
-                    'avatar_url' => 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80',
+                    'avatar_url' => 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80',
                 ]);
             }
         }

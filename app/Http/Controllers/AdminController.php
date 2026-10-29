@@ -52,7 +52,7 @@ class AdminController extends Controller
 
         // 1. Telemetry Stats & Courses Scoping
         $coursesQuery = Course::query();
-        if ($admin->isSchoolAdmin()) {
+        if ($admin->isSchoolAdmin() || $admin->isGuru()) {
             $coursesQuery->where(function ($q) use ($admin) {
                 if ($admin->school_name) {
                     $q->where('school_name', $admin->school_name);
@@ -358,7 +358,7 @@ class AdminController extends Controller
         $query = Course::with(['category', 'lessons', 'creator'])->withCount('lessons');
 
         // Multi-tenancy Scoping
-        if ($admin->isSchoolAdmin()) {
+        if ($admin->isSchoolAdmin() || $admin->isGuru()) {
             $query->where(function ($q) use ($admin) {
                 if ($admin->school_name) {
                     $q->where('school_name', $admin->school_name);
@@ -403,6 +403,7 @@ class AdminController extends Controller
             'thumbnail_file' => 'nullable|image|max:5120',
             'school_name' => 'nullable|string|max:255',
             'status' => 'required|in:published,draft,archived',
+            'is_visible_to_guest' => 'nullable|boolean',
         ]);
 
         if ($request->hasFile('thumbnail_file')) {
@@ -414,8 +415,12 @@ class AdminController extends Controller
 
         $validated['created_by'] = $admin->id;
 
-        // Force school_name for school_admin
-        if ($admin->isSchoolAdmin()) {
+        if ($admin->isSuperAdmin() && $request->has('is_visible_to_guest')) {
+            $validated['is_visible_to_guest'] = $request->boolean('is_visible_to_guest');
+        }
+
+        // Force school_name for school_admin or guru
+        if ($admin->isSchoolAdmin() || $admin->isGuru()) {
             $validated['school_name'] = $admin->school_name ?: 'Sekolah Saya';
         } else {
             $validated['school_name'] = ($validated['school_name'] ?? null) ?: 'EduTube Pusat';
@@ -449,6 +454,7 @@ class AdminController extends Controller
             'thumbnail_file' => 'nullable|image|max:5120',
             'school_name' => 'nullable|string|max:255',
             'status' => 'required|in:published,draft,archived',
+            'is_visible_to_guest' => 'nullable|boolean',
         ]);
 
         if ($request->hasFile('thumbnail_file')) {
@@ -458,8 +464,12 @@ class AdminController extends Controller
         }
         unset($validated['thumbnail_file']);
 
-        // Keep existing school_name if school_admin
-        if ($admin->isSchoolAdmin()) {
+        if ($admin->isSuperAdmin() && $request->has('is_visible_to_guest')) {
+            $validated['is_visible_to_guest'] = $request->boolean('is_visible_to_guest');
+        }
+
+        // Keep existing school_name if school_admin or guru
+        if ($admin->isSchoolAdmin() || $admin->isGuru()) {
             unset($validated['school_name']);
         } else {
             $validated['school_name'] = ($validated['school_name'] ?? null) ?: $course->school_name;
@@ -468,6 +478,37 @@ class AdminController extends Controller
         $course->update($validated);
 
         return redirect()->route('admin.courses.index')->with('success', "Kursus '{$course->title}' berhasil diperbarui!");
+    }
+
+    /**
+     * Toggle visibility of a course for Penyuluh / Guest role.
+     * Exclusively accessible to Admin Pusat (Super Admin).
+     */
+    public function toggleCourseGuestVisibility(Request $request, Course $course): JsonResponse|RedirectResponse
+    {
+        $admin = $this->getActiveAdmin();
+
+        if (! $admin->isSuperAdmin()) {
+            abort(403, 'Hanya Admin Pusat yang berwenang mengurasi materi untuk akun Penyuluh/Tamu.');
+        }
+
+        $course->is_visible_to_guest = ! $course->is_visible_to_guest;
+        $course->save();
+
+        if ($request->wantsJson() || $request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'is_visible_to_guest' => (bool) $course->is_visible_to_guest,
+                'message' => $course->is_visible_to_guest
+                    ? "Kursus '{$course->title}' kini dapat diakses oleh akun Penyuluh / Tamu (Mode Galeri)."
+                    : "Akses Penyuluh / Tamu untuk kursus '{$course->title}' telah dinonaktifkan.",
+            ]);
+        }
+
+        return back()->with('success', $course->is_visible_to_guest
+            ? "Materi '{$course->title}' berhasil dibuka untuk Penyuluh/Tamu."
+            : "Akses materi '{$course->title}' untuk Penyuluh/Tamu dinonaktifkan."
+        );
     }
 
     /**
@@ -508,7 +549,7 @@ class AdminController extends Controller
         $admin = $this->getActiveAdmin();
 
         $coursesQuery = Course::with('category');
-        if ($admin->isSchoolAdmin()) {
+        if ($admin->isSchoolAdmin() || $admin->isGuru()) {
             $coursesQuery->where(function ($q) use ($admin) {
                 if ($admin->school_name) {
                     $q->where('school_name', $admin->school_name);
@@ -912,7 +953,7 @@ class AdminController extends Controller
     {
         $admin = $this->getActiveAdmin();
 
-        $query = User::where('role', 'student')
+        $query = User::whereIn('role', ['student', 'siswa'])
             ->with([
                 'lessonCompletions.lesson.course',
                 'quizAttempts',
@@ -1021,7 +1062,7 @@ class AdminController extends Controller
     {
         $admin = $this->getActiveAdmin();
 
-        if ($student->role !== 'student') {
+        if (! $student->isSiswa()) {
             abort(400, 'Hanya akun siswa yang dapat direset melalui menu ini.');
         }
 

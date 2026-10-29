@@ -3,6 +3,30 @@
 @section('student_content')
 <main class="flex-1 w-full space-y-12 pb-16">
     <!-- =========================================================================
+         OPTIONAL: GUEST / PENYULUH GALLERY MODE NOTICE BANNER
+         ========================================================================= -->
+    @if(auth()->check() && auth()->user()->isGuestRole())
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <div class="p-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">
+                    <span class="material-symbols-outlined text-[20px]">visibility</span>
+                </div>
+                <div>
+                    <h4 class="text-xs font-bold text-amber-900">Mode Galeri (Akses Lihat-Saja)</h4>
+                    <p class="text-[11px] text-amber-700 mt-0.5">
+                        Anda masuk sebagai <strong>{{ auth()->user()->role_label }}</strong>. Katalog menampilkan materi kurasi khusus yang diizinkan oleh Admin Pusat dalam mode pratinjau (read-only).
+                    </p>
+                </div>
+            </div>
+            <span class="px-2.5 py-1 rounded-full bg-amber-200 text-amber-900 font-semibold text-[10px] uppercase tracking-wider shrink-0 self-start sm:self-center">
+                Penyuluh / Tamu
+            </span>
+        </div>
+    </div>
+    @endif
+
+    <!-- =========================================================================
          1. HERO SECTION (MINIMALIST, HIGH-CONTRAST SAAS DESIGN)
          ========================================================================= -->
     <section class="bg-white border-b border-slate-200 py-12 sm:py-16 px-4 sm:px-6 lg:px-8">
@@ -12,15 +36,15 @@
                 <div class="lg:col-span-7 space-y-6 text-left">
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-xs font-semibold text-indigo-700">
                         <span class="w-1.5 h-1.5 rounded-full bg-indigo-600 animate-pulse"></span>
-                        <span>Platform Pembelajaran Video Multi-Sekolah</span>
+                        <span>SIAGA BUMI-SSK Sulawesi Utara</span>
                     </div>
 
                     <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.15]">
-                        Kuasai Keahlian Nyata dengan <span class="text-indigo-600">Kurikulum Video YouTube</span> Terstruktur
+                        Integrasi Lingkungan dan Kependudukan Dalam Program Sekolah Siaga Kependudukan
                     </h1>
 
                     <p class="text-sm sm:text-base text-slate-600 max-w-2xl leading-relaxed">
-                        Streaming materi berkualitas tanpa distraksi, pelajari setiap modul secara runut, buat catatan interaktif, selesaikan evaluasi kuis, dan raih sertifikat ber-QR Code terverifikasi.
+                        Platform digital integratif untuk membekali generasi muda dengan literasi kependudukan, kesadaran kelestarian lingkungan hidup, pencegahan kekerasan seksual, dan kesiapan masa depan berkarakter tangguh.
                     </p>
 
                     <!-- CTAs -->
@@ -28,7 +52,7 @@
                         <a href="#katalog-kursus" 
                            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-xs sm:text-sm transition-colors shadow-sm">
                             <span class="material-symbols-outlined text-[18px]">explore</span>
-                            <span>Jelajahi Kursus</span>
+                            <span>Jelajahi Kursus SSK</span>
                         </a>
                         
                         @if(auth()->check())
@@ -43,6 +67,11 @@
                                 <span class="material-symbols-outlined text-[18px] text-slate-500">login</span>
                                 <span>Masuk Akun</span>
                             </a>
+                            <a href="{{ route('register') }}" 
+                               class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-indigo-700 font-medium text-xs sm:text-sm transition-colors">
+                                <span class="material-symbols-outlined text-[18px]">person_add</span>
+                                <span>Daftar Siswa</span>
+                            </a>
                         @endif
                     </div>
 
@@ -50,19 +79,19 @@
                     <div class="pt-6 border-t border-slate-100 grid grid-cols-2 sm:grid-cols-4 gap-4">
                         <div class="space-y-0.5">
                             <div class="text-xl sm:text-2xl font-bold text-slate-900">{{ $stats['total_courses'] ?? $countAll }}+</div>
-                            <div class="text-xs text-slate-500">Kursus Aktif</div>
+                            <div class="text-xs text-slate-500">Kursus Terkurasi</div>
                         </div>
                         <div class="space-y-0.5">
                             <div class="text-xl sm:text-2xl font-bold text-slate-900">{{ $stats['total_lessons'] ?? 8 }}+</div>
-                            <div class="text-xs text-slate-500">Modul Video</div>
+                            <div class="text-xs text-slate-500">Modul Edukasi</div>
                         </div>
                         <div class="space-y-0.5">
-                            <div class="text-xl sm:text-2xl font-bold text-slate-900">{{ $stats['total_schools'] ?? 3 }}</div>
-                            <div class="text-xs text-slate-500">Sekolah Terdaftar</div>
+                            <div class="text-xl sm:text-2xl font-bold text-slate-900">{{ $stats['total_schools'] ?? 4 }}</div>
+                            <div class="text-xs text-slate-500">Sekolah Mitra</div>
                         </div>
                         <div class="space-y-0.5">
                             <div class="text-xl sm:text-2xl font-bold text-slate-900">100%</div>
-                            <div class="text-xs text-slate-500">Validasi QR Code</div>
+                            <div class="text-xs text-slate-500">Sertifikat Ber-QR</div>
                         </div>
                     </div>
                 </div>
@@ -159,47 +188,273 @@
     </section>
 
     <!-- =========================================================================
-         2. THREE PILLARS (NILAI UTAMA PLATFORM)
+         2. PARTNER & INSTITUTION LOGOS SECTION
          ========================================================================= -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- Pillar 1 -->
-            <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-xs space-y-3">
-                <div class="w-10 h-10 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
-                    <span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">play_lesson</span>
-                </div>
-                <h3 class="text-sm font-bold text-slate-900">
-                    Video YouTube Terkurasi
-                </h3>
-                <p class="text-xs text-slate-500 leading-relaxed">
-                    Kurikulum dipilah per bab agar siswa belajar runut tanpa tersesat algoritma rekomendasi luar.
+        <div class="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-xs">
+            <div class="text-center max-w-2xl mx-auto mb-6">
+                <span class="text-[11px] font-bold text-indigo-600 tracking-wider uppercase bg-indigo-50 px-2.5 py-0.5 rounded-full border border-indigo-100">
+                    Kemitraan Strategis & Kolaborasi Akademik
+                </span>
+                <h2 class="text-base sm:text-lg font-bold text-slate-900 mt-2">
+                    Didukung oleh Instansi Pemerintah & Lembaga Perguruan Tinggi
+                </h2>
+                <p class="text-xs text-slate-500 mt-1">
+                    Sinergi lintas institusi dalam mengintegrasikan kepedulian lingkungan dan kependudukan di sekolah
                 </p>
             </div>
 
-            <!-- Pillar 2 -->
-            <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-xs space-y-3">
-                <div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
-                    <span class="material-symbols-outlined text-[22px]">quiz</span>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 items-center justify-items-center">
+                <!-- 1. UNIMA -->
+                <div class="flex flex-col items-center justify-center p-4 rounded-xl hover:bg-slate-50 transition-all group w-full text-center">
+                    <img src="{{ asset('images/logos/unima.png') }}" 
+                         alt="Logo UNIMA - Universitas Negeri Manado" 
+                         class="h-16 sm:h-20 max-w-[130px] object-contain transition-transform group-hover:scale-105"
+                         loading="lazy"/>
+                    <span class="text-xs font-bold text-slate-800 mt-3 block">UNIMA</span>
+                    <span class="text-[10px] text-slate-400 leading-tight">Universitas Negeri Manado</span>
                 </div>
-                <h3 class="text-sm font-bold text-slate-900">
-                    Catatan Interaktif & Kuis
-                </h3>
-                <p class="text-xs text-slate-500 leading-relaxed">
-                    Tandai detik materi penting pada buku catatan digital dan uji pemahaman lewat evaluasi kuis terintegrasi.
+
+                <!-- 2. UNPI -->
+                <div class="flex flex-col items-center justify-center p-4 rounded-xl hover:bg-slate-50 transition-all group w-full text-center">
+                    <img src="{{ asset('images/logos/unpi.png') }}" 
+                         alt="Logo UNPI - Universitas Pembangunan Indonesia" 
+                         class="h-16 sm:h-20 max-w-[130px] object-contain transition-transform group-hover:scale-105"
+                         loading="lazy"/>
+                    <span class="text-xs font-bold text-slate-800 mt-3 block">UNPI</span>
+                    <span class="text-[10px] text-slate-400 leading-tight">Univ. Pembangunan Indonesia</span>
+                </div>
+
+                <!-- 3. IPDN -->
+                <div class="flex flex-col items-center justify-center p-4 rounded-xl hover:bg-slate-50 transition-all group w-full text-center">
+                    <img src="{{ asset('images/logos/ipdn.png') }}" 
+                         alt="Logo IPDN - Institut Pemerintahan Dalam Negeri" 
+                         class="h-16 sm:h-20 max-w-[130px] object-contain transition-transform group-hover:scale-105"
+                         loading="lazy"/>
+                    <span class="text-xs font-bold text-slate-800 mt-3 block">IPDN</span>
+                    <span class="text-[10px] text-slate-400 leading-tight">Inst. Pemerintahan Dalam Negeri</span>
+                </div>
+
+                <!-- 4. BKKBN -->
+                <div class="flex flex-col items-center justify-center p-4 rounded-xl hover:bg-slate-50 transition-all group w-full text-center">
+                    <img src="{{ asset('images/logos/bkkbn.png') }}" 
+                         alt="Logo BKKBN - Badan Kependudukan dan Keluarga Berencana Nasional" 
+                         class="h-16 sm:h-20 max-w-[130px] object-contain transition-transform group-hover:scale-105"
+                         loading="lazy"/>
+                    <span class="text-xs font-bold text-slate-800 mt-3 block">BKKBN</span>
+                    <span class="text-[10px] text-slate-400 leading-tight">BKKBN Sulawesi Utara</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         3. SSK INFORMATION SECTION (BKKBN & SEKOLAH SIAGA KEPENDUDUKAN)
+         ========================================================================= -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div>
+                <span class="text-[11px] font-bold text-indigo-600 tracking-wider uppercase bg-indigo-50 px-2.5 py-0.5 rounded-full border border-indigo-100">
+                    Pusat Informasi & Sosialisasi
+                </span>
+                <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight mt-1.5">
+                    Mengenal Program Sekolah Siaga Kependudukan (SSK)
+                </h2>
+                <p class="text-xs sm:text-sm text-slate-500 mt-1 max-w-2xl">
+                    Sinergi terpadu antara BKKBN dan lembaga pendidikan untuk mempersiapkan generasi terencana, peduli kelestarian bumi, dan tanggap isu kependudukan.
                 </p>
             </div>
+        </div>
 
-            <!-- Pillar 3 -->
-            <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-xs space-y-3">
-                <div class="w-10 h-10 rounded-lg bg-violet-50 text-violet-600 flex items-center justify-center">
-                    <span class="material-symbols-outlined text-[22px]">workspace_premium</span>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Card 1: Mengenai BKKBN -->
+            <div class="bg-gradient-to-br from-white to-indigo-50/40 rounded-2xl border border-indigo-100 p-6 sm:p-7 shadow-xs flex flex-col justify-between space-y-5">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="w-12 h-12 rounded-xl bg-indigo-600 text-white flex items-center justify-center shadow-xs">
+                            <span class="material-symbols-outlined text-[26px]">groups</span>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-indigo-100 text-indigo-800 text-[11px] font-bold">
+                            Lembaga Pembina
+                        </span>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900">
+                            Mengenai BKKBN
+                        </h3>
+                        <p class="text-xs text-indigo-600 font-semibold mt-0.5">
+                            Badan Kependudukan dan Keluarga Berencana Nasional
+                        </p>
+                    </div>
+
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        BKKBN adalah lembaga pemerintah non-kementerian yang bertugas melaksanakan pengendalian penduduk dan penyelenggaraan keluarga berencana. Melalui pendekatan holistik, BKKBN membina ketahanan remaja (GenRe - Generasi Berencana), menekan angka stunting, dan mempersiapkan generasi muda menyongsong Indonesia Emas dengan perencanaan hidup yang matang.
+                    </p>
+
+                    <div class="space-y-2 pt-1 border-t border-indigo-100/80 text-xs text-slate-600">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[16px] text-indigo-600">check_circle</span>
+                            <span>Edukasi Pendewasaan Usia Perkawinan (PUP)</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[16px] text-indigo-600">check_circle</span>
+                            <span>Optimalisasi Bonus Demografi & Generasi Berencana</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[16px] text-indigo-600">check_circle</span>
+                            <span>Pemberdayaan Ketahanan Remaja & Keluarga Sehat</span>
+                        </div>
+                    </div>
                 </div>
-                <h3 class="text-sm font-bold text-slate-900">
-                    Sertifikat Resmi QR Code
-                </h3>
-                <p class="text-xs text-slate-500 leading-relaxed">
-                    Dapatkan sertifikat digital berformat resmi dengan segel digital dan kode verifikasi publik yang dapat dibagikan.
-                </p>
+
+                <div class="pt-2">
+                    <a href="{{ route('student.classroom', 'mengenai-bkkbn-peran-kependudukan') }}" 
+                       class="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs shadow-xs transition-all group">
+                        <span>Pelajari Modul Mengenai BKKBN</span>
+                        <span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 2: Apa sih SSK? -->
+            <div class="bg-gradient-to-br from-white to-emerald-50/40 rounded-2xl border border-emerald-100 p-6 sm:p-7 shadow-xs flex flex-col justify-between space-y-5">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-600 text-white flex items-center justify-center shadow-xs">
+                            <span class="material-symbols-outlined text-[26px]">school</span>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold">
+                            Konsep & Implementasi
+                        </span>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900">
+                            Apa sih SSK?
+                        </h3>
+                        <p class="text-xs text-emerald-700 font-semibold mt-0.5">
+                            Sekolah Siaga Kependudukan Terintegrasi
+                        </p>
+                    </div>
+
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Sekolah Siaga Kependudukan (SSK) adalah sekolah yang mengintegrasikan pendidikan kependudukan, pembangunan keluarga, dan pelestarian lingkungan hidup ke dalam berbagai mata pelajaran serta kegiatan ekstrakurikuler (seperti Pojok Kependudukan). Tujuannya agar peserta didik memiliki sikap, pengetahuan, dan perilaku peduli terhadap dinamika kependudukan serta keberlanjutan bumi.
+                    </p>
+
+                    <div class="space-y-2 pt-1 border-t border-emerald-100/80 text-xs text-slate-600">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[16px] text-emerald-600">check_circle</span>
+                            <span>Integrasi Materi ke Kurikulum Merdeka & Mata Pelajaran</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[16px] text-emerald-600">check_circle</span>
+                            <span>Pengembangan Pojok Kependudukan & Diskusi Sebaya</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[16px] text-emerald-600">check_circle</span>
+                            <span>Aksi Nyata Siaga Bumi: Pelestarian Lingkungan Hidup</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-2">
+                    <a href="{{ route('student.classroom', 'apa-sih-ssk-sekolah-siaga-kependudukan') }}" 
+                       class="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs shadow-xs transition-all group">
+                        <span>Pelajari Modul Apa sih SSK?</span>
+                        <span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         4. CERTIFICATE FEATURE SECTION (SERTIFIKAT KELULUSAN RESMI BER-QR CODE)
+         ========================================================================= -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-2xl border border-slate-800 p-8 sm:p-10 text-white relative overflow-hidden shadow-md">
+            <!-- Decorative blur shapes -->
+            <div class="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-indigo-500/15 blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-24 -left-24 w-72 h-72 rounded-full bg-emerald-500/15 blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Left: Certificate Details & Steps -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-xs font-semibold text-amber-300">
+                        <span class="material-symbols-outlined text-[16px]">verified</span>
+                        <span>Fitur Unggulan Sertifikat Digital</span>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight">
+                            Raih Sertifikat Kelulusan Resmi dengan <span class="text-indigo-400">Verifikasi QR Code</span>
+                        </h2>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                            Setiap siswa yang menyelesaikan seluruh modul pembelajaran dan lulus evaluasi kuis berhak mendapatkan e-sertifikat resmi berstandar nasional yang dapat diverifikasi keasliannya oleh sekolah, perguruan tinggi, maupun dinas terkait secara publik.
+                        </p>
+                    </div>
+
+                    <!-- Steps to Earn -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-2">
+                        <div class="p-3.5 rounded-xl bg-slate-800/80 border border-slate-700 space-y-1.5">
+                            <div class="w-7 h-7 rounded-lg bg-indigo-500/20 text-indigo-400 font-bold text-xs flex items-center justify-center">1</div>
+                            <h4 class="text-xs font-bold text-white">Tonton Seluruh Video</h4>
+                            <p class="text-[11px] text-slate-400">Selesaikan setiap bab materi kurikulum SSK.</p>
+                        </div>
+
+                        <div class="p-3.5 rounded-xl bg-slate-800/80 border border-slate-700 space-y-1.5">
+                            <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 font-bold text-xs flex items-center justify-center">2</div>
+                            <h4 class="text-xs font-bold text-white">Lulus Kuis Modul</h4>
+                            <p class="text-[11px] text-slate-400">Capai skor minimal kelulusan (passing grade 70%).</p>
+                        </div>
+
+                        <div class="p-3.5 rounded-xl bg-slate-800/80 border border-slate-700 space-y-1.5">
+                            <div class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 font-bold text-xs flex items-center justify-center">3</div>
+                            <h4 class="text-xs font-bold text-white">Cetak & Unduh PDF</h4>
+                            <p class="text-[11px] text-slate-400">Validasi publik instan via pemindaian QR Code unik.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Visual Certificate Mockup Card -->
+                <div class="lg:col-span-5">
+                    <div class="bg-white rounded-xl p-6 text-slate-900 border-4 border-amber-400/80 shadow-2xl space-y-4 transform hover:scale-[1.02] transition-transform">
+                        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                            <div class="flex items-center gap-2">
+                                <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white">
+                                    <span class="material-symbols-outlined text-[18px]">workspace_premium</span>
+                                </div>
+                                <div>
+                                    <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-600 block">Sertifikat Kelulusan Resmi</span>
+                                    <span class="text-xs font-extrabold text-slate-900">SIAGA BUMI-SSK</span>
+                                </div>
+                            </div>
+                            <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold font-mono">TERVERIFIKASI</span>
+                        </div>
+
+                        <div class="text-center py-2 space-y-1">
+                            <p class="text-[11px] text-slate-500 italic">Diberikan dengan bangga kepada:</p>
+                            <h3 class="text-base font-extrabold text-slate-900 tracking-tight">Nama Siswa Pembelajar</h3>
+                            <div class="h-0.5 w-24 bg-amber-400 mx-auto rounded-full"></div>
+                            <p class="text-[11px] text-slate-600 pt-1 leading-snug">
+                                Telah menyelesaikan kompetensi program: <br/>
+                                <strong class="text-slate-900">Materi Umum Kependudukan & Siaga Bumi</strong>
+                            </p>
+                        </div>
+
+                        <div class="flex items-center justify-between pt-3 border-t border-slate-200 text-[10px] text-slate-500">
+                            <div>
+                                <span class="block text-slate-400">Kode Seri Verifikasi:</span>
+                                <span class="font-mono font-bold text-slate-800">SSK-CERT-2026-VAL</span>
+                            </div>
+                            <!-- Mini QR Representation -->
+                            <div class="w-12 h-12 bg-slate-900 rounded-lg p-1.5 flex items-center justify-center text-white">
+                                <span class="material-symbols-outlined text-[26px]">qr_code_2</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -492,18 +747,21 @@
         <div class="flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
             <div class="flex items-center gap-2">
                 <div class="w-6 h-6 rounded-md bg-indigo-600 flex items-center justify-center text-white">
-                    <span class="material-symbols-outlined text-[14px]">play_circle</span>
+                    <span class="material-symbols-outlined text-[14px]">nature_people</span>
                 </div>
-                <span class="font-bold text-slate-900">EduTube Studio</span>
+                <span class="font-bold text-slate-900">SIAGA BUMI-SSK</span>
+                <span class="text-slate-300">•</span>
+                <span>Kolaborasi BKKBN Sulut, UNIMA, UNPI, & IPDN</span>
                 <span class="text-slate-300">•</span>
                 <span>© {{ date('Y') }} Hak Cipta Dilindungi</span>
             </div>
 
             <div class="flex items-center gap-4 text-xs">
-                <a href="{{ route('student.dashboard') }}" class="hover:text-indigo-600">Katalog</a>
+                <a href="{{ route('student.dashboard') }}" class="hover:text-indigo-600">Katalog SSK</a>
                 <a href="{{ route('student.paths') }}" class="hover:text-indigo-600">Alur Belajar</a>
                 <a href="{{ route('student.analytics') }}" class="hover:text-indigo-600">Analitik</a>
                 <a href="{{ route('login') }}" class="hover:text-indigo-600">Masuk Akun</a>
+                <a href="{{ route('register') }}" class="hover:text-indigo-600 font-semibold text-indigo-600">Daftar Siswa</a>
             </div>
         </div>
     </footer>

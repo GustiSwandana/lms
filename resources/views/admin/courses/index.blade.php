@@ -65,6 +65,7 @@
         this.instructorTitle = 'Senior Software Architect';
         this.thumbnailUrl = '';
         this.status = 'published';
+        this.isVisibleToGuest = false;
         this.isQuickCategoryOpen = false;
         this.quickCategoryError = '';
         this.isCourseModalOpen = true;
@@ -80,6 +81,7 @@
         this.instructorTitle = c.instructor_title || '';
         this.thumbnailUrl = c.thumbnail_url || '';
         this.status = c.status || 'published';
+        this.isVisibleToGuest = Boolean(c.is_visible_to_guest);
         this.isQuickCategoryOpen = false;
         this.quickCategoryError = '';
         this.isCourseModalOpen = true;
@@ -168,6 +170,7 @@
                         <th class="py-3 px-4 uppercase tracking-wider">Pengajar</th>
                         <th class="py-3 px-4 uppercase tracking-wider text-center">Materi</th>
                         <th class="py-3 px-4 uppercase tracking-wider">Status</th>
+                        <th class="py-3 px-4 uppercase tracking-wider text-center">Akses Tamu</th>
                         <th class="py-3 px-4 uppercase tracking-wider text-right">Aksi</th>
                     </tr>
                 </thead>
@@ -188,7 +191,7 @@
                             </td>
                             <td class="py-3 px-4">
                                 <span class="inline-flex items-center gap-1 text-[11px] text-slate-600 font-medium">
-                                    <span>{{ $course->school_name ?: 'EduTube Pusat' }}</span>
+                                    <span>{{ $course->school_name ?: 'SIAGA BUMI-SSK' }}</span>
                                 </span>
                             </td>
                             <td class="py-3 px-4">
@@ -219,20 +222,44 @@
                                     </span>
                                 @endif
                             </td>
+                            <td class="py-3 px-4 text-center">
+                                @if($course->is_visible_to_guest)
+                                    <span class="inline-flex items-center gap-1 text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+                                        <span class="material-symbols-outlined text-[12px] text-emerald-600">visibility</span>
+                                        <span>Aktif</span>
+                                    </span>
+                                @else
+                                    <span class="inline-flex items-center gap-1 text-[10px] font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md border border-slate-200">
+                                        <span class="material-symbols-outlined text-[12px] text-slate-400">visibility_off</span>
+                                        <span>Terkunci</span>
+                                    </span>
+                                @endif
+
+                                @if($admin->canCurateGuestContent())
+                                    <form action="{{ route('admin.courses.toggle-guest-visibility', $course->id) }}" method="POST" class="mt-1">
+                                        @csrf
+                                        <button type="submit" 
+                                                class="text-[10px] font-semibold text-indigo-600 hover:text-indigo-800 hover:underline mx-auto block"
+                                                title="Ubah visibilitas kurasi untuk akun Tamu / Penyuluh">
+                                            {{ $course->is_visible_to_guest ? 'Sembunyikan' : 'Tampilkan' }}
+                                        </button>
+                                    </form>
+                                @endif
+                            </td>
                             <td class="py-3 px-4 text-right">
                                 <div class="flex items-center justify-end gap-1.5">
                                     <!-- Shortcut: Single-Page Course Builder -->
                                     <a href="{{ route('admin.courses.builder', $course->id) }}" 
-                                       class="px-2.5 py-1 text-xs font-semibold rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white transition-all flex items-center gap-1 shadow-xs" 
-                                       title="Buka Course Builder">
+                                        class="px-2.5 py-1 text-xs font-semibold rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white transition-all flex items-center gap-1 shadow-xs" 
+                                        title="Buka Course Builder">
                                         <span class="material-symbols-outlined text-[14px]">build</span>
                                         <span>Builder</span>
                                     </a>
 
                                     <!-- Shortcut: Kurikulum -->
                                     <a href="{{ route('admin.curriculum.index', ['course_id' => $course->id]) }}" 
-                                       class="px-2.5 py-1 text-xs font-medium rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition-all flex items-center gap-1" 
-                                       title="Susun Kurikulum">
+                                        class="px-2.5 py-1 text-xs font-medium rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition-all flex items-center gap-1" 
+                                        title="Susun Kurikulum">
                                         <span class="material-symbols-outlined text-[14px]">account_tree</span>
                                         <span class="hidden sm:inline">Kurikulum</span>
                                     </a>
@@ -243,7 +270,7 @@
                                     </button>
 
                                     <form action="{{ route('admin.courses.destroy', $course->id) }}" method="POST" 
-                                          onsubmit="return confirm('Apakah Anda yakin ingin menghapus kursus ini beserta seluruh video materinya?')">
+                                            onsubmit="return confirm('Apakah Anda yakin ingin menghapus kursus ini beserta seluruh video materinya?')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors" title="Hapus">
@@ -255,7 +282,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="8" class="py-12 text-center text-slate-400">
+                            <td colspan="9" class="py-12 text-center text-slate-400">
                                 Belum ada kursus. Silakan buat kursus baru dengan tombol di atas.
                             </td>
                         </tr>
@@ -344,6 +371,16 @@
                                   placeholder="Jelaskan ringkasan materi dan capaian pembelajaran..."
                                   class="w-full bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs text-slate-900 focus:outline-none focus:border-indigo-600 focus:bg-white leading-relaxed"></textarea>
                     </div>
+
+                    @if($admin->canCurateGuestContent())
+                    <div class="p-3 rounded-lg bg-indigo-50 border border-indigo-100 flex items-center justify-between">
+                        <div>
+                            <label class="block font-semibold text-indigo-950 text-xs">Akses Mode Galeri (Penyuluh & Tamu)</label>
+                            <p class="text-[11px] text-indigo-700">Tampilkan kursus ini untuk akun Tamu / Penyuluh dalam mode baca.</p>
+                        </div>
+                        <input type="checkbox" name="is_visible_to_guest" value="1" x-model="isVisibleToGuest" class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-600 border-slate-300"/>
+                    </div>
+                    @endif
                 </div>
 
                 <div class="px-6 py-3.5 border-t border-slate-100 bg-slate-50 flex items-center justify-end gap-2.5">

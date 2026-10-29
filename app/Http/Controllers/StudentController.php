@@ -36,7 +36,7 @@ class StudentController extends Controller
                 'email' => 'guest@edutube.org',
                 'password' => bcrypt('password'),
                 'role' => 'student',
-                'school_name' => 'SMKN 1 Jakarta',
+                'school_name' => 'SMA Negeri 1 Manado',
             ]);
     }
 
@@ -48,7 +48,11 @@ class StudentController extends Controller
         $student = $this->getActiveStudent();
 
         // 1. Featured / Continue Watching Course
-        $featuredCourse = Course::with(['category', 'lessons'])->first();
+        $featuredQuery = Course::with(['category', 'lessons'])->where('status', 'published');
+        if ($student->isGuestRole()) {
+            $featuredQuery->where('is_visible_to_guest', true);
+        }
+        $featuredCourse = $featuredQuery->first();
         $featuredProgress = $featuredCourse ? $featuredCourse->progressPercentageFor($student) : 0;
         $featuredCompletedCount = $featuredCourse ? $featuredCourse->completedLessonsCountFor($student) : 0;
         $featuredTotalCount = $featuredCourse ? $featuredCourse->lessons->count() : 0;
@@ -63,6 +67,11 @@ class StudentController extends Controller
 
         // 2. Filter & Search Courses
         $query = Course::with(['category', 'lessons', 'creator'])->where('status', 'published');
+
+        // Gallery Mode for Penyuluh / Guest: strictly view curated courses only
+        if ($student->isGuestRole()) {
+            $query->where('is_visible_to_guest', true);
+        }
 
         // Multi-school scope filter: "Kursus Sekolah Saya" vs "Semua Kursus Umum"
         $scope = $request->query('scope', 'all');
@@ -202,6 +211,11 @@ class StudentController extends Controller
     {
         $student = $this->getActiveStudent();
 
+        // Gallery Mode restriction for Penyuluh / Guest
+        if ($student->isGuestRole() && ! $course->is_visible_to_guest) {
+            abort(403, 'Akses Ditolak: Materi pembelajaran ini belum dibuka oleh Administrator Pusat untuk akun Penyuluh / Tamu (Mode Galeri).');
+        }
+
         // Load course with lessons
         $course->load(['category', 'lessons']);
         $allLessons = $course->lessons;
@@ -296,6 +310,10 @@ class StudentController extends Controller
     {
         $student = $this->getActiveStudent();
 
+        if ($student->isGuestRole()) {
+            abort(403, 'Akun Penyuluh/Tamu berada dalam Mode Galeri (Lihat-Saja) dan tidak dapat menyimpan catatan.');
+        }
+
         $validated = $request->validate([
             'content' => 'required|string|max:1000',
             'timestamp_seconds' => 'nullable|integer|min:0',
@@ -341,6 +359,10 @@ class StudentController extends Controller
     {
         $student = $this->getActiveStudent();
 
+        if ($student->isGuestRole()) {
+            abort(403, 'Akun Penyuluh/Tamu berada dalam Mode Galeri (Lihat-Saja) dan tidak dapat mengirim komentar.');
+        }
+
         $validated = $request->validate([
             'content' => 'required|string|max:2000',
             'timestamp_str' => 'nullable|string|max:50',
@@ -376,6 +398,10 @@ class StudentController extends Controller
     {
         $student = $this->getActiveStudent();
 
+        if ($student->isGuestRole()) {
+            abort(403, 'Akun Penyuluh/Tamu berada dalam Mode Galeri (Lihat-Saja).');
+        }
+
         $like = CommentLike::where('user_id', $student->id)
             ->where('lesson_comment_id', $comment->id)
             ->first();
@@ -406,6 +432,10 @@ class StudentController extends Controller
     public function toggleBookmark(Request $request, Course $course): JsonResponse|RedirectResponse
     {
         $student = $this->getActiveStudent();
+
+        if ($student->isGuestRole()) {
+            abort(403, 'Akun Penyuluh/Tamu berada dalam Mode Galeri (Lihat-Saja).');
+        }
 
         $bookmark = CourseBookmark::where('user_id', $student->id)
             ->where('course_id', $course->id)
@@ -441,6 +471,10 @@ class StudentController extends Controller
     public function toggleCompletion(Request $request, Lesson $lesson): JsonResponse|RedirectResponse
     {
         $student = $this->getActiveStudent();
+
+        if ($student->isGuestRole()) {
+            abort(403, 'Akun Penyuluh/Tamu berada dalam Mode Galeri (Lihat-Saja) dan tidak dapat mengubah progres pembelajaran.');
+        }
 
         $existing = LessonCompletion::where('user_id', $student->id)
             ->where('lesson_id', $lesson->id)
@@ -506,6 +540,10 @@ class StudentController extends Controller
     {
         $student = $this->getActiveStudent();
 
+        if ($student->isGuestRole()) {
+            return response()->json(['success' => false, 'message' => 'Akun Penyuluh/Tamu berada dalam Mode Galeri (Lihat-Saja) dan tidak menyimpan progres.'], 403);
+        }
+
         $validated = $request->validate([
             'seconds' => 'nullable|integer|min:0',
             'last_watched_second' => 'nullable|integer|min:0',
@@ -568,6 +606,10 @@ class StudentController extends Controller
     public function submitQuiz(Request $request, Lesson $lesson): JsonResponse
     {
         $student = $this->getActiveStudent();
+
+        if ($student->isGuestRole()) {
+            abort(403, 'Akun Penyuluh/Tamu berada dalam Mode Galeri (Lihat-Saja) dan tidak dapat mengikuti evaluasi kuis.');
+        }
 
         $validated = $request->validate([
             'answers' => 'required|array',

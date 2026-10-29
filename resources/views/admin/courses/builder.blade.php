@@ -69,6 +69,7 @@
                     instructor_title: this.course.instructor_title,
                     description: this.course.description,
                     thumbnail_url: this.course.thumbnail_url,
+                    is_visible_to_guest: Boolean(this.course.is_visible_to_guest),
                 };
 
                 const res = await fetch('{{ route('admin.courses.builder.info', $course->id) }}', {
@@ -601,6 +602,29 @@
                               placeholder="Jelaskan kompetensi apa yang akan dipelajari siswa dalam kursus ini..."
                               class="w-full bg-slate-50 focus:bg-white border border-slate-200 focus:border-indigo-600 rounded-lg p-3 text-xs text-slate-900 focus:outline-none leading-relaxed"></textarea>
                 </div>
+
+                @if(auth()->user()?->canCurateGuestContent())
+                <!-- Guest / Penyuluh Access Curation (Admin Pusat Only) -->
+                <div class="p-3.5 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined text-[18px]">visibility</span>
+                        </div>
+                        <div>
+                            <label for="guest_toggle" class="text-xs font-bold text-indigo-950 block cursor-pointer">
+                                Akses Mode Galeri (Penyuluh & Tamu)
+                            </label>
+                            <p class="text-[11px] text-indigo-700 mt-0.5">
+                                Aktifkan agar kursus ini dapat diakses dan dijelajahi oleh akun Penyuluh / Tamu dalam mode lihat-saja.
+                            </p>
+                        </div>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer shrink-0">
+                        <input id="guest_toggle" type="checkbox" x-model="course.is_visible_to_guest" @change="saveInfo()" class="sr-only peer">
+                        <div class="w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600"></div>
+                    </label>
+                </div>
+                @endif
             </div>
 
             <!-- Right Panel (4 cols): Thumbnail & Media -->

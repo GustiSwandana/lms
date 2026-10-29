@@ -333,7 +333,7 @@
 
                 <div>
                     <label class="block text-xs font-semibold text-slate-900 mb-1">Nama Instansi / Sekolah</label>
-                    <input type="text" name="school_name" required placeholder="Contoh: SMKN 1 Jakarta"
+                    <input type="text" name="school_name" required placeholder="Contoh: SMP Negeri 1 Bitung"
                            class="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs focus:border-indigo-600 focus:outline-none"/>
                 </div>
 
@@ -499,7 +499,7 @@
 
                 <div>
                     <label class="block text-xs font-semibold text-slate-900 mb-1">Nama Instansi / Asal Sekolah</label>
-                    <input type="text" name="school_name" x-model="editUserData.school_name" placeholder="Opsional (misal: SMKN 1 Jakarta)"
+                    <input type="text" name="school_name" x-model="editUserData.school_name" placeholder="Opsional (misal: SMA Negeri 1 Manado)"
                            class="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs focus:border-indigo-600 focus:outline-none"/>
                 </div>
 

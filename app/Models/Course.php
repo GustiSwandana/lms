@@ -27,7 +27,20 @@ class Course extends Model
         'thumbnail_url',
         'level',
         'status',
+        'is_visible_to_guest',
     ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'is_visible_to_guest' => 'boolean',
+        ];
+    }
 
     protected static function booted(): void
     {
@@ -178,8 +191,8 @@ class Course extends Model
             return true;
         }
 
-        if ($user->isSchoolAdmin()) {
-            // Can manage if matches school name or created by this admin
+        if ($user->isSchoolAdmin() || $user->isGuru()) {
+            // Can manage if matches school name or created by this user
             return (! empty($this->school_name) && $this->school_name === $user->school_name)
                 || ($this->created_by === $user->id);
         }

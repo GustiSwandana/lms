@@ -45,7 +45,7 @@ class RoleMiddleware
             }
         }
 
-        if (! empty($allowedRoles) && ! in_array($user->role, $allowedRoles, true)) {
+        if (! empty($allowedRoles) && ! $user->hasRole($allowedRoles)) {
             if ($request->expectsJson()) {
                 return response()->json(['message' => 'Akses ditolak: Anda tidak memiliki izin untuk halaman ini.'], 403);
             }

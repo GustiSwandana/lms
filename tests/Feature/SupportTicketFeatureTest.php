@@ -23,7 +23,7 @@ class SupportTicketFeatureTest extends TestCase
         parent::setUp();
 
         $this->school = School::create([
-            'name' => 'SMKN 1 Jakarta',
+            'name' => 'SMP Negeri 1 Bitung',
             'slug' => 'smkn-1-jakarta',
             'npsn' => '20104928',
             'is_active' => true,
@@ -58,7 +58,7 @@ class SupportTicketFeatureTest extends TestCase
 
         $response->assertOk();
         $response->assertSee('Dukungan Teknis & Diagnostik Sistem', false);
-        $response->assertSee('SMKN 1 Jakarta');
+        $response->assertSee('SMP Negeri 1 Bitung');
         $response->assertSee('Ajukan Tiket Dukungan ke Admin Pusat');
     }
 
@@ -84,7 +84,7 @@ class SupportTicketFeatureTest extends TestCase
         $this->assertDatabaseHas('support_tickets', [
             'user_id' => $this->schoolAdmin->id,
             'school_id' => $this->school->id,
-            'school_name' => 'SMKN 1 Jakarta',
+            'school_name' => 'SMP Negeri 1 Bitung',
             'subject' => 'Kendala sinkronisasi playlist materi baru YouTube',
             'status' => 'menunggu',
             'priority' => 'tinggi',
@@ -104,7 +104,7 @@ class SupportTicketFeatureTest extends TestCase
         $ticket = SupportTicket::create([
             'user_id' => $this->schoolAdmin->id,
             'school_id' => $this->school->id,
-            'school_name' => 'SMKN 1 Jakarta',
+            'school_name' => 'SMP Negeri 1 Bitung',
             'subject' => 'Pertanyaan Integrasi Video Unlisted',
             'category' => 'teknis',
             'priority' => 'sedang',
@@ -119,7 +119,7 @@ class SupportTicketFeatureTest extends TestCase
         $response->assertOk();
         $response->assertSee($ticket->ticket_code);
         $response->assertSee('Pertanyaan Integrasi Video Unlisted');
-        $response->assertSee('SMKN 1 Jakarta');
+        $response->assertSee('SMP Negeri 1 Bitung');
         $response->assertSee('Bambang S., S.Kom');
     }
 
@@ -131,7 +131,7 @@ class SupportTicketFeatureTest extends TestCase
         $ticket = SupportTicket::create([
             'user_id' => $this->schoolAdmin->id,
             'school_id' => $this->school->id,
-            'school_name' => 'SMKN 1 Jakarta',
+            'school_name' => 'SMP Negeri 1 Bitung',
             'subject' => 'Kendala pemutaran video di lab komputer',
             'category' => 'teknis',
             'priority' => 'kritis',
@@ -164,7 +164,7 @@ class SupportTicketFeatureTest extends TestCase
         $ticket = SupportTicket::create([
             'user_id' => $this->schoolAdmin->id,
             'school_id' => $this->school->id,
-            'school_name' => 'SMKN 1 Jakarta',
+            'school_name' => 'SMP Negeri 1 Bitung',
             'subject' => 'Permintaan penambahan kategori IoT',
             'category' => 'kurikulum',
             'priority' => 'rendah',
@@ -192,7 +192,7 @@ class SupportTicketFeatureTest extends TestCase
         $ticket = SupportTicket::create([
             'user_id' => $this->schoolAdmin->id,
             'school_id' => $this->school->id,
-            'school_name' => 'SMKN 1 Jakarta',
+            'school_name' => 'SMP Negeri 1 Bitung',
             'subject' => 'Tiket Uji Coba',
             'category' => 'teknis',
             'priority' => 'sedang',

@@ -25,6 +25,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'address',
+        'phone',
         'password',
         'role',
         'school_id',
@@ -100,15 +102,39 @@ class User extends Authenticatable
      */
     public function isSuperAdmin(): bool
     {
-        return $this->role === 'super_admin';
+        return in_array($this->role, ['admin_pusat', 'super_admin'], true);
     }
 
     /**
-     * Check if user is School Admin (Admin Sekolah).
+     * Check if user is Admin Pusat.
+     */
+    public function isAdminPusat(): bool
+    {
+        return in_array($this->role, ['admin_pusat', 'super_admin'], true);
+    }
+
+    /**
+     * Check if user is School Operator / Admin.
      */
     public function isSchoolAdmin(): bool
     {
-        return $this->role === 'school_admin';
+        return in_array($this->role, ['operator_sekolah', 'school_admin'], true);
+    }
+
+    /**
+     * Check if user is Operator Sekolah.
+     */
+    public function isOperatorSekolah(): bool
+    {
+        return in_array($this->role, ['operator_sekolah', 'school_admin'], true);
+    }
+
+    /**
+     * Check if user is Guru (Teacher).
+     */
+    public function isGuru(): bool
+    {
+        return in_array($this->role, ['guru', 'teacher'], true);
     }
 
     /**
@@ -116,15 +142,81 @@ class User extends Authenticatable
      */
     public function isStudent(): bool
     {
-        return $this->role === 'student';
+        return in_array($this->role, ['siswa', 'student'], true);
     }
 
     /**
-     * Check if user is an admin (Super Admin or School Admin).
+     * Check if user is Siswa.
+     */
+    public function isSiswa(): bool
+    {
+        return in_array($this->role, ['siswa', 'student'], true);
+    }
+
+    /**
+     * Check if user is Penyuluh / Guest.
+     */
+    public function isPenyuluh(): bool
+    {
+        return in_array($this->role, ['penyuluh', 'guest'], true);
+    }
+
+    /**
+     * Check if user is a Guest / Tamu.
+     */
+    public function isGuestRole(): bool
+    {
+        return in_array($this->role, ['penyuluh', 'guest'], true);
+    }
+
+    /**
+     * Check if user has administrative or instructor dashboard access.
+     * (Admin Pusat, Operator Sekolah, and Guru can access course tools).
      */
     public function isAdmin(): bool
     {
-        return in_array($this->role, ['super_admin', 'school_admin', 'admin'], true);
+        return in_array($this->role, [
+            'admin_pusat',
+            'super_admin',
+            'operator_sekolah',
+            'school_admin',
+            'guru',
+            'teacher',
+            'admin',
+        ], true);
+    }
+
+    /**
+     * Check if user can manage users/students.
+     * Guru CANNOT manage users; only Admin Pusat and Operator Sekolah can.
+     */
+    public function canManageUsers(): bool
+    {
+        return $this->isAdminPusat() || $this->isOperatorSekolah();
+    }
+
+    /**
+     * Check if user can manage schools.
+     */
+    public function canManageSchools(): bool
+    {
+        return $this->isAdminPusat();
+    }
+
+    /**
+     * Check if user can manage system settings.
+     */
+    public function canManageSettings(): bool
+    {
+        return $this->isAdminPusat();
+    }
+
+    /**
+     * Check if user can curate content visibility for Penyuluh/Guest.
+     */
+    public function canCurateGuestContent(): bool
+    {
+        return $this->isAdminPusat();
     }
 
     /**
@@ -135,8 +227,35 @@ class User extends Authenticatable
     public function hasRole(string|array $roles): bool
     {
         $roleList = is_array($roles) ? $roles : explode(',', $roles);
+        $roleList = array_map('trim', $roleList);
 
-        return in_array($this->role, $roleList, true);
+        foreach ($roleList as $r) {
+            if ($r === 'admin_pusat' || $r === 'super_admin') {
+                if ($this->isAdminPusat()) {
+                    return true;
+                }
+            } elseif ($r === 'operator_sekolah' || $r === 'school_admin') {
+                if ($this->isOperatorSekolah()) {
+                    return true;
+                }
+            } elseif ($r === 'guru' || $r === 'teacher') {
+                if ($this->isGuru()) {
+                    return true;
+                }
+            } elseif ($r === 'siswa' || $r === 'student') {
+                if ($this->isSiswa()) {
+                    return true;
+                }
+            } elseif ($r === 'penyuluh' || $r === 'guest') {
+                if ($this->isPenyuluh()) {
+                    return true;
+                }
+            } elseif ($this->role === $r) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -145,9 +264,12 @@ class User extends Authenticatable
     public function getRoleLabelAttribute(): string
     {
         return match ($this->role) {
-            'super_admin' => 'Admin Pusat',
+            'admin_pusat', 'super_admin' => 'Admin Pusat',
+            'operator_sekolah' => 'Operator Sekolah',
             'school_admin' => 'Admin Sekolah',
-            'student' => 'Siswa',
+            'guru', 'teacher' => 'Guru',
+            'siswa', 'student' => 'Siswa',
+            'penyuluh', 'guest' => 'Penyuluh / Tamu',
             default => 'Pengguna',
         };
     }

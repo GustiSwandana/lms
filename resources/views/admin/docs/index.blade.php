@@ -9,7 +9,7 @@
                 <h1 class="text-2xl font-bold text-slate-900 tracking-tight">Panduan Penggunaan Aplikasi & Dokumentasi Sistem</h1>
                 <span class="px-2.5 py-0.5 rounded-full text-xs bg-indigo-50 text-indigo-700 font-semibold border border-indigo-200">Edisi 2026</span>
             </div>
-            <p class="text-xs text-slate-500 mt-1">Buku panduan operasional resmi untuk Siswa, Guru, dan Administrator, dilengkapi spesifikasi teknis dan integrasi API YouTube.</p>
+            <p class="text-xs text-slate-500 mt-1">Buku panduan operasional resmi untuk Siswa, Guru, dan Administrator, dilengkapi Dokumentasi API & Integrasi YouTube serta spesifikasi teknis.</p>
         </div>
 
         <!-- Tombol Aksi Unduh DOCX -->

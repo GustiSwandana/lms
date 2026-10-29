@@ -37,13 +37,13 @@
             <div class="space-y-3">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-xs font-semibold text-indigo-300">
                     <span class="material-symbols-outlined text-[16px] text-amber-400">verified</span>
-                    <span>Platform Multi-Sekolah Terintegrasi</span>
+                    <span>SIAGA BUMI-SSK Sulawesi Utara</span>
                 </div>
                 <h1 class="text-3xl xl:text-4xl font-extrabold text-white leading-tight tracking-tight">
-                    Masa Depan Pembelajaran Video yang <span class="text-indigo-400">Terarah, Cerdas & Bersertifikat</span>
+                    Integrasi Lingkungan dan Kependudukan Dalam Program Sekolah Siaga Kependudukan
                 </h1>
                 <p class="text-sm xl:text-base text-slate-300 leading-relaxed font-normal">
-                    Streaming materi edukasi berkualitas tinggi dari YouTube tanpa gangguan iklan, dilengkapi pencatatan progres per detik, diskusi interaktif, kuis terintegrasi, dan sertifikat kelulusan resmi ber-QR Code.
+                    Platform pembelajaran terintegrasi untuk pembentukan generasi berwawasan kependudukan, peduli kelestarian lingkungan hidup, dan berkarakter kuat melalui kurikulum digital interaktif.
                 </p>
             </div>
 
@@ -51,10 +51,10 @@
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-2">
                 <div class="p-4 rounded-xl bg-slate-800/80 border border-slate-700/80">
                     <div class="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center mb-2.5">
-                        <span class="material-symbols-outlined text-[18px]">movie</span>
+                        <span class="material-symbols-outlined text-[18px]">family_restroom</span>
                     </div>
-                    <div class="font-bold text-xs text-white">Streaming HD Bebas Iklan</div>
-                    <div class="text-[11px] text-slate-400 mt-1 leading-snug">Kurikulum modul terstruktur berbasis YouTube.</div>
+                    <div class="font-bold text-xs text-white">Edukasi Kependudukan</div>
+                    <div class="text-[11px] text-slate-400 mt-1 leading-snug">Materi komprehensif SSK dan BKKBN.</div>
                 </div>
 
                 <div class="p-4 rounded-xl bg-slate-800/80 border border-slate-700/80">
@@ -66,11 +66,11 @@
                 </div>
 
                 <div class="p-4 rounded-xl bg-slate-800/80 border border-slate-700/80">
-                    <div class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center mb-2.5">
-                        <span class="material-symbols-outlined text-[18px]">apartment</span>
+                    <div class="w-8 h-8 rounded-lg bg-teal-500/20 text-teal-400 flex items-center justify-center mb-2.5">
+                        <span class="material-symbols-outlined text-[18px]">forest</span>
                     </div>
-                    <div class="font-bold text-xs text-white">Multi-Tenancy Sekolah</div>
-                    <div class="text-[11px] text-slate-400 mt-1 leading-snug">Isolasi data siswa & operator per sekolah.</div>
+                    <div class="font-bold text-xs text-white">Kelestarian Lingkungan</div>
+                    <div class="text-[11px] text-slate-400 mt-1 leading-snug">Aksi nyata pelestarian alam Siaga Bumi.</div>
                 </div>
             </div>
 
@@ -80,10 +80,10 @@
                      alt="Siswa" class="w-9 h-9 rounded-full object-cover border border-slate-600 shrink-0"/>
                 <div class="text-xs">
                     <p class="text-slate-200 italic font-medium leading-relaxed">
-                        "Belajar modul teknologi jadi sangat fokus, sistem kuis dan pencatatan waktunya sangat membantu persiapan ujian kejuruan."
+                        "Belajar modul kependudukan dan lingkungan hidup jadi sangat menyenangkan, kuisnya interaktif dan sertifikatnya resmi."
                     </p>
                     <div class="text-[11px] text-indigo-300 font-semibold mt-1">
-                        Sarah Connor • Siswa SMKN 1 Jakarta
+                        Sarah Connor • Siswa SMP Negeri 1 Bitung
                     </div>
                 </div>
             </div>
@@ -95,7 +95,7 @@
                 <span class="material-symbols-outlined text-[16px] text-emerald-400">lock</span>
                 <span>Koneksi Aman Terenkripsi SSL/TLS & Proteksi CSRF</span>
             </div>
-            <span>© {{ date('Y') }} EduTube LMS Indonesia</span>
+            <span>© {{ date('Y') }} SIAGA BUMI-SSK Indonesia</span>
         </div>
     </div>
 
@@ -108,11 +108,11 @@
             <div class="lg:hidden flex items-center justify-between pb-4 border-b border-slate-200">
                 <a href="{{ route('student.dashboard') }}" class="inline-flex items-center gap-2.5">
                     <div class="w-8 h-8 rounded-xl bg-indigo-600 flex items-center justify-center text-white shadow-xs">
-                        <span class="material-symbols-outlined text-[18px]">smart_display</span>
+                        <span class="material-symbols-outlined text-[18px]">nature_people</span>
                     </div>
                     <div>
-                        <span class="font-bold text-base text-slate-900 block leading-none">EduTube <span class="text-indigo-600">Studio</span></span>
-                        <span class="text-[10px] text-slate-400 font-mono">LMS Multi-Role</span>
+                        <span class="font-bold text-base text-slate-900 block leading-none">SIAGA BUMI<span class="text-indigo-600">-SSK</span></span>
+                        <span class="text-[10px] text-slate-400 font-mono">LMS Kependudukan & Lingkungan</span>
                     </div>
                 </a>
                 <a href="{{ route('student.dashboard') }}" class="text-xs font-semibold text-indigo-600 hover:underline flex items-center gap-1">
@@ -136,7 +136,7 @@
                     Selamat Datang Kembali
                 </h2>
                 <p class="text-xs text-slate-500">
-                    Masukkan kredensial akun Anda untuk mengakses materi pembelajaran dan dasbor admin.
+                    Masukkan kredensial akun Anda untuk mengakses materi pembelajaran, sertifikat, dan panel manajemen.
                 </p>
             </div>
 
@@ -169,7 +169,7 @@
                 <!-- Email Input -->
                 <div class="space-y-1.5">
                     <label for="email" class="block text-xs font-semibold text-slate-700">
-                        Alamat Email Resmi
+                        Alamat Email
                     </label>
                     <div class="relative rounded-xl shadow-xs">
                         <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
@@ -181,7 +181,7 @@
                                autocomplete="email" 
                                required 
                                value="{{ old('email') }}"
-                               placeholder="nama@sekolah.sch.id atau admin@edutube.org"
+                               placeholder="nama@email.com atau akun@sekolah.sch.id"
                                class="w-full pl-10 pr-4 py-2.5 bg-white rounded-xl border border-slate-200 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600 transition-all"/>
                     </div>
                 </div>
@@ -234,84 +234,117 @@
                 </div>
             </form>
 
-            <!-- Student Account Registration Info Notice -->
-            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 flex items-start gap-2.5">
-                <span class="material-symbols-outlined text-[18px] text-indigo-600 shrink-0 mt-0.5">school</span>
-                <div class="leading-relaxed">
-                    <span class="font-semibold text-slate-900">Pendaftaran Akun Siswa Baru:</span>
-                    <p class="text-[11px] text-slate-500 mt-0.5">
-                        Pembuatan akun siswa dikelola secara terpusat oleh <strong>Operator Sekolah</strong> masing-masing. Silakan hubungi bagian kurikulum atau tata usaha sekolah Anda jika belum menerima akun.
-                    </p>
-                </div>
+            <!-- Registration CTA -->
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-center text-slate-600">
+                Belum memiliki akun pembelajar?
+                <a href="{{ route('register') }}" class="font-bold text-indigo-600 hover:text-indigo-700 hover:underline ml-1">
+                    Daftar Sekarang
+                </a>
             </div>
 
             <!-- ==========================================
-                 1-CLICK QUICK DEMO SWITCHER CARDS
+                 1-CLICK QUICK DEMO SWITCHER CARDS (5 ROLES)
                  ========================================== -->
-            <div class="pt-4 border-t border-slate-200 space-y-2.5">
+            <div class="pt-3 border-t border-slate-200 space-y-2">
                 <div class="flex items-center justify-between">
                     <span class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
                         <span class="material-symbols-outlined text-[15px] text-amber-500">bolt</span>
-                        1-Click Demo Login (Uji Peran)
+                        1-Click Demo Login (5 Peran)
                     </span>
                     <span class="text-[10px] text-slate-500 font-mono bg-slate-100 px-2 py-0.5 rounded-full font-medium">
                         Sandi: password
                     </span>
                 </div>
 
-                <div class="grid grid-cols-1 gap-2">
-                    <!-- Super Admin Preset Card -->
-                    <a href="{{ route('switch-role', 'super_admin') }}" 
-                       class="flex items-center justify-between p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 transition-all shadow-xs group">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-700 border border-indigo-100 flex items-center justify-center font-bold text-xs">
-                                <span class="material-symbols-outlined text-[16px]">shield</span>
+                <div class="grid grid-cols-1 gap-1.5">
+                    <!-- 1. Admin Pusat -->
+                    <a href="{{ route('switch-role', 'admin_pusat') }}" 
+                       class="flex items-center justify-between p-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 transition-all shadow-xs group">
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-700 border border-indigo-100 flex items-center justify-center font-bold text-xs">
+                                <span class="material-symbols-outlined text-[15px]">admin_panel_settings</span>
                             </div>
                             <div class="text-left">
                                 <div class="text-xs font-semibold text-slate-900 flex items-center gap-1.5">
-                                    <span>Admin Pusat (Super Admin)</span>
-                                    <span class="px-1.5 py-0.2 rounded text-[9px] bg-indigo-50 text-indigo-700 font-semibold border border-indigo-100">Semua Akses</span>
+                                    <span>Admin Pusat</span>
+                                    <span class="px-1.5 py-0.2 rounded text-[9px] bg-indigo-50 text-indigo-700 font-semibold border border-indigo-100">Super Admin</span>
                                 </div>
-                                <div class="text-[11px] text-slate-400 font-mono">superadmin@edutube.org</div>
+                                <div class="text-[10px] text-slate-400 font-mono">admin.pusat@ssk.kemdikbud.go.id</div>
                             </div>
                         </div>
-                        <span class="material-symbols-outlined text-[16px] text-slate-400 group-hover:text-indigo-600 group-hover:translate-x-0.5 transition-all">login</span>
+                        <span class="material-symbols-outlined text-[15px] text-slate-400 group-hover:text-indigo-600 transition-all">login</span>
                     </a>
 
-                    <!-- School Admin Preset Card -->
-                    <a href="{{ route('switch-role', 'school_admin') }}" 
-                       class="flex items-center justify-between p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 transition-all shadow-xs group">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-lg bg-slate-100 text-slate-700 border border-slate-200 flex items-center justify-center font-bold text-xs">
-                                <span class="material-symbols-outlined text-[16px]">account_balance</span>
+                    <!-- 2. Operator Sekolah -->
+                    <a href="{{ route('switch-role', 'operator_sekolah') }}" 
+                       class="flex items-center justify-between p-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 transition-all shadow-xs group">
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-7 h-7 rounded-lg bg-sky-50 text-sky-700 border border-sky-100 flex items-center justify-center font-bold text-xs">
+                                <span class="material-symbols-outlined text-[15px]">apartment</span>
                             </div>
                             <div class="text-left">
                                 <div class="text-xs font-semibold text-slate-900 flex items-center gap-1.5">
-                                    <span>Operator Sekolah (School Admin)</span>
-                                    <span class="px-1.5 py-0.2 rounded text-[9px] bg-slate-100 text-slate-700 font-semibold border border-slate-200">SMKN 1 Jakarta</span>
+                                    <span>Operator Sekolah</span>
+                                    <span class="px-1.5 py-0.2 rounded text-[9px] bg-sky-50 text-sky-700 font-semibold border border-sky-100">SMPN 1 Bitung</span>
                                 </div>
-                                <div class="text-[11px] text-slate-400 font-mono">smkn1@edutube.org</div>
+                                <div class="text-[10px] text-slate-400 font-mono">operator.smpn1bitung@sekolah.sch.id</div>
                             </div>
                         </div>
-                        <span class="material-symbols-outlined text-[16px] text-slate-400 group-hover:text-indigo-600 group-hover:translate-x-0.5 transition-all">login</span>
+                        <span class="material-symbols-outlined text-[15px] text-slate-400 group-hover:text-sky-600 transition-all">login</span>
                     </a>
 
-                    <!-- Student Preset Card -->
-                    <a href="{{ route('switch-role', 'student') }}" 
-                       class="flex items-center justify-between p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 transition-all shadow-xs group">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-100 flex items-center justify-center font-bold text-xs">
-                                <span class="material-symbols-outlined text-[16px]">school</span>
+                    <!-- 3. Guru -->
+                    <a href="{{ route('switch-role', 'guru') }}" 
+                       class="flex items-center justify-between p-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 transition-all shadow-xs group">
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-7 h-7 rounded-lg bg-purple-50 text-purple-700 border border-purple-100 flex items-center justify-center font-bold text-xs">
+                                <span class="material-symbols-outlined text-[15px]">co_present</span>
                             </div>
                             <div class="text-left">
                                 <div class="text-xs font-semibold text-slate-900 flex items-center gap-1.5">
-                                    <span>Siswa Pembelajar (Student)</span>
-                                    <span class="px-1.5 py-0.2 rounded text-[9px] bg-emerald-50 text-emerald-700 font-semibold border border-emerald-100">Sarah Connor</span>
+                                    <span>Guru / Pendidik</span>
+                                    <span class="px-1.5 py-0.2 rounded text-[9px] bg-purple-50 text-purple-700 font-semibold border border-purple-100">Kreator Modul</span>
                                 </div>
-                                <div class="text-[11px] text-slate-400 font-mono">student@edutube.org</div>
+                                <div class="text-[10px] text-slate-400 font-mono">guru.bitung@sekolah.sch.id</div>
                             </div>
                         </div>
-                        <span class="material-symbols-outlined text-[16px] text-slate-400 group-hover:text-emerald-600 group-hover:translate-x-0.5 transition-all">login</span>
+                        <span class="material-symbols-outlined text-[15px] text-slate-400 group-hover:text-purple-600 transition-all">login</span>
+                    </a>
+
+                    <!-- 4. Siswa -->
+                    <a href="{{ route('switch-role', 'siswa') }}" 
+                       class="flex items-center justify-between p-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 transition-all shadow-xs group">
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-100 flex items-center justify-center font-bold text-xs">
+                                <span class="material-symbols-outlined text-[15px]">school</span>
+                            </div>
+                            <div class="text-left">
+                                <div class="text-xs font-semibold text-slate-900 flex items-center gap-1.5">
+                                    <span>Siswa Pembelajar</span>
+                                    <span class="px-1.5 py-0.2 rounded text-[9px] bg-emerald-50 text-emerald-700 font-semibold border border-emerald-100">Sertifikat & Kuis</span>
+                                </div>
+                                <div class="text-[10px] text-slate-400 font-mono">siswa.bitung@sekolah.sch.id</div>
+                            </div>
+                        </div>
+                        <span class="material-symbols-outlined text-[15px] text-slate-400 group-hover:text-emerald-600 transition-all">login</span>
+                    </a>
+
+                    <!-- 5. Penyuluh / Guest -->
+                    <a href="{{ route('switch-role', 'penyuluh') }}" 
+                       class="flex items-center justify-between p-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 hover:border-slate-300 transition-all shadow-xs group">
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-7 h-7 rounded-lg bg-amber-50 text-amber-700 border border-amber-100 flex items-center justify-center font-bold text-xs">
+                                <span class="material-symbols-outlined text-[15px]">visibility</span>
+                            </div>
+                            <div class="text-left">
+                                <div class="text-xs font-semibold text-slate-900 flex items-center gap-1.5">
+                                    <span>Penyuluh / Tamu</span>
+                                    <span class="px-1.5 py-0.2 rounded text-[9px] bg-amber-50 text-amber-700 font-semibold border border-amber-100">Mode Galeri</span>
+                                </div>
+                                <div class="text-[10px] text-slate-400 font-mono">penyuluh.sulut@bkkbn.go.id</div>
+                            </div>
+                        </div>
+                        <span class="material-symbols-outlined text-[15px] text-slate-400 group-hover:text-amber-600 transition-all">login</span>
                     </a>
                 </div>
             </div>
@@ -320,7 +353,7 @@
             <div class="pt-1 text-center text-xs text-slate-400">
                 <a href="{{ route('student.dashboard') }}" class="inline-flex items-center gap-1 text-indigo-600 font-semibold hover:underline">
                     <span class="material-symbols-outlined text-[15px]">explore</span>
-                    <span>Jelajahi Katalog Kursus Tanpa Masuk</span>
+                    <span>Jelajahi Katalog Kursus SSK Tanpa Masuk</span>
                 </a>
             </div>
         </div>

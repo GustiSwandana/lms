@@ -85,17 +85,17 @@ class OptimizationFeatureTest extends TestCase
 
         $response = $this->actingAs($schoolAdmin)->post(route('admin.students.import'), [
             'csv_file' => $file,
-            'school_name' => 'SMAN 2 Bandung', // Attempt to inject foreign school name
+            'school_name' => 'Sekolah Rakyat Menengah Atas 44 Minahasa', // Attempt to inject foreign school name
         ]);
 
         $response->assertRedirect(route('admin.students.index'));
         $response->assertSessionHas('success');
 
-        // Dimas must be imported with SMKN 1 Jakarta
+        // Dimas must be imported with SMP Negeri 1 Bitung
         $this->assertDatabaseHas('users', [
             'name' => 'Dimas Setiawan',
             'email' => 'dimas@smkn1jakarta.sch.id',
-            'school_name' => 'SMKN 1 Jakarta',
+            'school_name' => 'SMP Negeri 1 Bitung',
             'role' => 'student',
         ]);
 
@@ -103,7 +103,7 @@ class OptimizationFeatureTest extends TestCase
         $nabila = User::where('email', 'nabila@smkn1jakarta.sch.id')->first();
         $this->assertNotNull($nabila);
         $this->assertTrue(Hash::check('Siswa123!', $nabila->password));
-        $this->assertEquals('SMKN 1 Jakarta', $nabila->school_name);
+        $this->assertEquals('SMP Negeri 1 Bitung', $nabila->school_name);
     }
 
     /**

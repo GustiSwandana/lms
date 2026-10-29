@@ -27,10 +27,10 @@ class ProductionUpgradeTest extends TestCase
      */
     public function test_school_admin_cannot_update_or_delete_course_from_another_school(): void
     {
-        $schoolAdmin1 = User::where('email', 'smkn1@edutube.org')->first(); // SMKN 1 Jakarta
-        $schoolAdmin2 = User::where('email', 'sman2@edutube.org')->first(); // SMAN 2 Bandung
+        $schoolAdmin1 = User::where('email', 'smkn1@edutube.org')->first(); // SMP Negeri 1 Bitung
+        $schoolAdmin2 = User::where('email', 'sman2@edutube.org')->first(); // SRMA 44 Minahasa
 
-        $courseSchool2 = Course::where('school_name', 'SMAN 2 Bandung')->first();
+        $courseSchool2 = Course::where('school_name', 'Sekolah Rakyat Menengah Atas 44 Minahasa')->first();
 
         // 1. School Admin 1 tries to update School 2's course -> 403 Forbidden
         $responseUpdate = $this->actingAs($schoolAdmin1)->put(route('admin.courses.update', $courseSchool2->id), [
@@ -54,7 +54,7 @@ class ProductionUpgradeTest extends TestCase
         ]);
 
         // 3. School Admin 1 can update their OWN course -> 302 Redirect (Success)
-        $courseSchool1 = Course::where('school_name', 'SMKN 1 Jakarta')->first();
+        $courseSchool1 = Course::where('school_name', 'SMP Negeri 1 Bitung')->first();
         $responseOwn = $this->actingAs($schoolAdmin1)->put(route('admin.courses.update', $courseSchool1->id), [
             'category_id' => $courseSchool1->category_id,
             'title' => 'Judul Resmi Diperbarui Sekolah 1',
@@ -95,19 +95,19 @@ class ProductionUpgradeTest extends TestCase
      */
     public function test_student_catalog_can_filter_by_own_school(): void
     {
-        $student = User::where('email', 'student@edutube.org')->first(); // SMKN 1 Jakarta
+        $student = User::where('email', 'student@edutube.org')->first(); // SMP Negeri 1 Bitung
 
         // 1. All courses view
         $responseAll = $this->actingAs($student)->get(route('student.dashboard'));
         $responseAll->assertStatus(200);
-        $responseAll->assertSee('SMKN 1 Jakarta');
-        $responseAll->assertSee('SMAN 2 Bandung');
+        $responseAll->assertSee('SMP Negeri 1 Bitung');
+        $responseAll->assertSee('Sekolah Rakyat Menengah Atas 44 Minahasa');
 
         // 2. My School filter
         $responseMySchool = $this->actingAs($student)->get(route('student.dashboard', ['scope' => 'my_school']));
         $responseMySchool->assertStatus(200);
-        $responseMySchool->assertSee('SMKN 1 Jakarta');
-        $responseMySchool->assertDontSee('SMAN 2 Bandung');
+        $responseMySchool->assertSee('SMP Negeri 1 Bitung');
+        $responseMySchool->assertDontSee('Sekolah Rakyat Menengah Atas 44 Minahasa');
     }
 
     /**
@@ -200,7 +200,7 @@ class ProductionUpgradeTest extends TestCase
     public function test_playback_progress_saving_and_automatic_certificate_issuance(): void
     {
         $student = User::where('email', 'elena@edutube.org')->first();
-        $course = Course::where('slug', 'dasar-dasar-kontainerisasi-docker-kubernetes')->first();
+        $course = Course::where('slug', 'apa-sih-ssk-sekolah-siaga-kependudukan')->first();
         $lessons = $course->lessons;
 
         $this->assertCount(2, $lessons);
@@ -312,7 +312,7 @@ class ProductionUpgradeTest extends TestCase
         $response = $this->actingAs($superAdmin)->post(route('admin.users.store-student'), [
             'name' => 'Fajar Pratama',
             'email' => 'fajar@smkn1jakarta.sch.id',
-            'school_name' => 'SMKN 1 Jakarta',
+            'school_name' => 'SMP Negeri 1 Bitung',
             'password' => 'password123',
         ]);
 
@@ -320,31 +320,46 @@ class ProductionUpgradeTest extends TestCase
         $this->assertDatabaseHas('users', [
             'name' => 'Fajar Pratama',
             'email' => 'fajar@smkn1jakarta.sch.id',
-            'school_name' => 'SMKN 1 Jakarta',
+            'school_name' => 'SMP Negeri 1 Bitung',
             'role' => 'student',
             'is_active' => true,
         ]);
     }
 
     /**
-     * Test 6.B: Public registration is completely disabled (returns 404).
+     * Test 6.B: Public registration succeeds with required fields (name, address, email, phone).
      */
-    public function test_public_registration_is_disabled(): void
+    public function test_public_registration_succeeds_with_required_fields(): void
     {
         $responseGet = $this->get('/register');
-        $responseGet->assertStatus(404);
+        $responseGet->assertStatus(200);
 
-        $responsePost = $this->post('/register', [
+        // Validation error if missing required fields (e.g. address, phone)
+        $responseInvalid = $this->post('/register', [
             'name' => 'Dewi Lestari',
             'email' => 'dewi@sman2bandung.sch.id',
-            'school_name' => 'SMAN 2 Bandung',
             'password' => 'password123',
             'password_confirmation' => 'password123',
         ]);
-        $responsePost->assertStatus(404);
+        $responseInvalid->assertSessionHasErrors(['address', 'phone']);
 
-        $this->assertDatabaseMissing('users', [
+        // Successful registration
+        $responsePost = $this->post('/register', [
+            'name' => 'Dewi Lestari',
+            'address' => 'Jl. Sam Ratulangi No. 12, Manado',
             'email' => 'dewi@sman2bandung.sch.id',
+            'phone' => '081298765432',
+            'password' => 'password123',
+            'password_confirmation' => 'password123',
+        ]);
+        $responsePost->assertRedirect(route('student.dashboard'));
+
+        $this->assertDatabaseHas('users', [
+            'email' => 'dewi@sman2bandung.sch.id',
+            'name' => 'Dewi Lestari',
+            'address' => 'Jl. Sam Ratulangi No. 12, Manado',
+            'phone' => '081298765432',
+            'role' => 'siswa',
         ]);
     }
 
@@ -387,21 +402,21 @@ class ProductionUpgradeTest extends TestCase
      */
     public function test_school_admin_can_add_student_strictly_to_own_school(): void
     {
-        $schoolAdmin = User::where('email', 'smkn1@edutube.org')->first(); // SMKN 1 Jakarta
+        $schoolAdmin = User::where('email', 'smkn1@edutube.org')->first(); // SMP Negeri 1 Bitung
 
         $response = $this->actingAs($schoolAdmin)->post(route('admin.students.store'), [
-            'name' => 'Rizky Siswa SMKN 1',
+            'name' => 'Rizky Siswa Bitung',
             'email' => 'rizky@smkn1jakarta.sch.id',
             'password' => 'password123',
             // Even if an attacker attempts to inject another school name, the system forces the operator's school
-            'school_name' => 'SMAN 2 Bandung',
+            'school_name' => 'Sekolah Rakyat Menengah Atas 44 Minahasa',
         ]);
 
         $response->assertRedirect(route('admin.students.index'));
         $this->assertDatabaseHas('users', [
-            'name' => 'Rizky Siswa SMKN 1',
+            'name' => 'Rizky Siswa Bitung',
             'email' => 'rizky@smkn1jakarta.sch.id',
-            'school_name' => 'SMKN 1 Jakarta', // Strictly locked to operator's school
+            'school_name' => 'SMP Negeri 1 Bitung', // Strictly locked to operator's school
             'role' => 'student',
             'is_active' => true,
         ]);

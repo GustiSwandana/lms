@@ -61,10 +61,10 @@ class EnterpriseOptimizationTest extends TestCase
         $this->assertNotNull($schoolAdmin);
 
         // Ensure another student from another school exists
-        $otherSchool = School::where('name', 'SMAN 2 Bandung')->first();
+        $otherSchool = School::where('name', 'Sekolah Rakyat Menengah Atas 44 Minahasa')->first();
         $otherStudent = User::create([
-            'name' => 'Siswa Bandung Lain',
-            'email' => 'siswa.bandung.lain@edutube.org',
+            'name' => 'Siswa Minahasa Lain',
+            'email' => 'siswa.minahasa.lain@edutube.org',
             'password' => Hash::make('password'),
             'role' => 'student',
             'school_id' => $otherSchool->id,
@@ -77,11 +77,11 @@ class EnterpriseOptimizationTest extends TestCase
         $response->assertStatus(200);
         $content = $response->streamedContent();
 
-        // Must contain SMKN 1 student
+        // Must contain Bitung student
         $this->assertStringContainsString('student@edutube.org', $content);
 
-        // Must NOT contain SMAN 2 Bandung student
-        $this->assertStringNotContainsString('siswa.bandung.lain@edutube.org', $content);
+        // Must NOT contain Minahasa student
+        $this->assertStringNotContainsString('siswa.minahasa.lain@edutube.org', $content);
     }
 
     /**

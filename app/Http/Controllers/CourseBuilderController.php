@@ -88,9 +88,9 @@ class CourseBuilderController extends Controller
         $title = $request->input('title', 'Kursus Baru (Draf)');
         $category = Category::first();
 
-        $schoolName = $admin->isSchoolAdmin()
+        $schoolName = ($admin->isSchoolAdmin() || $admin->isGuru())
             ? ($admin->school_name ?: 'Sekolah Saya')
-            : 'EduTube Pusat';
+            : 'Pusat SSK';
 
         $course = Course::create([
             'category_id' => $category?->id ?? 1,
@@ -131,6 +131,7 @@ class CourseBuilderController extends Controller
             'level' => 'sometimes|nullable|string|max:50',
             'thumbnail_url' => 'sometimes|nullable|string',
             'thumbnail_file' => 'sometimes|nullable|image|max:5120',
+            'is_visible_to_guest' => 'sometimes|nullable|boolean',
         ]);
 
         if ($request->hasFile('thumbnail_file')) {
@@ -139,6 +140,12 @@ class CourseBuilderController extends Controller
             $validated['thumbnail_url'] = Storage::disk($disk)->url($path);
         }
         unset($validated['thumbnail_file']);
+
+        if ($admin->isSuperAdmin() && $request->has('is_visible_to_guest')) {
+            $validated['is_visible_to_guest'] = $request->boolean('is_visible_to_guest');
+        } else {
+            unset($validated['is_visible_to_guest']);
+        }
 
         if (isset($validated['title']) && empty($validated['slug'])) {
             $validated['slug'] = Str::slug($validated['title']);

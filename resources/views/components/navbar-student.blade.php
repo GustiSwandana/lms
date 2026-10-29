@@ -11,9 +11,12 @@
         <!-- Brand Logo -->
         <a class="flex items-center gap-2.5 shrink-0" href="{{ route('student.dashboard') }}">
             <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white shadow-xs">
-                <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+                <span class="material-symbols-outlined text-[18px]">nature_people</span>
             </div>
-            <span class="text-base font-bold text-slate-900 tracking-tight">EduTube Studio</span>
+            <div class="flex flex-col">
+                <span class="text-sm font-bold text-slate-900 tracking-tight leading-none">SIAGA BUMI<span class="text-indigo-600">-SSK</span></span>
+                <span class="text-[9px] text-slate-400 font-medium">Sekolah Siaga Kependudukan</span>
+            </div>
         </a>
 
         <!-- Quick Search Bar -->

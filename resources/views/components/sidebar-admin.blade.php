@@ -36,7 +36,7 @@
                     <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">school</span>
                 </div>
                 <div class="flex flex-col">
-                    <span class="text-sm font-bold text-slate-900 tracking-tight">EduTube LMS</span>
+                    <span class="text-sm font-bold text-slate-900 tracking-tight">SIAGA BUMI-SSK</span>
                     <div class="flex items-center gap-1.5 mt-0.5">
                         <span class="text-[11px] text-slate-500 font-medium">Portal Admin</span>
                         <span class="px-1.5 py-0.2 rounded-md bg-indigo-50 text-indigo-700 text-[10px] font-semibold">
@@ -90,15 +90,17 @@
                 <span>Penyusun Kurikulum</span>
             </a>
 
-            <!-- Students -->
+            <!-- Students (Hidden from Guru, accessible by School Operator & Central Admin) -->
+            @if(!auth()->user()?->isGuru())
             <a class="flex items-center gap-3 px-3 py-2 rounded-lg transition-colors text-xs font-medium {{ request()->routeIs('admin.students.*') ? 'bg-indigo-50 text-indigo-700 font-semibold' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}" 
                href="{{ route('admin.students.index') }}">
                 <span class="material-symbols-outlined text-[18px] {{ request()->routeIs('admin.students.*') ? 'text-indigo-600' : 'text-slate-400' }}" style="{{ request()->routeIs('admin.students.*') ? 'font-variation-settings: \'FILL\' 1;' : '' }}">group</span>
                 <span>Siswa / Mahasiswa</span>
-                <span class="ml-auto bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded text-[10px] font-medium">{{ \App\Models\User::where('role', 'student')->count() }}</span>
+                <span class="ml-auto bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded text-[10px] font-medium">{{ \App\Models\User::whereIn('role', ['student', 'siswa'])->count() }}</span>
             </a>
+            @endif
 
-            @if(auth()->user()?->isSuperAdmin())
+            @if(auth()->user()?->canManageSettings())
             <div class="pt-2 pb-1 px-3 text-[10px] font-semibold uppercase tracking-wider text-slate-400">Pusat</div>
 
             <!-- User Management -->

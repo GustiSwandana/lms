@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 // Authentication & Session Routes
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post')->middleware('throttle:auth-login');
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+Route::post('/register', [AuthController::class, 'register'])->name('register.post')->middleware('throttle:auth-login');
 Route::get('/forgot-password', [AuthController::class, 'showForgotPassword'])->name('password.request');
 Route::post('/forgot-password', [AuthController::class, 'submitForgotPassword'])->name('password.email')->middleware('throttle:auth-login');
 Route::post('/profile/update-password', [AuthController::class, 'updatePassword'])->name('password.update')->middleware('auth');
@@ -44,8 +46,8 @@ Route::get('/sertifikat/{code}/download', [StudentController::class, 'downloadCe
 
 // Admin Panel Routes
 Route::prefix('admin')->name('admin.')->group(function () {
-    // 1. Shared Admin Area: Super Admin & School Admin
-    Route::middleware(['role:super_admin,school_admin'])->group(function () {
+    // 1. Shared Learning & Course Area: Super Admin, School Admin, Admin Pusat, Operator Sekolah, Guru
+    Route::middleware(['role:super_admin,school_admin,admin_pusat,operator_sekolah,guru'])->group(function () {
         Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
         Route::post('/lessons', [AdminController::class, 'storeLesson'])->name('lessons.store');
         Route::put('/lessons/{lesson}', [AdminController::class, 'updateLesson'])->name('lessons.update');
@@ -88,24 +90,29 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/curriculum/lessons/{lesson}/quizzes', [AdminController::class, 'storeQuizQuestion'])->name('curriculum.quizzes.store');
         Route::delete('/curriculum/quizzes/{question}', [AdminController::class, 'destroyQuizQuestion'])->name('curriculum.quizzes.destroy');
 
-        // Students / Learners Telemetry & Creation
+        // API Documentation
+        Route::get('/docs', [AdminController::class, 'docs'])->name('docs.index');
+
+        // Dukungan & Log (School Admin/Operator/Guru can file tickets & view logs)
+        Route::get('/support', [AdminController::class, 'support'])->name('support.index');
+        Route::post('/support/ticket', [AdminController::class, 'submitSupportTicket'])->name('support.ticket');
+    });
+
+    // 2. Student Telemetry & Creation Area: Operator Sekolah & Central Admin (Strictly blocks Guru)
+    Route::middleware(['role:super_admin,school_admin,admin_pusat,operator_sekolah'])->group(function () {
         Route::get('/students', [AdminController::class, 'students'])->name('students.index');
         Route::get('/students/export', [AdminController::class, 'exportStudentsCsv'])->name('students.export');
         Route::post('/students', [AdminController::class, 'storeStudent'])->name('students.store');
         Route::post('/students/import', [AdminController::class, 'importStudentsCsv'])->name('students.import');
         Route::get('/students/import-template', [AdminController::class, 'downloadStudentCsvTemplate'])->name('students.import-template');
         Route::post('/students/{student}/reset-password', [AdminController::class, 'resetStudentPassword'])->name('students.reset-password');
-
-        // API Documentation
-        Route::get('/docs', [AdminController::class, 'docs'])->name('docs.index');
-
-        // Dukungan & Log (School Admin can file tickets & view school logs, Super Admin can view all & respond)
-        Route::get('/support', [AdminController::class, 'support'])->name('support.index');
-        Route::post('/support/ticket', [AdminController::class, 'submitSupportTicket'])->name('support.ticket');
     });
 
-    // 2. Super Admin Exclusive Area: User Management, Settings & Diagnostic Support
-    Route::middleware(['role:super_admin'])->group(function () {
+    // 3. Central Admin Exclusive Area: User Management, School Settings & Guest Content Curation
+    Route::middleware(['role:super_admin,admin_pusat'])->group(function () {
+        // Toggle Guest Visibility for Courses
+        Route::post('/courses/{course}/toggle-guest-visibility', [AdminController::class, 'toggleCourseGuestVisibility'])->name('courses.toggle-guest-visibility');
+
         // User & School Admin Management
         Route::get('/users', [UserController::class, 'index'])->name('users.index');
         Route::post('/users/school-admins', [UserController::class, 'storeSchoolAdmin'])->name('users.store-school-admin');
@@ -114,6 +121,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/users/{user}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggle-status');
         Route::post('/users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.reset-password');
         Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+
         // Master Schools Management
         Route::get('/schools', [SchoolController::class, 'index'])->name('schools.index');
         Route::post('/schools', [SchoolController::class, 'store'])->name('schools.store');
