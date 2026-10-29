@@ -51,7 +51,7 @@
             </div>
             <div class="hidden lg:flex flex-col text-left leading-none">
                 <span class="text-xs font-semibold text-slate-900">{{ $student->name }}</span>
-                <span class="text-[11px] text-slate-500">{{ $student->school_name ?: 'Siswa EduTube' }}</span>
+                <span class="text-[11px] text-slate-500">{{ $student->school_name ?: 'Siswa SSK' }}</span>
             </div>
         </div>
     </div>
@@ -466,11 +466,11 @@
                         <div class="flex flex-wrap items-center gap-2">
                             <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 text-xs font-semibold border border-indigo-100">
                                 <span class="material-symbols-outlined text-[14px]">school</span>
-                                {{ $course->category->name ?? 'Pemrograman' }}
+                                {{ $course->category->name ?? 'SSK BKKBN' }}
                             </span>
                             <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold border border-emerald-100">
                                 <span class="material-symbols-outlined text-[14px]">apartment</span>
-                                {{ $course->school_name ?: 'EduTube Pusat' }}
+                                {{ $course->school_name ?: 'BKKBN Perwakilan Sulut' }}
                             </span>
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 text-xs font-medium border border-slate-200">
                                 {{ $currentLesson->module_title }}

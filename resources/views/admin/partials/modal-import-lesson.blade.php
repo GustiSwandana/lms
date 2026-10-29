@@ -24,7 +24,7 @@
         status: 'published',
         thumbnailUrl: '',
         embedUrl: '',
-        channelName: 'EduTube Resmi',
+        channelName: 'BKKBN Official',
         durationText: '24 menit 18 detik',
         qualityText: '1080p HD (60 FPS)',
         showPlayer: false,
@@ -73,7 +73,7 @@
                         if (!this.title || this.title === 'Judul Pelajaran Terdeteksi Otomatis') {
                             this.title = data.title;
                         }
-                        this.channelName = data.author_name || 'EduTube Resmi';
+                        this.channelName = data.author_name || 'BKKBN Official';
                         this.thumbnailUrl = data.thumbnail_url || this.thumbnailUrl;
                     }
                 })
@@ -229,7 +229,7 @@
                                     </button>
                                     <div class="ml-auto flex items-center gap-1.5 text-[11px] text-slate-400">
                                         <span class="material-symbols-outlined text-[14px]">history</span>
-                                        <span>Editor EduTube</span>
+                                        <span>Editor BKKBN SSK</span>
                                     </div>
                                 </div>
                                 <textarea name="description" x-model="description"
@@ -300,7 +300,7 @@
                                     <span class="text-slate-500">Pembuat Channel</span>
                                     <span class="text-slate-900 font-semibold flex items-center gap-1.5">
                                         <span class="w-4 h-4 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[9px] font-bold">E</span>
-                                        <span x-text="channelName">EduTube Resmi</span>
+                                        <span x-text="channelName">BKKBN Official</span>
                                         <span class="material-symbols-outlined text-[14px] text-sky-500" style="font-variation-settings: 'FILL' 1;">verified</span>
                                     </span>
                                 </div>

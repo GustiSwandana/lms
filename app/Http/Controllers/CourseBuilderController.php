@@ -28,8 +28,8 @@ class CourseBuilderController extends Controller
             ?? User::whereIn('role', ['super_admin', 'school_admin', 'admin'])->first()
             ?? User::first()
             ?? User::create([
-                'name' => 'Alex Vance, PhD',
-                'email' => 'superadmin@edutube.org',
+                'name' => 'Dr. Hendra Sompotan, M.Si',
+                'email' => 'adminpusat@siagabumi.id',
                 'password' => bcrypt('password'),
                 'role' => 'super_admin',
                 'is_active' => true,

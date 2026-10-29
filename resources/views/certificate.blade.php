@@ -378,7 +378,7 @@
                 <!-- Header -->
                 <div class="cert-header">
                     <span class="material-symbols-outlined cert-logo-icon">school</span>
-                    <span class="cert-institution">EduTube Learning Management System</span>
+                    <span class="cert-institution">Sekolah Siaga Kependudukan (SSK) BKKBN</span>
                 </div>
 
                 <h1 class="cert-title">Sertifikat Kelulusan</h1>
@@ -391,7 +391,7 @@
                 <div>
                     <span class="cert-school-badge">
                         <span class="material-symbols-outlined" style="font-size: 16px;">apartment</span>
-                        {{ $user->school_name ?: ($course->school_name ?: 'EduTube Academy') }}
+                        {{ $user->school_name ?: ($course->school_name ?: 'BKKBN Perwakilan Sulut') }}
                     </span>
                 </div>
 
@@ -421,7 +421,7 @@
                             <span class="sig-image-text">Dr. Vance</span>
                         </div>
                         <div class="sig-name">Alex Vance, PhD</div>
-                        <div class="sig-title">Direktur Akademik EduTube</div>
+                        <div class="sig-title">Kepala Perwakilan BKKBN Sulut</div>
                     </div>
                 </div>
 

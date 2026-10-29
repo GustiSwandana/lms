@@ -9,8 +9,8 @@
                 <span class="material-symbols-outlined text-[24px]">lock_reset</span>
             </div>
             <div class="text-left">
-                <span class="font-extrabold text-xl tracking-tight text-slate-900 block leading-none">EduTube <span class="text-indigo-600">Studio</span></span>
-                <span class="text-[11px] font-mono text-slate-500 tracking-wider uppercase">Pemulihan Kata Sandi</span>
+                <span class="font-extrabold text-xl tracking-tight text-slate-900 block leading-none">SIAGA BUMI<span class="text-indigo-600">-SSK</span></span>
+                <span class="text-[11px] font-mono text-slate-500 tracking-wider uppercase">Sekolah Siaga Kependudukan Sulawesi Utara</span>
             </div>
         </a>
         <h2 class="text-2xl font-bold tracking-tight text-slate-900">

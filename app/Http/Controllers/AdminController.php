@@ -35,8 +35,8 @@ class AdminController extends Controller
             ?? User::whereIn('role', ['super_admin', 'school_admin', 'admin'])->first()
             ?? User::first()
             ?? User::create([
-                'name' => 'Alex Vance, PhD',
-                'email' => 'superadmin@edutube.org',
+                'name' => 'Dr. Hendra Sompotan, M.Si',
+                'email' => 'adminpusat@siagabumi.id',
                 'password' => bcrypt('password'),
                 'role' => 'super_admin',
                 'is_active' => true,
@@ -229,7 +229,7 @@ class AdminController extends Controller
             'hq_thumbnail_url' => YouTubeService::getHqThumbnailUrl($videoId),
             'embed_url' => YouTubeService::getEmbedUrl($videoId),
             'title' => $meta['title'] ?? 'Judul Pelajaran Terdeteksi Otomatis',
-            'author_name' => $meta['author_name'] ?? 'EduTube Resmi',
+            'author_name' => $meta['author_name'] ?? 'BKKBN Official',
             'duration_sample' => '24:18',
             'quality' => '1080p HD (60 FPS)',
         ]);
@@ -423,7 +423,7 @@ class AdminController extends Controller
         if ($admin->isSchoolAdmin() || $admin->isGuru()) {
             $validated['school_name'] = $admin->school_name ?: 'Sekolah Saya';
         } else {
-            $validated['school_name'] = ($validated['school_name'] ?? null) ?: 'EduTube Pusat';
+            $validated['school_name'] = ($validated['school_name'] ?? null) ?: 'BKKBN Perwakilan Sulawesi Utara';
         }
 
         $course = Course::create($validated);
@@ -853,7 +853,7 @@ class AdminController extends Controller
             $targetSchool = $admin->school_name;
             $targetSchoolId = $admin->school_id;
         } else {
-            $targetSchool = $request->input('school_name') ?: 'EduTube Pusat';
+            $targetSchool = $request->input('school_name') ?: 'BKKBN Perwakilan Sulawesi Utara';
             $targetSchoolId = School::where('name', $targetSchool)->value('id');
         }
 
@@ -1008,7 +1008,7 @@ class AdminController extends Controller
                         fputcsv($handle, [
                             $student->name,
                             $student->email,
-                            $student->school_name ?: 'EduTube',
+                            $student->school_name ?: 'BKKBN Sulut',
                             '- Belum Mengikuti Kursus -',
                             '0%',
                             $quizAverage,
@@ -1032,7 +1032,7 @@ class AdminController extends Controller
                             fputcsv($handle, [
                                 $student->name,
                                 $student->email,
-                                $student->school_name ?: 'EduTube',
+                                $student->school_name ?: 'BKKBN Sulut',
                                 $course->title,
                                 "{$progress}%",
                                 $avgScore,
@@ -1085,9 +1085,9 @@ class AdminController extends Controller
         $admin = $this->getActiveAdmin();
 
         $config = [
-            'site_name' => 'EduTube LMS',
-            'site_tagline' => 'Learning Management System Berbasis Integrasi YouTube',
-            'support_email' => 'support@edutube.org',
+            'site_name' => 'SIAGA BUMI-SSK',
+            'site_tagline' => 'Platform Sekolah Siaga Kependudukan BKKBN Sulawesi Utara',
+            'support_email' => 'admin@siagabumi.id',
             'youtube_player_domain' => 'youtube-nocookie.com',
             'allow_community_discussion' => true,
             'allow_personal_notes' => true,
@@ -1111,7 +1111,7 @@ class AdminController extends Controller
             'support_email' => 'required|email',
         ]);
 
-        return back()->with('success', 'Konfigurasi platform EduTube LMS berhasil disimpan!');
+        return back()->with('success', 'Konfigurasi platform SIAGA BUMI-SSK berhasil disimpan!');
     }
 
     /**
@@ -1217,7 +1217,7 @@ class AdminController extends Controller
             'sender_ip' => $request->ip(),
             'user_agent' => $request->userAgent(),
             'sender_role' => $admin->role_label,
-            'school_name' => $admin->school_name ?? 'Pusat EduTube',
+            'school_name' => $admin->school_name ?? 'BKKBN Perwakilan Sulawesi Utara',
             'php_version' => PHP_VERSION,
             'laravel_version' => app()->version(),
             'submitted_at' => now()->toIso8601String(),
@@ -1226,7 +1226,7 @@ class AdminController extends Controller
         $ticket = SupportTicket::create([
             'user_id' => $admin->id,
             'school_id' => $admin->school_id,
-            'school_name' => $admin->school_name ?? 'Pusat EduTube',
+            'school_name' => $admin->school_name ?? 'BKKBN Perwakilan Sulawesi Utara',
             'subject' => $request->subject,
             'category' => $request->category ?? 'teknis',
             'priority' => $request->priority,

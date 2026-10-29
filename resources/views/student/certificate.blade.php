@@ -73,7 +73,7 @@
     <div class="no-print max-w-5xl w-full mx-auto mb-4 bg-emerald-500/20 border border-emerald-400/40 text-emerald-200 px-4 py-2.5 rounded-xl text-xs flex items-center justify-between shadow-xs">
         <div class="flex items-center gap-2">
             <span class="material-symbols-outlined text-[20px] text-emerald-400">verified</span>
-            <span class="font-semibold">Sertifikat ini sah dan terdaftar dalam sistem sertifikasi nasional EduTube LMS.</span>
+            <span class="font-semibold">Sertifikat ini sah dan terdaftar dalam sistem sertifikasi resmi Sekolah Siaga Kependudukan (SSK) BKKBN Sulawesi Utara.</span>
         </div>
         <span class="font-mono text-[11px] text-emerald-300">STATUS: TERVERIFIKASI</span>
     </div>
@@ -94,7 +94,7 @@
                     <span class="material-symbols-outlined text-[32px]">school</span>
                 </div>
                 <div>
-                    <h2 class="text-xl font-bold tracking-tight text-[#00236f] font-['Cinzel',serif]">EduTube LMS</h2>
+                    <h2 class="text-xl font-bold tracking-tight text-[#00236f] font-['Cinzel',serif]">SIAGA BUMI-SSK</h2>
                     <p class="text-[11px] tracking-wider uppercase text-[#757682] font-semibold">
                         {{ $certificate->user->school_name ?: ($certificate->course->school_name ?: 'Platform Pembelajaran Vokasi') }}
                     </p>
@@ -154,7 +154,7 @@
                 <p class="text-[11px] text-[#757682]">Diterbitkan pada:</p>
                 <p class="text-xs font-bold text-[#131b2e]">{{ $certificate->issued_at->translatedFormat('d F Y') }}</p>
                 <div class="pt-4">
-                    <p class="text-xs font-bold text-[#00236f]">{{ $certificate->course->instructor_name ?: 'Tim Kurikulum EduTube' }}</p>
+                    <p class="text-xs font-bold text-[#00236f]">{{ $certificate->course->instructor_name ?: 'Tim Kurikulum SSK BKKBN' }}</p>
                     <p class="text-[10px] text-[#757682]">{{ $certificate->course->instructor_title ?: 'Instruktur Utama Program' }}</p>
                 </div>
             </div>
@@ -215,7 +215,7 @@
 
     <!-- Bottom Notice (No Print) -->
     <div class="no-print max-w-5xl w-full mx-auto text-center mt-6 text-white/50 text-xs">
-        &copy; {{ date('Y') }} EduTube LMS • Platform Pendidikan Terbuka Berbasis Multi-Sekolah
+        &copy; {{ date('Y') }} SIAGA BUMI-SSK • Platform Sekolah Siaga Kependudukan BKKBN Sulawesi Utara
     </div>
 
 </body>

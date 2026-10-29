@@ -33,7 +33,7 @@ class StudentController extends Controller
             ?? User::first()
             ?? User::create([
                 'name' => 'Siswa Pengunjung',
-                'email' => 'guest@edutube.org',
+                'email' => 'guest@siagabumi.id',
                 'password' => bcrypt('password'),
                 'role' => 'student',
                 'school_name' => 'SMA Negeri 1 Manado',

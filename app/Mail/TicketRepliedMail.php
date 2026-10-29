@@ -26,7 +26,7 @@ class TicketRepliedMail extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: "[EduTube LMS] Tanggapan Tiket #{$this->ticket->ticket_code}: {$this->ticket->subject}",
+            subject: "[SIAGA BUMI-SSK] Tanggapan Tiket #{$this->ticket->ticket_code}: {$this->ticket->subject}",
         );
     }
 

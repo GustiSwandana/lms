@@ -21,7 +21,7 @@
                 @if($admin->isSuperAdmin())
                     Kelola dan tanggapi tiket bantuan yang dikirimkan oleh operator sekolah, pantau log operasional, dan periksa kesehatan sistem.
                 @else
-                    Kirimkan pesan kendala atau konsultasi teknis langsung ke Admin Pusat EduTube, serta pantau status penanganan dan log sistem.
+                    Kirimkan pesan kendala atau konsultasi teknis langsung ke Admin Pusat BKKBN SSK, serta pantau status penanganan dan log sistem.
                 @endif
             </p>
         </div>
@@ -94,7 +94,7 @@
                     </div>
                     <div>
                         <h2 class="text-xs font-bold text-slate-900 uppercase tracking-wider">
-                            Ajukan Tiket Dukungan ke Admin Pusat EduTube
+                            Ajukan Tiket Dukungan ke Admin Pusat BKKBN SSK
                         </h2>
                         <p class="text-[11px] text-slate-500">Pesan Anda akan langsung masuk ke dasbor pantau Admin Pusat beserta lampiran log diagnostik sekolah.</p>
                     </div>
@@ -245,7 +245,7 @@
                                 {{ $t->subject }}
                             </h3>
                             <span class="px-2 py-0.5 rounded-full text-[11px] font-medium bg-slate-100 text-slate-700 border border-slate-200">
-                                🏫 {{ $t->school_name ?: ($t->school?->name ?? 'Pusat EduTube') }}
+                                🏫 {{ $t->school_name ?: ($t->school?->name ?? 'BKKBN Perwakilan Sulut') }}
                             </span>
                         </div>
                         <div class="text-xs text-slate-500 flex items-center gap-2">
@@ -282,7 +282,7 @@
                             <div class="flex items-center justify-between border-b border-emerald-200 pb-1.5">
                                 <div class="flex items-center gap-1.5 font-bold text-emerald-900">
                                     <span class="material-symbols-outlined text-[16px] text-emerald-700">verified</span>
-                                    <span>Tanggapan Resmi Admin Pusat EduTube:</span>
+                                    <span>Tanggapan Resmi Admin Pusat BKKBN SSK:</span>
                                 </div>
                                 <span class="text-[10px] text-emerald-700 font-mono">
                                     {{ $t->responded_at?->diffForHumans() ?? 'Baru saja' }} 

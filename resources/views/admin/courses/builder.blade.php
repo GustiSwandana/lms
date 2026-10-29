@@ -453,7 +453,7 @@
 
                 <!-- Auto-Save Feedback Indicator -->
                 <div class="flex items-center gap-2 text-[11px] mt-0.5">
-                    <span class="text-slate-400" x-text="course.school_name || 'EduTube'"></span>
+                    <span class="text-slate-400" x-text="course.school_name || 'BKKBN Sulut'"></span>
                     <span class="text-slate-300">•</span>
                     
                     <!-- Save Indicator Pill -->

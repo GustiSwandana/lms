@@ -97,7 +97,7 @@
                     <div class="flex items-center gap-2">
                         <h2 class="text-base font-bold text-slate-900">{{ $selectedCourse->title }}</h2>
                         <span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                            {{ $selectedCourse->school_name ?: 'EduTube Pusat' }}
+                            {{ $selectedCourse->school_name ?: 'BKKBN Sulut' }}
                         </span>
                     </div>
                     <p class="text-xs text-slate-500 mt-0.5">{{ $selectedCourse->category->name ?? 'Kategori' }} • {{ $selectedCourse->lessons->count() }} Total Video Pelajaran</p>

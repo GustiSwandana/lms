@@ -14,14 +14,14 @@
         <div class="relative z-10 flex items-center justify-between">
             <a href="{{ route('student.dashboard') }}" class="inline-flex items-center gap-3 group">
                 <div class="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white shadow-xs">
-                    <span class="material-symbols-outlined text-[24px]">smart_display</span>
+                    <span class="material-symbols-outlined text-[24px]">nature_people</span>
                 </div>
                 <div>
                     <span class="text-lg font-bold tracking-tight text-white block leading-tight">
-                        EduTube <span class="text-indigo-400">Studio</span>
+                        SIAGA BUMI<span class="text-indigo-400">-SSK</span>
                     </span>
                     <span class="text-[10px] font-mono tracking-wider text-slate-400 uppercase">
-                        Sistem Manajemen Pembelajaran Digital
+                        Sekolah Siaga Kependudukan Sulawesi Utara
                     </span>
                 </div>
             </a>

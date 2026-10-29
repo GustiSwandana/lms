@@ -176,7 +176,7 @@ class YouTubeService
         $defaultData = [
             'video_id' => $videoId,
             'title' => null,
-            'author_name' => 'EduTube Official',
+            'author_name' => 'BKKBN Official',
             'thumbnail_url' => $videoId ? self::getThumbnailUrl($videoId) : null,
             'html' => null,
         ];
@@ -195,7 +195,7 @@ class YouTubeService
                 return [
                     'video_id' => $videoId,
                     'title' => $data['title'] ?? null,
-                    'author_name' => $data['author_name'] ?? 'EduTube Official',
+                    'author_name' => $data['author_name'] ?? 'BKKBN Official',
                     'thumbnail_url' => $data['thumbnail_url'] ?? self::getThumbnailUrl($videoId),
                     'html' => $data['html'] ?? null,
                 ];

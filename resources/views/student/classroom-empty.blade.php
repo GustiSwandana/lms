@@ -89,7 +89,7 @@
                 <div class="flex items-center gap-3 pt-2 text-xs text-slate-500">
                     <div class="flex items-center gap-1.5">
                         <span class="material-symbols-outlined text-[16px] text-slate-400">person</span>
-                        <span>Pengajar: <strong class="text-slate-900 font-semibold">{{ $course->instructor_name ?? 'EduTube Team' }}</strong> ({{ $course->instructor_title ?? 'Instruktur' }})</span>
+                        <span>Pengajar: <strong class="text-slate-900 font-semibold">{{ $course->instructor_name ?? 'Tim Fasilitator BKKBN SSK' }}</strong> ({{ $course->instructor_title ?? 'Instruktur' }})</span>
                     </div>
                 </div>
             </div>

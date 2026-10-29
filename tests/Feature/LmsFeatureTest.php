@@ -29,7 +29,7 @@ class LmsFeatureTest extends TestCase
         $response = $this->get(route('student.dashboard'));
 
         $response->assertStatus(200);
-        $response->assertSee('EduTube Studio');
+        $response->assertSee('SIAGA BUMI-SSK');
         $response->assertSee('Katalog Kursus Pembelajaran');
     }
 

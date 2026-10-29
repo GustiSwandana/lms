@@ -266,7 +266,7 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <!-- Card 1: Mengenai BKKBN -->
             <div class="bg-gradient-to-br from-white to-indigo-50/40 rounded-2xl border border-indigo-100 p-6 sm:p-7 shadow-xs flex flex-col justify-between space-y-5">
                 <div class="space-y-4">
@@ -362,6 +362,56 @@
                     <a href="{{ route('student.classroom', 'apa-sih-ssk-sekolah-siaga-kependudukan') }}" 
                        class="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs shadow-xs transition-all group">
                         <span>Pelajari Modul Apa sih SSK?</span>
+                        <span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 3: Pencegahan Kekerasan Seksual (PPKS) -->
+            <div class="bg-gradient-to-br from-white to-rose-50/40 rounded-2xl border border-rose-100 p-6 sm:p-7 shadow-xs flex flex-col justify-between space-y-5">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="w-12 h-12 rounded-xl bg-rose-600 text-white flex items-center justify-center shadow-xs">
+                            <span class="material-symbols-outlined text-[26px]">shield_person</span>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-rose-100 text-rose-800 text-[11px] font-bold">
+                            Perlindungan Remaja
+                        </span>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900">
+                            Pencegahan Kekerasan Seksual
+                        </h3>
+                        <p class="text-xs text-rose-700 font-semibold mt-0.5">
+                            Kesehatan Reproduksi & Ruang Aman Sekolah
+                        </p>
+                    </div>
+
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        Edukasi komprehensif bagi pelajar dan remaja mengenai pemahaman batasan pribadi (consent), pencegahan tindak kekerasan seksual di lingkungan pendidikan, perlindungan hak anak, serta mekanisme pelaporan yang aman dan terpercaya bersama Satgas PPKS.
+                    </p>
+
+                    <div class="space-y-2 pt-1 border-t border-rose-100/80 text-xs text-slate-600">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[16px] text-rose-600">check_circle</span>
+                            <span>Edukasi Batasan Diri & Sikap Asertif Remaja</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[16px] text-rose-600">check_circle</span>
+                            <span>Pembentukan Lingkungan Sekolah Bebas Kekerasan</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[16px] text-rose-600">check_circle</span>
+                            <span>Saluran Pengaduan Aman & Pendampingan Korban</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-2">
+                    <a href="{{ route('student.classroom', 'pencegahan-dan-penanganan-kekerasan-seksual-ppks') }}" 
+                       class="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-semibold text-xs shadow-xs transition-all group">
+                        <span>Pelajari Modul PPKS</span>
                         <span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
                     </a>
                 </div>
@@ -607,7 +657,7 @@
                             <!-- Category & School -->
                             <div class="flex items-center justify-between text-xs gap-2">
                                 <span class="text-indigo-600 font-semibold text-[11px] truncate">
-                                    {{ $course->category->name ?? 'Teknologi' }}
+                                    {{ $course->category->name ?? 'SSK BKKBN' }}
                                 </span>
                                 @if($course->school_name)
                                     <span class="text-[11px] text-slate-400 truncate">{{ $course->school_name }}</span>
@@ -628,7 +678,7 @@
 
                             <!-- Instructor Info -->
                             <div class="pt-1 text-[11px] text-slate-500">
-                                <span>Pengajar: <strong>{{ $course->instructor_name ?? 'EduTube Team' }}</strong></span>
+                                <span>Pengajar: <strong>{{ $course->instructor_name ?? 'Tim Fasilitator BKKBN SSK' }}</strong></span>
                             </div>
                         </div>
 

@@ -14,8 +14,8 @@
 
         <!-- Tombol Aksi Unduh DOCX -->
         <div class="flex items-center gap-2">
-            <a href="{{ asset('docs/Panduan_Penggunaan_EduTube_LMS.docx') }}" 
-               download="Panduan_Penggunaan_EduTube_LMS.docx"
+            <a href="{{ asset('docs/Panduan_Penggunaan_SiagaBumi_SSK.docx') }}" 
+               download="Panduan_Penggunaan_SiagaBumi_SSK.docx"
                class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-xs hover:shadow transition-all">
                 <span class="material-symbols-outlined text-[18px]">description</span>
                 <span>Unduh Buku Panduan (.DOCX)</span>
@@ -96,9 +96,9 @@
 
             <!-- 1.1 -->
             <div class="space-y-2">
-                <h3 class="text-sm font-bold text-indigo-700">1.1 Visi & Latar Belakang EduTube LMS</h3>
+                <h3 class="text-sm font-bold text-indigo-700">1.1 Visi & Latar Belakang SIAGA BUMI-SSK</h3>
                 <p class="text-xs text-slate-600 leading-relaxed">
-                    EduTube LMS diciptakan untuk mengubah potensi tak terbatas konten pembelajaran di YouTube menjadi kurikulum akademik bertingkat yang bebas distraksi iklan, bebas rekomendasi video acak, dan terukur secara akademis melalui pos pemeriksaan kuis (*checkpoint*).
+                    SIAGA BUMI-SSK diciptakan untuk mengintegrasikan potensi tak terbatas konten pembelajaran di YouTube ke dalam kurikulum Sekolah Siaga Kependudukan (SSK) binaan BKKBN yang bebas distraksi iklan, bebas rekomendasi video acak, dan terukur secara akademis melalui pos pemeriksaan kuis (*checkpoint*).
                 </p>
             </div>
 
@@ -601,7 +601,7 @@
                 1. Algoritma Ekstraksi YouTube Video ID
             </h2>
             <p class="text-xs text-slate-600 leading-relaxed">
-                Sistem LMS EduTube menggunakan pola regex multi-format untuk mengekstrak 11 karakter unik ID video YouTube dari berbagai bentuk tautan URL yang ditempelkan pengguna:
+                Sistem LMS SIAGA BUMI-SSK menggunakan pola regex multi-format untuk mengekstrak 11 karakter unik ID video YouTube dari berbagai bentuk tautan URL yang ditempelkan pengguna:
             </p>
 
             <div class="bg-slate-900 text-emerald-400 p-4 rounded-xl font-mono text-xs overflow-x-auto shadow-inner">

@@ -24,16 +24,37 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database with SIAGA BUMI-SSK data:
      * - Only schools originating from Manado, Bitung, & Minahasa (North Sulawesi).
-     * - Only 2 learning materials: "Mengenai BKKBN" and "Apa sih SSK?".
-     * - Only 3 official categories: "Materi Umum Kependudukan", "Materi Umum Lingkungan", "Kekerasan Sexual".
+     * - Strictly BKKBN & SSK learning materials across 3 official categories:
+     *   1. "Materi Umum Kependudukan" (Mengenai BKKBN)
+     *   2. "Materi Umum Lingkungan" (Apa sih SSK?)
+     *   3. "Kekerasan Sexual" (Pencegahan & Penanganan Kekerasan Seksual - PPKS)
      */
     public function run(): void
     {
         // 0. Clean up foreign/non-Manado schools, non-SSK categories, and other courses
         School::whereIn('name', ['SMKN 1 Jakarta', 'SMAN 2 Bandung'])->delete();
         Category::whereNotIn('slug', ['materi-umum-kependudukan', 'materi-umum-lingkungan', 'kekerasan-sexual'])->delete();
-        Course::whereNotIn('slug', ['mengenai-bkkbn-peran-kependudukan', 'apa-sih-ssk-sekolah-siaga-kependudukan'])->delete();
-        Lesson::whereNotIn('youtube_video_id', ['UCGVFxAa7nA', 'EA3wO1h8EX0', '6bGlT6CVohg', 'x8PgjAKr-h8'])->delete();
+
+        $validCourseSlugs = [
+            'mengenai-bkkbn-peran-kependudukan',
+            'apa-sih-ssk-sekolah-siaga-kependudukan',
+            'pencegahan-dan-penanganan-kekerasan-seksual-ppks',
+        ];
+
+        $obsoleteCourses = Course::whereNotIn('slug', $validCourseSlugs)->get();
+        foreach ($obsoleteCourses as $c) {
+            $lessonIds = $c->lessons()->pluck('id');
+            LessonCompletion::whereIn('lesson_id', $lessonIds)->delete();
+            QuizAttempt::whereIn('lesson_id', $lessonIds)->delete();
+            QuizQuestion::whereIn('lesson_id', $lessonIds)->delete();
+            LessonNote::whereIn('lesson_id', $lessonIds)->delete();
+            LessonComment::whereIn('lesson_id', $lessonIds)->delete();
+            LessonResource::whereIn('lesson_id', $lessonIds)->delete();
+            Certificate::where('course_id', $c->id)->delete();
+            CourseBookmark::where('course_id', $c->id)->delete();
+            $c->lessons()->delete();
+            $c->delete();
+        }
 
         // 1. Seed Master Schools (Only Manado area schools)
         $schoolCentral = School::updateOrCreate(
@@ -319,7 +340,7 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // Course 2: Apa sih SSK? (School: SRMA 44 Minahasa | Visible to Guest: false for Admin curation)
+        // Course 2: Apa sih SSK? (School: SRMA 44 Minahasa | Visible to Guest: true)
         $courseSsk = Course::updateOrCreate(
             ['slug' => 'apa-sih-ssk-sekolah-siaga-kependudukan'],
             [
@@ -335,6 +356,26 @@ class DatabaseSeeder extends Seeder
                 'thumbnail_url' => 'https://img.youtube.com/vi/6bGlT6CVohg/maxresdefault.jpg',
                 'status' => 'published',
                 'is_visible_to_guest' => false,
+                'level' => 'pemula',
+            ]
+        );
+
+        // Course 3: Pencegahan & Penanganan Kekerasan Seksual (PPKS) (School: SMA Negeri 1 Manado | Visible to Guest: true)
+        $coursePpks = Course::updateOrCreate(
+            ['slug' => 'pencegahan-dan-penanganan-kekerasan-seksual-ppks'],
+            [
+                'category_id' => $catKekerasanSexual->id,
+                'school_id' => $schoolManado1->id,
+                'created_by' => $adminPusat->id,
+                'school_name' => 'SMA Negeri 1 Manado',
+                'title' => 'Pencegahan & Penanganan Kekerasan Seksual (PPKS)',
+                'description' => 'Panduan komprehensif bagi pelajar dan tenaga pendidik mengenai pemahaman batasan diri, edukasi kesehatan reproduksi remaja, pembentukan Satgas PPKS, serta mekanisme pelaporan kasus kekerasan seksual di sekolah.',
+                'instructor_name' => 'Dra. Maria Sondakh, M.Si',
+                'instructor_title' => 'Fasilitator PPKS & Konselor Remaja • Perwakilan BKKBN Sulut',
+                'instructor_avatar' => 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80',
+                'thumbnail_url' => 'https://img.youtube.com/vi/x8PgjAKr-h8/maxresdefault.jpg',
+                'status' => 'published',
+                'is_visible_to_guest' => true,
                 'level' => 'pemula',
             ]
         );
@@ -406,6 +447,42 @@ class DatabaseSeeder extends Seeder
         foreach ($sskLessons as $lData) {
             Lesson::updateOrCreate(
                 ['course_id' => $courseSsk->id, 'youtube_video_id' => $lData['youtube_video_id']],
+                array_merge($lData, [
+                    'thumbnail_url' => "https://img.youtube.com/vi/{$lData['youtube_video_id']}/hqdefault.jpg",
+                    'status' => 'published',
+                ])
+            );
+        }
+
+        // =========================================================================
+        // 7. LESSONS FOR COURSE 3: Pencegahan & Penanganan Kekerasan Seksual (PPKS)
+        // =========================================================================
+        $ppksLessons = [
+            [
+                'module_title' => 'Modul 1: Landasan & Pencegahan PPKS',
+                'title' => '1.1: Memahami Batasan & Pencegahan Kekerasan Seksual di Sekolah',
+                'youtube_url' => 'https://www.youtube.com/watch?v=EA3wO1h8EX0',
+                'youtube_video_id' => 'EA3wO1h8EX0',
+                'duration_seconds' => 540,
+                'duration_formatted' => '09:00',
+                'sort_order' => 1,
+                'description' => 'Mengenali bentuk-bentuk kekerasan seksual fisik dan verbal, membangun kesadaran batasan pribadi remaja (consent), dan menciptakan ruang aman di lingkungan belajar.',
+            ],
+            [
+                'module_title' => 'Modul 1: Landasan & Pencegahan PPKS',
+                'title' => '1.2: Peran Satgas PPKS & Mekanisme Pengaduan Ramah Anak',
+                'youtube_url' => 'https://www.youtube.com/watch?v=UCGVFxAa7nA',
+                'youtube_video_id' => 'UCGVFxAa7nA',
+                'duration_seconds' => 600,
+                'duration_formatted' => '10:00',
+                'sort_order' => 2,
+                'description' => 'Alur pelaporan yang aman dan terpercaya, perlindungan identitas korban, serta peran konseling sebaya dan guru BK dalam mendampingi peserta didik.',
+            ],
+        ];
+
+        foreach ($ppksLessons as $lData) {
+            Lesson::updateOrCreate(
+                ['course_id' => $coursePpks->id, 'sort_order' => $lData['sort_order']],
                 array_merge($lData, [
                     'thumbnail_url' => "https://img.youtube.com/vi/{$lData['youtube_video_id']}/hqdefault.jpg",
                     'status' => 'published',
@@ -585,6 +662,34 @@ class DatabaseSeeder extends Seeder
             );
         }
 
+        $lessonPpks1 = Lesson::where('course_id', $coursePpks->id)->orderBy('sort_order')->first();
+        if ($lessonPpks1) {
+            $qp1 = QuizQuestion::updateOrCreate(
+                ['lesson_id' => $lessonPpks1->id, 'question' => 'Apa langkah pertama yang tepat dilakukan apabila melihat atau mengalami tindakan kekerasan seksual di sekolah?'],
+                [
+                    'options' => [
+                        'Menyimpan rahasia dan merasa bersalah sendiri',
+                        'Segera melapor ke Satgas PPKS, guru BK, atau orang dewasa terpercaya yang aman',
+                        'Membalas dengan kekerasan fisik serupa',
+                        'Membagikan kejadian tersebut ke media sosial tanpa perlindungan privasi',
+                    ],
+                    'correct_answer_index' => 1,
+                    'explanation' => 'Melaporkan kepada Satgas PPKS atau guru BK menjamin perlindungan privasi, pendampingan psikologis, dan penanganan kasus secara adil dan aman.',
+                ]
+            );
+
+            QuizAttempt::updateOrCreate(
+                ['user_id' => $student1->id, 'lesson_id' => $lessonPpks1->id],
+                [
+                    'score' => 100,
+                    'passed' => true,
+                    'answers' => [
+                        $qp1->id => 1,
+                    ],
+                ]
+            );
+        }
+
         // =========================================================================
         // 11. LESSON COMPLETIONS & CERTIFICATES
         // =========================================================================
@@ -668,6 +773,10 @@ class DatabaseSeeder extends Seeder
         CourseBookmark::firstOrCreate([
             'user_id' => $studentBudi->id,
             'course_id' => $courseSsk->id,
+        ]);
+        CourseBookmark::firstOrCreate([
+            'user_id' => $student1->id,
+            'course_id' => $coursePpks->id,
         ]);
     }
 }
