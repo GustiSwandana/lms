@@ -63,7 +63,7 @@ class AuthController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'Kombinasi email dan kata sandi tidak cocok dengan data kami.',
+            'email' => 'Email atau kata sandi belum pas. Coba cek lagi, ya.',
         ])->onlyInput('email');
     }
 

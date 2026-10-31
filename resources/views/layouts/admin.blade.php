@@ -4,7 +4,7 @@
 @php
     $courses = $courses ?? \App\Models\Course::all();
 @endphp
-<div class="h-full flex flex-row overflow-hidden relative bg-slate-50" 
+<div class="h-full min-h-screen flex flex-row overflow-hidden relative bg-slate-50 text-slate-900" 
      x-data="{ 
         sidebarOpen: false,
         isModalOpen: false, 

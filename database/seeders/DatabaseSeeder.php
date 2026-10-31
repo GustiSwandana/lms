@@ -144,6 +144,21 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
+        $adminLegacy = User::updateOrCreate(
+            ['email' => 'admin@edutube.org'],
+            [
+                'name' => 'Admin Pusat BKKBN',
+                'password' => Hash::make('password'),
+                'role' => 'admin_pusat',
+                'address' => 'Jl. 17 Agustus No. 69, Wanea, Kota Manado',
+                'phone' => '08114321002',
+                'school_id' => null,
+                'school_name' => null,
+                'is_active' => true,
+                'avatar_url' => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+            ]
+        );
+
         // Role 2: Operator Sekolah (School Operator)
         $operatorBitung = User::updateOrCreate(
             ['email' => 'operator.bitung@siagabumi.id'],
@@ -206,6 +221,21 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
+        $guruBitung = User::updateOrCreate(
+            ['email' => 'guru.bitung@sekolah.sch.id'],
+            [
+                'name' => 'Bpk. Johanis Kalalo, S.Pd',
+                'password' => Hash::make('password'),
+                'role' => 'guru',
+                'address' => 'Jl. Sam Ratulangi No. 12, Kota Bitung',
+                'phone' => '081344556677',
+                'school_id' => $schoolBitung1->id,
+                'school_name' => $schoolBitung1->name,
+                'is_active' => true,
+                'avatar_url' => 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80',
+            ]
+        );
+
         // Role 4: Siswa (Student / Learner)
         $siswaBitung = User::updateOrCreate(
             ['email' => 'siswa.bitung@siagabumi.id'],
@@ -215,6 +245,21 @@ class DatabaseSeeder extends Seeder
                 'role' => 'siswa',
                 'address' => 'Jl. Girian Indah No. 5, Kota Bitung',
                 'phone' => '085299887766',
+                'school_id' => $schoolBitung1->id,
+                'school_name' => $schoolBitung1->name,
+                'is_active' => true,
+                'avatar_url' => 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80',
+            ]
+        );
+
+        $studentAlex = User::updateOrCreate(
+            ['email' => 'alex@student.edutube.org'],
+            [
+                'name' => 'Alex Pembelajar',
+                'password' => Hash::make('password'),
+                'role' => 'siswa',
+                'address' => 'Jl. Girian Indah No. 5, Kota Bitung',
+                'phone' => '085299887760',
                 'school_id' => $schoolBitung1->id,
                 'school_name' => $schoolBitung1->name,
                 'is_active' => true,

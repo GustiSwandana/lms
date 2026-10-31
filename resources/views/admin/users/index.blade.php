@@ -24,36 +24,36 @@
         };
         this.isEditUserOpen = true;
     }
-}" class="space-y-6">
+}" class="space-y-6 text-left">
 
     <!-- Page Title & Header Section -->
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-slate-200">
         <div>
             <div class="flex items-center gap-2 mb-1">
-                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 text-[11px] font-bold border border-indigo-200">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 text-[11px] font-bold border border-emerald-200">
                     <span class="material-symbols-outlined text-[13px]">shield</span>
                     Eksklusif Admin Pusat
                 </span>
-                <span class="text-xs text-slate-500">• Manajemen Otorisasi RBAC</span>
+                <span class="text-xs text-slate-400 font-mono">• Manajemen Otorisasi RBAC</span>
             </div>
-            <h1 class="text-2xl font-bold tracking-tight text-slate-900">
+            <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">
                 Manajemen Pengguna & Admin Sekolah
             </h1>
-            <p class="text-xs text-slate-500">
+            <p class="text-xs text-slate-600 mt-1">
                 Kelola akun Administrator Sekolah, Siswa terdaftar, serta otoritas aktivasi akun dalam ekosistem LMS.
             </p>
         </div>
 
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2.5 flex-wrap">
             <button type="button"
                     @click="isAddStudentOpen = true"
-                    class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-xs transition-colors">
-                <span class="material-symbols-outlined text-[18px]">group_add</span>
+                    class="inline-flex items-center gap-2 min-h-11 px-4 py-2 rounded-xl bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-semibold shadow-2xs transition-colors">
+                <span class="material-symbols-outlined text-[18px] text-emerald-700">group_add</span>
                 <span>Tambah Siswa</span>
             </button>
             <button type="button"
                     @click="isAddAdminOpen = true"
-                    class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-xs transition-colors">
+                    class="inline-flex items-center gap-2 min-h-11 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-colors shadow-xs">
                 <span class="material-symbols-outlined text-[18px]">person_add</span>
                 <span>Tambah Operator Sekolah</span>
             </button>
@@ -62,70 +62,70 @@
 
     <!-- Telemetry Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-xs flex items-center justify-between">
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex items-center justify-between">
             <div>
-                <p class="text-xs font-medium text-slate-500">Admin Sekolah</p>
-                <h3 class="text-2xl font-bold text-slate-900 mt-1">{{ $countSchoolAdmin }}</h3>
-                <p class="text-[11px] text-indigo-600 mt-0.5 font-medium">Pengelola Kurikulum</p>
+                <p class="text-xs font-medium text-slate-600">Admin Sekolah</p>
+                <h3 class="text-2xl font-bold font-mono tabular-nums text-slate-900 mt-1">{{ $countSchoolAdmin }}</h3>
+                <p class="text-[11px] text-indigo-700 mt-0.5 font-medium">Pengelola Kurikulum</p>
             </div>
-            <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center border border-indigo-100">
-                <span class="material-symbols-outlined text-[24px]">school</span>
+            <div class="w-11 h-11 rounded-xl bg-indigo-50 text-indigo-700 flex items-center justify-center border border-indigo-200">
+                <span class="material-symbols-outlined text-[22px]">school</span>
             </div>
         </div>
 
-        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-xs flex items-center justify-between">
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex items-center justify-between">
             <div>
-                <p class="text-xs font-medium text-slate-500">Siswa Terdaftar</p>
-                <h3 class="text-2xl font-bold text-slate-900 mt-1">{{ $countStudent }}</h3>
-                <p class="text-[11px] text-emerald-600 mt-0.5 font-medium">Pengguna Belajar</p>
+                <p class="text-xs font-medium text-slate-600">Siswa Terdaftar</p>
+                <h3 class="text-2xl font-bold font-mono tabular-nums text-slate-900 mt-1">{{ $countStudent }}</h3>
+                <p class="text-[11px] text-emerald-700 mt-0.5 font-medium">Pengguna Belajar</p>
             </div>
-            <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-100">
-                <span class="material-symbols-outlined text-[24px]">group</span>
+            <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center border border-emerald-200">
+                <span class="material-symbols-outlined text-[22px]">group</span>
             </div>
         </div>
 
-        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-xs flex items-center justify-between">
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex items-center justify-between">
             <div>
-                <p class="text-xs font-medium text-slate-500">Admin Pusat</p>
-                <h3 class="text-2xl font-bold text-slate-900 mt-1">{{ $countSuperAdmin }}</h3>
-                <p class="text-[11px] text-indigo-600 mt-0.5 font-medium">Hak Akses Penuh</p>
+                <p class="text-xs font-medium text-slate-600">Admin Pusat</p>
+                <h3 class="text-2xl font-bold font-mono tabular-nums text-slate-900 mt-1">{{ $countSuperAdmin }}</h3>
+                <p class="text-[11px] text-amber-800 mt-0.5 font-medium">Hak Akses Penuh</p>
             </div>
-            <div class="w-12 h-12 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center border border-slate-200">
-                <span class="material-symbols-outlined text-[24px]">admin_panel_settings</span>
+            <div class="w-11 h-11 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center border border-amber-200">
+                <span class="material-symbols-outlined text-[22px]">admin_panel_settings</span>
             </div>
         </div>
 
-        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-xs flex items-center justify-between">
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex items-center justify-between">
             <div>
-                <p class="text-xs font-medium text-slate-500">Akun Aktif</p>
-                <h3 class="text-2xl font-bold text-emerald-700 mt-1">{{ $countActive }}/{{ $totalUsers }}</h3>
-                <p class="text-[11px] text-slate-500 mt-0.5">Status Aktif Beroperasi</p>
+                <p class="text-xs font-medium text-slate-600">Akun Aktif</p>
+                <h3 class="text-2xl font-bold font-mono tabular-nums text-emerald-700 mt-1">{{ $countActive }}/{{ $totalUsers }}</h3>
+                <p class="text-[11px] text-slate-500 mt-0.5 font-mono">Status Beroperasi</p>
             </div>
-            <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-100">
-                <span class="material-symbols-outlined text-[24px]">verified_user</span>
+            <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center border border-emerald-200">
+                <span class="material-symbols-outlined text-[22px]">verified_user</span>
             </div>
         </div>
     </div>
 
     <!-- Filters & Search Bar -->
-    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs flex flex-col md:flex-row items-center justify-between gap-4">
+    <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs flex flex-col md:flex-row items-center justify-between gap-4">
         <!-- Role Filter Tabs -->
         <div class="flex items-center gap-1.5 overflow-x-auto w-full md:w-auto pb-1 md:pb-0">
             <a href="{{ route('admin.users.index', ['q' => $search]) }}"
-               class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap {{ empty($currentRole) ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-600 hover:bg-slate-50' }}">
-                Semua ({{ $totalUsers }})
+               class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap {{ empty($currentRole) ? 'bg-emerald-600 text-white font-bold shadow-xs' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100' }}">
+                Semua (<span class="font-mono tabular-nums">{{ $totalUsers }}</span>)
             </a>
             <a href="{{ route('admin.users.index', ['role' => 'school_admin', 'q' => $search]) }}"
-               class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap {{ $currentRole === 'school_admin' ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-600 hover:bg-slate-50' }}">
-                Admin Sekolah ({{ $countSchoolAdmin }})
+               class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap {{ $currentRole === 'school_admin' ? 'bg-emerald-600 text-white font-bold shadow-xs' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100' }}">
+                Admin Sekolah (<span class="font-mono tabular-nums">{{ $countSchoolAdmin }}</span>)
             </a>
             <a href="{{ route('admin.users.index', ['role' => 'student', 'q' => $search]) }}"
-               class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap {{ $currentRole === 'student' ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-600 hover:bg-slate-50' }}">
-                Siswa ({{ $countStudent }})
+               class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap {{ $currentRole === 'student' ? 'bg-emerald-600 text-white font-bold shadow-xs' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100' }}">
+                Siswa (<span class="font-mono tabular-nums">{{ $countStudent }}</span>)
             </a>
             <a href="{{ route('admin.users.index', ['role' => 'super_admin', 'q' => $search]) }}"
-               class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap {{ $currentRole === 'super_admin' ? 'bg-indigo-600 text-white shadow-xs' : 'text-slate-600 hover:bg-slate-50' }}">
-                Admin Pusat ({{ $countSuperAdmin }})
+               class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap {{ $currentRole === 'super_admin' ? 'bg-emerald-600 text-white font-bold shadow-xs' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100' }}">
+                Admin Pusat (<span class="font-mono tabular-nums">{{ $countSuperAdmin }}</span>)
             </a>
         </div>
 
@@ -142,17 +142,17 @@
                        name="q"
                        value="{{ $search }}"
                        placeholder="Cari nama, email, sekolah..."
-                       class="w-full pl-9 pr-3 py-1.5 rounded-lg border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-indigo-600 transition-all"/>
+                       class="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-50/50 border border-slate-300 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-emerald-600 shadow-2xs transition-all"/>
             </div>
         </form>
     </div>
 
-    <!-- Users Table -->
-    <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs">
+    <!-- Users Table (High Density Light) -->
+    <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
         <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse">
+            <table class="w-full text-left border-collapse text-xs">
                 <thead>
-                    <tr class="bg-slate-50 border-b border-slate-200 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                    <tr class="bg-slate-50/80 border-b border-slate-200 text-[11px] font-mono text-slate-500 uppercase tracking-wider">
                         <th class="py-3.5 px-5">Pengguna</th>
                         <th class="py-3.5 px-4">Role RBAC</th>
                         <th class="py-3.5 px-4">Instansi / Sekolah</th>
@@ -161,7 +161,7 @@
                         <th class="py-3.5 px-5 text-right">Aksi</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-100 text-xs text-slate-600">
+                <tbody class="divide-y divide-slate-100 text-slate-700">
                     @forelse($users as $user)
                     <tr class="hover:bg-slate-50/70 transition-colors">
                         <!-- User Name & Email -->
@@ -169,15 +169,15 @@
                             <div class="flex items-center gap-3">
                                 <img src="{{ $user->avatar_url ?: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80' }}" 
                                      alt="Avatar" 
-                                     class="w-9 h-9 rounded-full object-cover border border-slate-200 shadow-xs"/>
-                                <div>
-                                    <div class="font-bold text-slate-900 flex items-center gap-1.5">
+                                     class="w-9 h-9 rounded-full object-cover ring-1 ring-slate-200 bg-slate-100 shrink-0"/>
+                                <div class="truncate">
+                                    <div class="font-bold text-slate-900 flex items-center gap-1.5 truncate">
                                         <span>{{ $user->name }}</span>
                                         @if(auth()->id() === $user->id)
-                                            <span class="text-[10px] px-1.5 py-0.2 rounded bg-amber-50 text-amber-700 font-bold border border-amber-200">Anda</span>
+                                            <span class="text-[10px] px-1.5 py-0.2 rounded bg-amber-50 text-amber-800 font-bold border border-amber-200">Anda</span>
                                         @endif
                                     </div>
-                                    <div class="text-[11px] text-slate-400 font-mono">{{ $user->email }}</div>
+                                    <div class="text-[11px] text-slate-500 font-mono truncate">{{ $user->email }}</div>
                                 </div>
                             </div>
                         </td>
@@ -185,7 +185,7 @@
                         <!-- Role Badge -->
                         <td class="py-3.5 px-4">
                             @if($user->isSuperAdmin())
-                                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-slate-100 text-slate-800 border border-slate-200">
+                                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-slate-100 text-slate-700 border border-slate-200">
                                     <span class="material-symbols-outlined text-[13px]">shield</span>
                                     Admin Pusat
                                 </span>
@@ -195,7 +195,7 @@
                                     Admin Sekolah
                                 </span>
                             @else
-                                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">
                                     <span class="material-symbols-outlined text-[13px]">person</span>
                                     Siswa
                                 </span>
@@ -204,7 +204,7 @@
 
                         <!-- School Affiliation -->
                         <td class="py-3.5 px-4">
-                            <span class="text-xs text-slate-900 font-medium">
+                            <span class="text-xs text-slate-700 font-medium">
                                 {{ $user->school_name ?: 'Platform Pusat' }}
                             </span>
                         </td>
@@ -212,12 +212,12 @@
                         <!-- Active Status -->
                         <td class="py-3.5 px-4">
                             @if($user->is_active)
-                                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
                                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
                                     Aktif
                                 </span>
                             @else
-                                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-rose-50 text-rose-700 border border-rose-200">
+                                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-rose-50 text-rose-800 border border-rose-200">
                                     <span class="w-1.5 h-1.5 rounded-full bg-rose-600"></span>
                                     Dinonaktifkan
                                 </span>
@@ -225,38 +225,35 @@
                         </td>
 
                         <!-- Registered Date -->
-                        <td class="py-3.5 px-4 text-slate-400 text-[11px]">
+                        <td class="py-3.5 px-4 text-slate-500 font-mono tabular-nums text-[11px]">
                             {{ $user->created_at?->format('d M Y') ?? '-' }}
                         </td>
 
                         <!-- Actions -->
                         <td class="py-3.5 px-5 text-right">
                             <div class="inline-flex items-center gap-1.5 justify-end">
-                                <!-- Edit Button -->
                                 <button type="button"
                                         @click="openEditModal({{ Js::from($user) }})"
-                                        class="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-700 transition-colors"
+                                        class="min-h-9 min-w-9 flex items-center justify-center rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 hover:text-slate-900 shadow-2xs transition-colors"
                                         title="Edit Pengguna">
                                     <span class="material-symbols-outlined text-[16px]">edit</span>
                                 </button>
 
-                                <!-- Reset Password Form -->
                                 <form action="{{ route('admin.users.reset-password', $user->id) }}" method="POST" class="inline"
                                       onsubmit="return confirm('Reset kata sandi pengguna {{ $user->name }} menjadi Siswa123!?')">
                                     @csrf
                                     <button type="submit"
-                                            class="p-1.5 rounded-lg border border-amber-200 bg-amber-50 hover:bg-amber-100 text-amber-800 transition-colors"
+                                            class="min-h-9 min-w-9 flex items-center justify-center rounded-lg border border-amber-200 bg-amber-50 hover:bg-amber-100 text-amber-800 transition-colors shadow-2xs"
                                             title="Reset Kata Sandi ke Siswa123!">
                                         <span class="material-symbols-outlined text-[16px]">lock_reset</span>
                                     </button>
                                 </form>
 
-                                <!-- Toggle Active/Suspend Form -->
                                 @if(auth()->id() !== $user->id)
                                 <form action="{{ route('admin.users.toggle-status', $user->id) }}" method="POST" class="inline">
                                     @csrf
                                     <button type="submit"
-                                            class="p-1.5 rounded-lg border border-slate-200 hover:bg-amber-50 text-amber-700 transition-colors"
+                                            class="min-h-9 min-w-9 flex items-center justify-center rounded-lg border border-slate-200 bg-white hover:bg-amber-50 text-amber-700 transition-colors shadow-2xs"
                                             title="{{ $user->is_active ? 'Nonaktifkan / Blokir Akun' : 'Aktifkan Akun' }}">
                                         <span class="material-symbols-outlined text-[16px]">
                                             {{ $user->is_active ? 'block' : 'lock_open' }}
@@ -264,7 +261,6 @@
                                     </button>
                                 </form>
 
-                                <!-- Delete Form -->
                                 <form action="{{ route('admin.users.destroy', $user->id) }}" 
                                       method="POST" 
                                       class="inline"
@@ -272,7 +268,7 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
-                                            class="p-1.5 rounded-lg border border-rose-200 hover:bg-rose-50 text-rose-600 transition-colors"
+                                            class="min-h-9 min-w-9 flex items-center justify-center rounded-lg border border-rose-200 bg-white hover:bg-rose-50 text-rose-700 transition-colors shadow-2xs"
                                             title="Hapus Akun">
                                         <span class="material-symbols-outlined text-[16px]">delete</span>
                                     </button>
@@ -283,10 +279,10 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="6" class="py-12 text-center text-slate-400">
-                            <span class="material-symbols-outlined text-[40px] mb-1">person_search</span>
-                            <p class="text-sm font-semibold text-slate-900">Tidak ada pengguna ditemukan</p>
-                            <p class="text-xs mt-0.5">Coba sesuaikan kata kunci pencarian atau tab filter Anda.</p>
+                        <td colspan="6" class="py-12 text-center text-slate-500">
+                            <span class="material-symbols-outlined text-[40px] mb-1 text-slate-400">person_search</span>
+                            <p class="text-sm font-semibold text-slate-700">Tidak ada pengguna ditemukan</p>
+                            <p class="text-xs text-slate-500 mt-0.5">Coba sesuaikan kata kunci pencarian atau tab filter Anda.</p>
                         </td>
                     </tr>
                     @endforelse
@@ -295,7 +291,7 @@
         </div>
 
         @if($users->hasPages())
-        <div class="p-4 border-t border-slate-200">
+        <div class="p-4 border-t border-slate-200 bg-slate-50/50">
             {{ $users->links() }}
         </div>
         @endif
@@ -306,11 +302,11 @@
          x-cloak 
          class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs"
          @keydown.escape.window="isAddAdminOpen = false">
-        <div class="bg-white rounded-xl border border-slate-200 max-w-lg w-full p-6 shadow-xl space-y-4"
+        <div class="bg-white rounded-3xl border border-slate-200 max-w-lg w-full p-6 sm:p-7 shadow-2xl space-y-4 text-left"
              @click.away="isAddAdminOpen = false">
             <div class="flex items-center justify-between pb-3 border-b border-slate-200">
-                <div class="flex items-center gap-2">
-                    <span class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-700 flex items-center justify-center">
+                <div class="flex items-center gap-2.5">
+                    <span class="w-8 h-8 rounded-xl bg-indigo-50 border border-indigo-200 text-indigo-700 flex items-center justify-center">
                         <span class="material-symbols-outlined text-[20px]">school</span>
                     </span>
                     <div>
@@ -318,7 +314,7 @@
                         <p class="text-[11px] text-slate-500">Akun ini memiliki wewenang mengelola konten kurikulum dan mendaftarkan siswa sekolah</p>
                     </div>
                 </div>
-                <button type="button" @click="isAddAdminOpen = false" class="text-slate-400 hover:text-slate-700">
+                <button type="button" @click="isAddAdminOpen = false" class="text-slate-400 hover:text-slate-700 min-h-11 min-w-11 flex items-center justify-center rounded-xl">
                     <span class="material-symbols-outlined text-[20px]">close</span>
                 </button>
             </div>
@@ -326,36 +322,36 @@
             <form action="{{ route('admin.users.store-school-admin') }}" method="POST" class="space-y-4">
                 @csrf
                 <div>
-                    <label class="block text-xs font-semibold text-slate-900 mb-1">Nama Lengkap Pengelola / Operator</label>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Nama Lengkap Pengelola / Operator <span class="text-emerald-700">*</span></label>
                     <input type="text" name="name" required placeholder="Contoh: Bambang S., S.Kom"
-                           class="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs focus:border-indigo-600 focus:outline-none"/>
+                           class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 text-xs focus:border-emerald-600 focus:ring-1 focus:ring-emerald-500/20 focus:outline-none min-h-11 shadow-2xs"/>
                 </div>
 
                 <div>
-                    <label class="block text-xs font-semibold text-slate-900 mb-1">Nama Instansi / Sekolah</label>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Nama Instansi / Sekolah <span class="text-emerald-700">*</span></label>
                     <input type="text" name="school_name" required placeholder="Contoh: SMP Negeri 1 Bitung"
-                           class="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs focus:border-indigo-600 focus:outline-none"/>
+                           class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 text-xs focus:border-emerald-600 focus:ring-1 focus:ring-emerald-500/20 focus:outline-none min-h-11 shadow-2xs"/>
                 </div>
 
                 <div>
-                    <label class="block text-xs font-semibold text-slate-900 mb-1">Alamat Email Login</label>
-                    <input type="email" name="email" required placeholder="bambang@smkn1jakarta.sch.id"
-                           class="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs focus:border-indigo-600 focus:outline-none"/>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Alamat Email Login <span class="text-emerald-700">*</span></label>
+                    <input type="email" name="email" required placeholder="bambang@sekolah.sch.id"
+                           class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 text-xs focus:border-emerald-600 focus:ring-1 focus:ring-emerald-500/20 focus:outline-none min-h-11 shadow-2xs"/>
                 </div>
 
                 <div>
-                    <label class="block text-xs font-semibold text-slate-900 mb-1">Kata Sandi Akun</label>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Kata Sandi Akun <span class="text-emerald-700">*</span></label>
                     <input type="password" name="password" required minlength="6" placeholder="Minimal 6 karakter"
-                           class="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs focus:border-indigo-600 focus:outline-none"/>
+                           class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 text-xs focus:border-emerald-600 focus:ring-1 focus:ring-emerald-500/20 focus:outline-none min-h-11 shadow-2xs"/>
                 </div>
 
                 <div class="pt-3 border-t border-slate-200 flex items-center justify-end gap-2.5">
                     <button type="button" @click="isAddAdminOpen = false"
-                            class="px-4 py-2 rounded-lg border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50">
+                            class="min-h-11 px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
                         Batal
                     </button>
                     <button type="submit"
-                            class="px-5 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold">
+                            class="min-h-11 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-xs">
                         Simpan Akun Operator Sekolah
                     </button>
                 </div>
@@ -368,11 +364,11 @@
          x-cloak 
          class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs"
          @keydown.escape.window="isAddStudentOpen = false">
-        <div class="bg-white rounded-xl border border-slate-200 max-w-lg w-full p-6 shadow-xl space-y-4"
+        <div class="bg-white rounded-3xl border border-slate-200 max-w-lg w-full p-6 sm:p-7 shadow-2xl space-y-4 text-left"
              @click.away="isAddStudentOpen = false">
             <div class="flex items-center justify-between pb-3 border-b border-slate-200">
-                <div class="flex items-center gap-2">
-                    <span class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center">
+                <div class="flex items-center gap-2.5">
+                    <span class="w-8 h-8 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 flex items-center justify-center">
                         <span class="material-symbols-outlined text-[20px]">school</span>
                     </span>
                     <div>
@@ -380,7 +376,7 @@
                         <p class="text-[11px] text-slate-500">Daftarkan siswa baru ke dalam ekosistem LMS sekolah</p>
                     </div>
                 </div>
-                <button type="button" @click="isAddStudentOpen = false" class="text-slate-400 hover:text-slate-700">
+                <button type="button" @click="isAddStudentOpen = false" class="text-slate-400 hover:text-slate-700 min-h-11 min-w-11 flex items-center justify-center rounded-xl">
                     <span class="material-symbols-outlined text-[20px]">close</span>
                 </button>
             </div>
@@ -388,16 +384,16 @@
             <form action="{{ route('admin.users.store-student') }}" method="POST" class="space-y-4">
                 @csrf
                 <div>
-                    <label class="block text-xs font-semibold text-slate-900 mb-1">Nama Lengkap Siswa</label>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Nama Lengkap Siswa <span class="text-emerald-700">*</span></label>
                     <input type="text" name="name" required placeholder="Contoh: Ahmad Rizki Pratama"
-                           class="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs focus:border-indigo-600 focus:outline-none"/>
+                           class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 text-xs focus:border-emerald-600 focus:ring-1 focus:ring-emerald-500/20 focus:outline-none min-h-11 shadow-2xs"/>
                 </div>
 
                 <div x-data="{ addStudentSchool: '{{ $schools->first() ?? 'other' }}' }">
-                    <label class="block text-xs font-semibold text-slate-900 mb-1">Asal Sekolah / Instansi</label>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Asal Sekolah / Instansi <span class="text-emerald-700">*</span></label>
                     <div class="space-y-2">
                         <select name="school_name" x-model="addStudentSchool" required
-                                class="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs focus:border-indigo-600 focus:outline-none bg-white">
+                                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 text-xs focus:border-emerald-600 focus:ring-1 focus:ring-emerald-500/20 focus:outline-none min-h-11 shadow-2xs">
                             <option value="" disabled>-- Pilih Sekolah Terdaftar --</option>
                             @foreach($schools as $sch)
                                 <option value="{{ $sch }}">{{ $sch }}</option>
@@ -408,30 +404,30 @@
                         <div x-show="addStudentSchool === 'other'" x-cloak>
                             <input type="text" name="custom_school_name" placeholder="Ketik nama sekolah baru..."
                                    :required="addStudentSchool === 'other'"
-                                   class="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs focus:border-indigo-600 focus:outline-none bg-amber-50/50"/>
+                                   class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 text-xs focus:border-emerald-600 focus:ring-1 focus:ring-emerald-500/20 focus:outline-none min-h-11 shadow-2xs"/>
                         </div>
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-xs font-semibold text-slate-900 mb-1">Alamat Email Siswa</label>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Alamat Email Siswa <span class="text-emerald-700">*</span></label>
                     <input type="email" name="email" required placeholder="siswa@sekolah.sch.id"
-                           class="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs focus:border-indigo-600 focus:outline-none"/>
+                           class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 text-xs focus:border-emerald-600 focus:ring-1 focus:ring-emerald-500/20 focus:outline-none min-h-11 shadow-2xs"/>
                 </div>
 
                 <div>
-                    <label class="block text-xs font-semibold text-slate-900 mb-1">Kata Sandi Awal</label>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Kata Sandi Awal <span class="text-emerald-700">*</span></label>
                     <input type="password" name="password" required minlength="6" placeholder="Minimal 6 karakter"
-                           class="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs focus:border-indigo-600 focus:outline-none"/>
+                           class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 text-xs focus:border-emerald-600 focus:ring-1 focus:ring-emerald-500/20 focus:outline-none min-h-11 shadow-2xs"/>
                 </div>
 
                 <div class="pt-3 border-t border-slate-200 flex items-center justify-end gap-2.5">
                     <button type="button" @click="isAddStudentOpen = false"
-                            class="px-4 py-2 rounded-lg border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50">
+                            class="min-h-11 px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
                         Batal
                     </button>
                     <button type="submit"
-                            class="px-5 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-xs">
+                            class="min-h-11 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-xs">
                         Simpan Akun Siswa
                     </button>
                 </div>
@@ -444,11 +440,11 @@
          x-cloak 
          class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs"
          @keydown.escape.window="isEditUserOpen = false">
-        <div class="bg-white rounded-xl border border-slate-200 max-w-lg w-full p-6 shadow-xl space-y-4"
+        <div class="bg-white rounded-3xl border border-slate-200 max-w-lg w-full p-6 sm:p-7 shadow-2xl space-y-4 text-left"
              @click.away="isEditUserOpen = false">
             <div class="flex items-center justify-between pb-3 border-b border-slate-200">
-                <div class="flex items-center gap-2">
-                    <span class="w-8 h-8 rounded-lg bg-amber-50 text-amber-700 flex items-center justify-center">
+                <div class="flex items-center gap-2.5">
+                    <span class="w-8 h-8 rounded-xl bg-amber-50 border border-amber-200 text-amber-700 flex items-center justify-center">
                         <span class="material-symbols-outlined text-[20px]">edit</span>
                     </span>
                     <div>
@@ -456,7 +452,7 @@
                         <p class="text-[11px] text-slate-500">Ubah informasi profil, peran RBAC, dan status aktivasi</p>
                     </div>
                 </div>
-                <button type="button" @click="isEditUserOpen = false" class="text-slate-400 hover:text-slate-700">
+                <button type="button" @click="isEditUserOpen = false" class="text-slate-400 hover:text-slate-700 min-h-11 min-w-11 flex items-center justify-center rounded-xl">
                     <span class="material-symbols-outlined text-[20px]">close</span>
                 </button>
             </div>
@@ -465,22 +461,22 @@
                 @csrf
                 @method('PUT')
                 <div>
-                    <label class="block text-xs font-semibold text-slate-900 mb-1">Nama Pengguna</label>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Nama Pengguna <span class="text-emerald-700">*</span></label>
                     <input type="text" name="name" x-model="editUserData.name" required
-                           class="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs focus:border-indigo-600 focus:outline-none"/>
+                           class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 text-xs focus:border-emerald-600 focus:ring-1 focus:ring-emerald-500/20 focus:outline-none min-h-11 shadow-2xs"/>
                 </div>
 
                 <div>
-                    <label class="block text-xs font-semibold text-slate-900 mb-1">Alamat Email</label>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Alamat Email <span class="text-emerald-700">*</span></label>
                     <input type="email" name="email" x-model="editUserData.email" required
-                           class="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs focus:border-indigo-600 focus:outline-none"/>
+                           class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 text-xs focus:border-emerald-600 focus:ring-1 focus:ring-emerald-500/20 focus:outline-none min-h-11 shadow-2xs"/>
                 </div>
 
                 <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="block text-xs font-semibold text-slate-900 mb-1">Peran (Role RBAC)</label>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Peran (Role RBAC)</label>
                         <select name="role" x-model="editUserData.role"
-                                class="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs focus:border-indigo-600 focus:outline-none bg-white">
+                                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 text-xs focus:border-emerald-600 focus:ring-1 focus:ring-emerald-500/20 focus:outline-none min-h-11 shadow-2xs">
                             <option value="super_admin">Admin Pusat</option>
                             <option value="school_admin">Admin Sekolah</option>
                             <option value="student">Siswa</option>
@@ -488,9 +484,9 @@
                     </div>
 
                     <div>
-                        <label class="block text-xs font-semibold text-slate-900 mb-1">Status Aktivasi</label>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Status Aktivasi</label>
                         <select name="is_active" x-model="editUserData.is_active"
-                                class="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs focus:border-indigo-600 focus:outline-none bg-white">
+                                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 text-xs focus:border-emerald-600 focus:ring-1 focus:ring-emerald-500/20 focus:outline-none min-h-11 shadow-2xs">
                             <option :value="1">Aktif</option>
                             <option :value="0">Dinonaktifkan</option>
                         </select>
@@ -498,24 +494,24 @@
                 </div>
 
                 <div>
-                    <label class="block text-xs font-semibold text-slate-900 mb-1">Nama Instansi / Asal Sekolah</label>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Nama Instansi / Asal Sekolah</label>
                     <input type="text" name="school_name" x-model="editUserData.school_name" placeholder="Opsional (misal: SMP Negeri 1 Bitung)"
-                           class="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs focus:border-indigo-600 focus:outline-none"/>
+                           class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 text-xs focus:border-emerald-600 focus:ring-1 focus:ring-emerald-500/20 focus:outline-none min-h-11 shadow-2xs"/>
                 </div>
 
                 <div>
-                    <label class="block text-xs font-semibold text-slate-900 mb-1">Ubah Kata Sandi (Kosongkan jika tidak diubah)</label>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Ubah Kata Sandi (Kosongkan jika tidak diubah)</label>
                     <input type="password" name="password" minlength="6" placeholder="Kosongkan jika tetap"
-                           class="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs focus:border-indigo-600 focus:outline-none"/>
+                           class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 text-xs focus:border-emerald-600 focus:ring-1 focus:ring-emerald-500/20 focus:outline-none min-h-11 shadow-2xs"/>
                 </div>
 
                 <div class="pt-3 border-t border-slate-200 flex items-center justify-end gap-2.5">
                     <button type="button" @click="isEditUserOpen = false"
-                            class="px-4 py-2 rounded-lg border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50">
+                            class="min-h-11 px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors">
                         Batal
                     </button>
                     <button type="submit"
-                            class="px-5 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold">
+                            class="min-h-11 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-xs">
                         Simpan Perubahan
                     </button>
                 </div>
