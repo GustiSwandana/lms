@@ -19,7 +19,7 @@
                class="min-h-11 inline-flex items-center gap-2.5 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold shadow-xs transition-all">
                 <span class="material-symbols-outlined text-[18px]">description</span>
                 <span>Unduh Buku Panduan (.DOCX)</span>
-                <span class="bg-white/20 text-[10px] px-1.5 py-0.5 rounded font-mono font-normal">2.2 MB</span>
+                <span class="bg-white/20 text-[10px] px-1.5 py-0.5 rounded font-mono font-normal">1.4 MB</span>
             </a>
         </div>
     </div>

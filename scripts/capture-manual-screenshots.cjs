@@ -68,8 +68,8 @@ async function run() {
         await studentPage.screenshot({ path: path.join(OUTPUT_DIR, '05-dasbor-siswa.png') });
 
         console.log('6. Capturing Ruang Kelas Video (Classroom)...');
-        await studentPage.goto(`${BASE_URL}/belajar/mengenai-bkkbn-peran-kependudukan`, { waitUntil: 'networkidle2', timeout: 30000 });
-        await sleep(3500);
+        await studentPage.goto(`${BASE_URL}/belajar/apa-sih-ssk-sekolah-siaga-kependudukan/materi/19`, { waitUntil: 'networkidle2', timeout: 30000 });
+        await sleep(2500);
         await studentPage.screenshot({ path: path.join(OUTPUT_DIR, '06-ruang-belajar-video.png') });
 
         console.log('7. Capturing Tab Catatan Waktu...');
@@ -108,25 +108,10 @@ async function run() {
         console.log('9. Capturing Dasbor Admin...');
         await adminPage.screenshot({ path: path.join(OUTPUT_DIR, '09-dasbor-admin.png') });
 
-        console.log('Capturing Admin Courses to find Builder link...');
-        await adminPage.goto(`${BASE_URL}/admin/courses`, { waitUntil: 'networkidle2', timeout: 30000 });
-        await sleep(1500);
-        
-        // Find first builder URL
-        const builderUrl = await adminPage.evaluate(() => {
-            const links = Array.from(document.querySelectorAll('a[href*="/builder"]'));
-            return links.length > 0 ? links[0].href : null;
-        });
-
-        if (builderUrl) {
-            console.log('10. Capturing Course Builder via URL:', builderUrl);
-            await adminPage.goto(builderUrl, { waitUntil: 'networkidle2', timeout: 30000 });
-            await sleep(2000);
-            await adminPage.screenshot({ path: path.join(OUTPUT_DIR, '10-course-builder.png') });
-        } else {
-            console.log('10. Capturing Course Manager fallback...');
-            await adminPage.screenshot({ path: path.join(OUTPUT_DIR, '10-course-builder.png') });
-        }
+        console.log('10. Capturing Unified Course Builder...');
+        await adminPage.goto(`${BASE_URL}/admin/courses/5/builder`, { waitUntil: 'networkidle2', timeout: 30000 });
+        await sleep(2000);
+        await adminPage.screenshot({ path: path.join(OUTPUT_DIR, '10-course-builder.png') });
 
         console.log('11. Capturing Manajemen Siswa...');
         await adminPage.goto(`${BASE_URL}/admin/students`, { waitUntil: 'networkidle2', timeout: 30000 });
@@ -136,7 +121,7 @@ async function run() {
         await adminPage.close();
         await adminContext.close();
 
-        console.log('All 11 screenshots successfully captured with real content!');
+        console.log('All 11 screenshots successfully captured!');
     } catch (err) {
         console.error('Error during capture:', err);
     } finally {
