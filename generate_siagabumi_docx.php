@@ -6,35 +6,34 @@
  * Menghasilkan dokumen Microsoft Word OpenXML (.docx) resmi lengkap dengan tata letak rapi,
  * tipografi profesional, tabel RBAC, callout box, dan 11 tangkapan layar (screenshots).
  */
-
 $rootDir = __DIR__;
-$outputDocx = $rootDir . '/Panduan_Penggunaan_SiagaBumi_SSK.docx';
-$publicDocxDir = $rootDir . '/public/docs';
-if (!is_dir($publicDocxDir)) {
+$outputDocx = $rootDir.'/Panduan_Penggunaan_SiagaBumi_SSK.docx';
+$publicDocxDir = $rootDir.'/public/docs';
+if (! is_dir($publicDocxDir)) {
     mkdir($publicDocxDir, 0755, true);
 }
-$publicDocx = $publicDocxDir . '/Panduan_Penggunaan_SiagaBumi_SSK.docx';
+$publicDocx = $publicDocxDir.'/Panduan_Penggunaan_SiagaBumi_SSK.docx';
 $artifactDir = 'C:/Users/gusti/.gemini/antigravity/brain/86519e43-2ec3-4137-97ab-bd5701e36cce';
-$artifactDocx = $artifactDir . '/Panduan_Penggunaan_SiagaBumi_SSK.docx';
+$artifactDocx = $artifactDir.'/Panduan_Penggunaan_SiagaBumi_SSK.docx';
 
 // 11 Gambar Screenshot Resmi
 $images = [
-    'img1'  => $rootDir . '/docs/screenshots/01-beranda-katalog.png',
-    'img2'  => $rootDir . '/docs/screenshots/02-halaman-masuk.png',
-    'img3'  => $rootDir . '/docs/screenshots/03-pendaftaran-siswa.png',
-    'img4'  => $rootDir . '/docs/screenshots/04-dasbor-siswa.png',
-    'img5'  => $rootDir . '/docs/screenshots/05-ruang-belajar-video.png',
-    'img6'  => $rootDir . '/docs/screenshots/06-catatan-waktu.png',
-    'img7'  => $rootDir . '/docs/screenshots/07-kuis-checkpoint.png',
-    'img8'  => $rootDir . '/docs/screenshots/08-verifikasi-sertifikat.png',
-    'img9'  => $rootDir . '/docs/screenshots/09-dasbor-admin.png',
-    'img10' => $rootDir . '/docs/screenshots/10-course-builder.png',
-    'img11' => $rootDir . '/docs/screenshots/11-manajemen-siswa.png',
+    'img1' => $rootDir.'/docs/screenshots/01-beranda-katalog.png',
+    'img2' => $rootDir.'/docs/screenshots/02-halaman-masuk.png',
+    'img3' => $rootDir.'/docs/screenshots/03-pendaftaran-siswa.png',
+    'img4' => $rootDir.'/docs/screenshots/04-dasbor-siswa.png',
+    'img5' => $rootDir.'/docs/screenshots/05-ruang-belajar-video.png',
+    'img6' => $rootDir.'/docs/screenshots/06-catatan-waktu.png',
+    'img7' => $rootDir.'/docs/screenshots/07-kuis-checkpoint.png',
+    'img8' => $rootDir.'/docs/screenshots/08-verifikasi-sertifikat.png',
+    'img9' => $rootDir.'/docs/screenshots/09-dasbor-admin.png',
+    'img10' => $rootDir.'/docs/screenshots/10-course-builder.png',
+    'img11' => $rootDir.'/docs/screenshots/11-manajemen-siswa.png',
 ];
 
 foreach ($images as $key => $path) {
-    if (!file_exists($path)) {
-        die("Error: Berkas gambar $path tidak ditemukan!\n");
+    if (! file_exists($path)) {
+        exit("Error: Berkas gambar $path tidak ditemukan!\n");
     }
 }
 
@@ -161,14 +160,17 @@ $stylesXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 </w:styles>';
 
 // Helper XML builders
-function escapeXml($str) {
+function escapeXml($str)
+{
     return htmlspecialchars($str, ENT_QUOTES | ENT_XML1, 'UTF-8');
 }
 
-function p($text, $bold = false, $italic = false, $color = '334155', $size = 22, $align = 'left', $before = 0, $after = 120) {
+function p($text, $bold = false, $italic = false, $color = '334155', $size = 22, $align = 'left', $before = 0, $after = 120)
+{
     $bXml = $bold ? '<w:b/>' : '';
     $iXml = $italic ? '<w:i/>' : '';
     $alignXml = $align !== 'left' ? "<w:jc w:val=\"$align\"/>" : '';
+
     return "<w:p>
       <w:pPr>
         $alignXml
@@ -181,12 +183,13 @@ function p($text, $bold = false, $italic = false, $color = '334155', $size = 22,
           <w:color w:val=\"$color\"/>
           <w:sz w:val=\"$size\"/>
         </w:rPr>
-        <w:t xml:space=\"preserve\">" . escapeXml($text) . "</w:t>
+        <w:t xml:space=\"preserve\">".escapeXml($text).'</w:t>
       </w:r>
-    </w:p>";
+    </w:p>';
 }
 
-function h1($text) {
+function h1($text)
+{
     return '<w:p>
       <w:pPr>
         <w:pStyle w:val="Heading1"/>
@@ -203,12 +206,13 @@ function h1($text) {
           <w:sz w:val="34"/>
           <w:color w:val="065F46"/>
         </w:rPr>
-        <w:t>' . escapeXml($text) . '</w:t>
+        <w:t>'.escapeXml($text).'</w:t>
       </w:r>
     </w:p>';
 }
 
-function h2($text) {
+function h2($text)
+{
     return '<w:p>
       <w:pPr>
         <w:pStyle w:val="Heading2"/>
@@ -222,12 +226,13 @@ function h2($text) {
           <w:sz w:val="28"/>
           <w:color w:val="1E3A8A"/>
         </w:rPr>
-        <w:t>' . escapeXml($text) . '</w:t>
+        <w:t>'.escapeXml($text).'</w:t>
       </w:r>
     </w:p>';
 }
 
-function h3($text) {
+function h3($text)
+{
     return '<w:p>
       <w:pPr>
         <w:pStyle w:val="Heading3"/>
@@ -241,23 +246,25 @@ function h3($text) {
           <w:sz w:val="24"/>
           <w:color w:val="0F172A"/>
         </w:rPr>
-        <w:t>' . escapeXml($text) . '</w:t>
+        <w:t>'.escapeXml($text).'</w:t>
       </w:r>
     </w:p>';
 }
 
-function bullet($text, $level = 0, $boldPrefix = '', $normalSuffix = '') {
+function bullet($text, $level = 0, $boldPrefix = '', $normalSuffix = '')
+{
     $indent = 360 + ($level * 360);
     $runs = '';
     if ($boldPrefix) {
-        $runs .= '<w:r><w:rPr><w:b/><w:color w:val="0F172A"/><w:sz w:val="22"/></w:rPr><w:t xml:space="preserve">' . escapeXml($boldPrefix) . ' </w:t></w:r>';
+        $runs .= '<w:r><w:rPr><w:b/><w:color w:val="0F172A"/><w:sz w:val="22"/></w:rPr><w:t xml:space="preserve">'.escapeXml($boldPrefix).' </w:t></w:r>';
     }
     if ($normalSuffix) {
-        $runs .= '<w:r><w:rPr><w:color w:val="334155"/><w:sz w:val="22"/></w:rPr><w:t xml:space="preserve">' . escapeXml($normalSuffix) . '</w:t></w:r>';
+        $runs .= '<w:r><w:rPr><w:color w:val="334155"/><w:sz w:val="22"/></w:rPr><w:t xml:space="preserve">'.escapeXml($normalSuffix).'</w:t></w:r>';
     }
-    if (!$boldPrefix && !$normalSuffix) {
-        $runs .= '<w:r><w:rPr><w:color w:val="334155"/><w:sz w:val="22"/></w:rPr><w:t xml:space="preserve">' . escapeXml($text) . '</w:t></w:r>';
+    if (! $boldPrefix && ! $normalSuffix) {
+        $runs .= '<w:r><w:rPr><w:color w:val="334155"/><w:sz w:val="22"/></w:rPr><w:t xml:space="preserve">'.escapeXml($text).'</w:t></w:r>';
     }
+
     return "<w:p>
       <w:pPr>
         <w:ind w:left=\"$indent\" w:hanging=\"240\"/>
@@ -275,18 +282,19 @@ function bullet($text, $level = 0, $boldPrefix = '', $normalSuffix = '') {
     </w:p>";
 }
 
-function callout($title, $content, $type = 'info') {
+function callout($title, $content, $type = 'info')
+{
     $borderColor = match ($type) {
         'success' => '059669',
         'warning' => 'D97706',
-        'alert'   => 'E11D48',
-        default   => '4F46E5',
+        'alert' => 'E11D48',
+        default => '4F46E5',
     };
     $bgColor = match ($type) {
         'success' => 'ECFDF5',
         'warning' => 'FFFBEB',
-        'alert'   => 'FFF1F2',
-        default   => 'EEF2FF',
+        'alert' => 'FFF1F2',
+        default => 'EEF2FF',
     };
 
     $normalized = str_replace(["\r\n", "\r"], "\n", $content);
@@ -297,7 +305,7 @@ function callout($title, $content, $type = 'info') {
             <w:pPr><w:spacing w:before="0" w:after="50"/></w:pPr>
             <w:r>
               <w:rPr><w:color w:val="334155"/><w:sz w:val="21"/></w:rPr>
-              <w:t xml:space="preserve">' . escapeXml($line) . '</w:t>
+              <w:t xml:space="preserve">'.escapeXml($line).'</w:t>
             </w:r>
           </w:p>';
     }
@@ -327,7 +335,7 @@ function callout($title, $content, $type = 'info') {
             <w:pPr><w:spacing w:before=\"60\" w:after=\"60\"/></w:pPr>
             <w:r>
               <w:rPr><w:b/><w:color w:val=\"$borderColor\"/><w:sz w:val=\"22\"/></w:rPr>
-              <w:t>" . escapeXml($title) . "</w:t>
+              <w:t>".escapeXml($title)."</w:t>
             </w:r>
           </w:p>
           $contentParagraphs
@@ -337,7 +345,8 @@ function callout($title, $content, $type = 'info') {
     <w:p><w:pPr><w:spacing w:before=\"0\" w:after=\"120\"/></w:pPr></w:p>";
 }
 
-function imageDrawing($relId, $caption = '', $imgId = 1) {
+function imageDrawing($relId, $caption = '', $imgId = 1)
+{
     // 6.0 inci lebar = 5486400 EMUs, rasio 1280:800 (0.625) = 3429000 EMUs
     $cx = 5486400;
     $cy = 3429000;
@@ -402,7 +411,7 @@ function imageDrawing($relId, $caption = '', $imgId = 1) {
               <w:color w:val="64748B"/>
               <w:sz w:val="19"/>
             </w:rPr>
-            <w:t>' . escapeXml($caption) . '</w:t>
+            <w:t>'.escapeXml($caption).'</w:t>
           </w:r>
         </w:p>';
     }
@@ -410,11 +419,13 @@ function imageDrawing($relId, $caption = '', $imgId = 1) {
     return $imgXml;
 }
 
-function pageBreak() {
+function pageBreak()
+{
     return '<w:p><w:r><w:br w:type="page"/></w:r></w:p>';
 }
 
-function tableRbac() {
+function tableRbac()
+{
     $rows = [
         ['Peran (Role)', 'Cakupan Hak Akses', 'Fitur Utama yang Dikelola'],
         ['Admin Pusat (Super Admin)', 'Provinsi & Multi-Sekolah BKKBN', 'Kelola sekolah percontohan, akun operator, kurasi visibilitas tamu (is_visible_to_guest), setelan global, tiket pengaduan pusat.'],
@@ -460,18 +471,20 @@ function tableRbac() {
                 <w:pPr><w:spacing w:before=\"40\" w:after=\"40\"/></w:pPr>
                 <w:r>
                   <w:rPr>$b<w:color w:val=\"$color\"/><w:sz w:val=\"20\"/></w:rPr>
-                  <w:t>" . escapeXml($cell) . "</w:t>
+                  <w:t>".escapeXml($cell).'</w:t>
                 </w:r>
               </w:p>
-            </w:tc>";
+            </w:tc>';
         }
         $html .= '</w:tr>';
     }
     $html .= '</w:tbl><w:p><w:pPr><w:spacing w:before="0" w:after="160"/></w:pPr></w:p>';
+
     return $html;
 }
 
-function tableCredentials() {
+function tableCredentials()
+{
     $rows = [
         ['Peran Akun', 'Alamat Email', 'Kata Sandi', 'Satuan Sekolah / Unit Kerja'],
         ['Admin Pusat', 'admin@edutube.org', 'password', 'BKKBN Perwakilan Prov. Sulawesi Utara'],
@@ -519,14 +532,15 @@ function tableCredentials() {
                 <w:pPr><w:spacing w:before=\"40\" w:after=\"40\"/></w:pPr>
                 <w:r>
                   <w:rPr>$b<w:color w:val=\"$color\"/><w:sz w:val=\"20\"/></w:rPr>
-                  <w:t>" . escapeXml($cell) . "</w:t>
+                  <w:t>".escapeXml($cell).'</w:t>
                 </w:r>
               </w:p>
-            </w:tc>";
+            </w:tc>';
         }
         $html .= '</w:tr>';
     }
     $html .= '</w:tbl><w:p><w:pPr><w:spacing w:before="0" w:after="160"/></w:pPr></w:p>';
+
     return $html;
 }
 
@@ -540,11 +554,11 @@ $docBody .= '<w:p><w:pPr><w:spacing w:before="0" w:after="400"/><w:jc w:val="cen
 
 $docBody .= callout(
     'KONSORSIUM PENGEMBANG & LEMBAGA PEMRAKARSA',
-    "Badan Kependudukan dan Keluarga Berencana Nasional (BKKBN) Perwakilan Sulawesi Utara\n" .
-    "Universitas Negeri Manado (UNIMA) — Kurikulum & Pedagogi Kependudukan\n" .
-    "Universitas Pembangunan Indonesia (UNPI) — Infrastruktur & Rekayasa Perangkat Lunak\n" .
-    "Institut Pemerintahan Dalam Negeri (IPDN) Kampus Sulawesi Utara — Ketahanan Sosial & Kepamongprajaan\n" .
-    "Domain Resmi: https://demo.gustiswandana.space | Edisi Revisi Produksi: 2026",
+    "Badan Kependudukan dan Keluarga Berencana Nasional (BKKBN) Perwakilan Sulawesi Utara\n".
+    "Universitas Negeri Manado (UNIMA) — Kurikulum & Pedagogi Kependudukan\n".
+    "Universitas Pembangunan Indonesia (UNPI) — Infrastruktur & Rekayasa Perangkat Lunak\n".
+    "Institut Pemerintahan Dalam Negeri (IPDN) Kampus Sulawesi Utara — Ketahanan Sosial & Kepamongprajaan\n".
+    'Domain Resmi: https://demo.gustiswandana.space | Edisi Revisi Produksi: 2026',
     'success'
 );
 
@@ -782,7 +796,7 @@ $documentXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
             xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
             xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">
   <w:body>
-    ' . $docBody . '
+    '.$docBody.'
   </w:body>
 </w:document>';
 
@@ -793,7 +807,7 @@ if (file_exists($outputDocx)) {
 
 $zip = new ZipArchive;
 if ($zip->open($outputDocx, ZipArchive::CREATE) !== true) {
-    die("Error: Gagal membuat arsip zip $outputDocx\n");
+    exit("Error: Gagal membuat arsip zip $outputDocx\n");
 }
 
 $zip->addFromString('[Content_Types].xml', $contentTypes);
@@ -822,6 +836,6 @@ copy($outputDocx, $publicDocx);
 copy($outputDocx, $artifactDocx);
 
 echo "Berhasil membuat berkas DOCX!\n";
-echo "1. Lokasi Root: $outputDocx (" . round(filesize($outputDocx) / 1024, 2) . " KB)\n";
+echo "1. Lokasi Root: $outputDocx (".round(filesize($outputDocx) / 1024, 2)." KB)\n";
 echo "2. Lokasi Publik: $publicDocx\n";
 echo "3. Lokasi Artefak: $artifactDocx\n";
