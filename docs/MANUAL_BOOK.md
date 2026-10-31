@@ -72,6 +72,9 @@ Platform ini diinisiasi oleh **BKKBN Perwakilan Provinsi Sulawesi Utara** bersam
 3. **Institut Pemerintahan Dalam Negeri (IPDN) Kampus Sulawesi Utara** — Wawasan kepamongprajaan, ketahanan sosial, dan tata kelola masyarakat.
 4. **BKKBN Perwakilan Sulawesi Utara** — Regulasi program Bangga Kencana, penyuluhan GenRe, dan koordinasi Sekolah Siaga Kependudukan.
 
+![Beranda & Katalog Kursus SSK](./screenshots/01-beranda-katalog.png)
+*Gambar 1.1: Tampilan Beranda Utama SIAGA BUMI-SSK dengan kurasi 3 pilar kurikulum resmi, panduan belajar terarah, serta logo konsorsium BKKBN, UNIMA, UNPI, dan IPDN.*
+
 ### 1.2 Pilar Kurikulum & Ruang Lingkup Materi
 Kurikulum pembelajaran dalam SIAGA BUMI-SSK distandarisasi ke dalam 3 (tiga) pilar tematik utama:
 
@@ -142,6 +145,9 @@ Bagi siswa yang belum memiliki akun dari sekolah, pendaftaran mandiri dapat dila
    - **Konfirmasi Kata Sandi**: Ketik ulang kata sandi yang sama.
 3. Klik tombol **Daftar Akun Siswa**. Sistem akan memverifikasi dan langsung mengarahkan Anda ke Dasbor Pembelajaran Siswa tanpa perlu menunggu persetujuan manual.
 
+![Pendaftaran Mandiri Siswa Baru](./screenshots/03-pendaftaran-siswa.png)
+*Gambar 2.1: Antarmuka formulir registrasi mandiri siswa baru lengkap dengan pemilihan sekolah percontohan resmi di Sulawesi Utara.*
+
 ### 2.2 Masuk ke Akun Pembelajaran (`/login`)
 1. Buka laman: **`https://demo.gustiswandana.space/login`**.
 2. Masukkan alamat email yang sudah terdaftar.
@@ -151,6 +157,9 @@ Bagi siswa yang belum memiliki akun dari sekolah, pendaftaran mandiri dapat dila
    - Jika berhasil, Anda akan dialihkan otomatis ke antarmuka yang sesuai dengan peran Anda (Admin/Guru ke Dasbor Pengelola, Siswa ke Dasbor Belajar).
    - Jika terdapat kekeliruan data, sistem akan menampilkan pesan peringatan ramah:  
      *"Email atau kata sandi belum pas. Coba cek lagi, ya."*
+
+![Halaman Masuk Akun Pembelajaran](./screenshots/02-halaman-masuk.png)
+*Gambar 2.2: Laman masuk akun pembelajaran dengan kontrol intip kata sandi (eye toggle), tombol sentuh lega 48px, dan lencana panduan 5 peran resmi.*
 
 ### 2.3 Fitur Intip Kata Sandi (*Password Eye Toggle*)
 Untuk menghindari salah ketik kata sandi saat menggunakan ponsel layar sentuh:
@@ -184,6 +193,9 @@ Setelah berhasil masuk, siswa disambut dengan antarmuka yang bersih, lapang, dan
 - **Satu Aksi Utama:** Cukup klik tombol hijau **Lanjutkan Video Terakhir** untuk langsung kembali ke detik terakhir video yang Anda tonton.
 - **Indikator Progres Menyenangkan:** Garis progres linier mengabarkan sisa langkah secara bersahabat, contohnya: *"Tinggal 2 materi lagi untuk dapat sertifikat kelulusan!"*.
 
+![Dasbor Siswa Pembelajar](./screenshots/04-dasbor-siswa.png)
+*Gambar 3.1: Dasbor Pembelajaran Siswa dengan kartu aksi primer "Lanjutkan Video Terakhir", indikator kelulusan bersahabat, dan filter topik materi.*
+
 ### 3.2 Menjelajahi Katalog Kursus Berdasarkan Pilar
 Pada menu **Materi** (`/dashboard`):
 - Filter kategori tersedia di bagian atas untuk menyaring materi:
@@ -194,10 +206,13 @@ Pada menu **Materi** (`/dashboard`):
 - Setiap kartu kursus memuat label tingkat (Dasar/Menengah), durasi total, nama pengajar, serta status kelulusan Anda (*Belum Mulai*, *Sedang Berjalan*, atau *Lulus*).
 
 ### 3.3 Teater Belajar & Pemutar Video Terintegrasi (Classroom)
-Klik kartu materi untuk masuk ke **Ruang Kelas Digital (`/classroom/{slug}/{lesson_id}`)**:
-- Pemutar video YouTube HD tersemat di area utama secara bebas iklan.
+Klik kartu materi untuk masuk ke **Ruang Kelas Digital (`/belajar/{slug}`)**:
+- Pemutar video YouTube HD tersemat di area utama secara bebas iklan luar.
 - Resolusi video secara otomatis menyesuaikan kecepatan internet perangkat Anda.
 - Di sisi kanan (pada desktop) atau di bawah video (pada ponsel), tersedia panel navigasi materi yang terbagi menjadi 3 tab: **Materi**, **Catatan**, dan **Diskusi**.
+
+![Teater Belajar Ruang Kelas Digital](./screenshots/05-ruang-belajar-video.png)
+*Gambar 3.2: Ruang Belajar Digital (Classroom) dengan teater video YouTube HD bebas iklan, pelacak otomatis durasi tontonan 90%, dan tab navigasi interaktif.*
 
 ### 3.4 Live Watch Completion Tracker (Ambang 90%)
 - Sistem mengawasi durasi tontonan Anda secara otomatis setiap 10 detik tanpa perlu menyegarkan halaman.
@@ -215,6 +230,9 @@ Fitur unggulan ini memungkinkan siswa menyimpan catatan pelajaran yang terhubung
 5. Catatan akan tersimpan dalam daftar dengan label stempel interaktif: **`▶ 04:12 (Putar)`**.
 6. **Cara Memutar Ulang:** Kapan pun Anda mengklik tombol stempel waktu tersebut di masa depan, video akan langsung melompat dan memutar bagian materi pada detik yang Anda catat.
 
+![Pencatatan Waktu Interaktif](./screenshots/06-catatan-waktu.png)
+*Gambar 3.3: Panel Catatan Waktu Interaktif dengan tombol ambil menit video otomatis, pintasan simpan cepat, dan tag putar ulang (seekTo).*
+
 ### 3.6 Forum Diskusi Materi Antarsiswa & Guru
 1. Buka tab **Diskusi** di sebelah tab Catatan.
 2. Tulis pertanyaan mengenai hal yang belum dipahami, lalu klik **Kirim Pertanyaan**.
@@ -230,6 +248,9 @@ Setiap materi memiliki kuis evaluasi pemahaman yang harus diselesaikan:
    - **Jika Nilai < 70% (Belum Lulus):** Sistem memberikan pesan penyemangat yang suportif:  
      *"Sedikit lagi lulus passing grade 70%! Kamu bisa tonton ulang materi dan coba kuis lagi tanpa batasan."*  
      Siswa dapat langsung mengklik tombol **Ulangi Kuis** untuk mencoba kembali hingga berhasil.
+
+![Evaluasi Kuis Checkpoint Pemahaman](./screenshots/07-kuis-checkpoint.png)
+*Gambar 3.4: Tampilan kuis checkpoint dengan kartu opsi sentuh luas, umpan balik ramah jika nilai < 70%, dan tombol instan ulangi kuis.*
 
 ### 3.8 Klaim dan Cetak E-Sertifikat Kelulusan
 Syarat penerbitan sertifikat kelulusan adalah:
@@ -263,6 +284,9 @@ Untuk membuat kursus baru:
    - **Nama Instruktur**: Nama lengkap guru beserta gelar akademik.
    - **Deskripsi Ringkas**: Penjelasan singkat tujuan pembelajaran materi.
    - **Gambar Sampul (*Thumbnail*)**: Unggah gambar rasio 16:9 atau tempel tautan gambar edukasi.
+
+![Manajer Kursus & Kurikulum](./screenshots/10-course-builder.png)
+*Gambar 4.1: Antarmuka Manajer Kursus untuk menyusun materi ajar, mengatur silabus bab, dan mengontrol visibilitas publik/tamu.*
 
 ### 4.3 Menambahkan Modul & Mengintegrasikan Video YouTube
 1. Masuk ke **Tab 2 (Kurikulum & Video)** pada Course Builder:
@@ -310,6 +334,9 @@ Jika ada siswa baru yang ingin didaftarkan oleh pihak sekolah:
    - Kata Sandi Akun (bawaan: `password`)
 4. Klik **Simpan Siswa**. Akun langsung aktif dan dapat digunakan oleh siswa bersangkutan.
 
+![Manajemen Data Siswa](./screenshots/11-manajemen-siswa.png)
+*Gambar 5.1: Panel Manajemen Siswa Sekolah untuk penambahan akun satuan, impor masal CSV, dan pengaturan ulang (reset) kata sandi.*
+
 ### 5.3 Pendaftaran Masal Siswa Menggunakan Template CSV
 Untuk mendaftarkan puluhan hingga ratusan siswa sekaligus (contohnya saat tahun ajaran baru):
 1. Buka menu **Manajemen Siswa** (`/admin/students`).
@@ -344,6 +371,9 @@ Admin Pusat memiliki kendali tertinggi atas ekosistem SIAGA BUMI-SSK se-Sulawesi
 - Metrik total siswa aktif lintas kabupaten/kota.
 - Metrik tingkat kelulusan sertifikasi per sekolah mitra.
 - Metrik distribusi peminat 3 pilar kurikulum (Kependudukan, Lingkungan, PPKS).
+
+![Dasbor Administrator Pusat](./screenshots/09-dasbor-admin.png)
+*Gambar 6.1: Dasbor Analitik Administrator Pusat BKKBN Perwakilan Sulawesi Utara untuk pemantauan data makro sekolah dan kurikulum provinsi.*
 
 ### 6.2 Manajemen Master Data Sekolah Mitra
 Sesuai arahan kelembagaan, sekolah aktif saat ini dipusatkan pada SMPN 1 Bitung dan SRMA 44 Minahasa:
@@ -419,28 +449,13 @@ Untuk menjamin integritas data akademik siswa sekolah:
 
 ### 8.1 Komponen Keamanan Sertifikat Digital
 Setiap e-sertifikat yang diterbitkan oleh SIAGA BUMI-SSK memiliki pengamanan digital:
-1. **Nomor Seri Unik Terstandarisasi:** Dihasilkan secara otomatis oleh sistem, contoh: `CERT-SSK-BUDI-9B41E1A3`.
+1. **Nomor Seri Unik Terstandarisasi:** Dihasilkan secara otomatis oleh sistem, contoh: `CERT-SSK-BUDI-5BAC414B`.
 2. **Kode Hash Kriptografi:** Mencegah pemalsuan data nilai dan nama siswa.
 3. **QR Code Verifikasi Dinamis:** Barcode 2D beresolusi tinggi yang tercetak di sudut bawah sertifikat.
 4. **Tanda Tangan & Cap Digital:** Legalitas bersama Kepala Perwakilan BKKBN Sulawesi Utara dan Konsorsium Akademik.
 
-```
-┌────────────────────────────────────────────────────────────────────────┐
-│                   SERTIFIKAT KELULUSAN RESMI                           │
-│                      SIAGA BUMI-SSK SULUT                              │
-│                                                                        │
-│ Diberikan kepada:                                                      │
-│                   BUDI PRATAMA                                         │
-│ Atas keberhasilan menyelesaikan seluruh kompetensi pada modul:         │
-│          "Apa sih SSK? - Sekolah Siaga Kependudukan"                   │
-│                                                                        │
-│ Nilai Evaluasi: 100 / 100 (Lulus)       Sekolah: SRMA 44 Minahasa      │
-│ Tanggal Terbit: 29 Oktober 2026         No. Seri: CERT-SSK-BUDI-...    │
-│                                                                        │
-│                      [ QR CODE VERIFIKASI ]                            │
-│                 Pindai untuk memeriksa keaslian                        │
-└────────────────────────────────────────────────────────────────────────┘
-```
+![Laman Verifikasi Publik E-Sertifikat Digital](./screenshots/08-verifikasi-sertifikat.png)
+*Gambar 8.1: Laman Verifikasi Publik Resmi ber-QR Code yang dapat diakses oleh publik dan perguruan tinggi tanpa memerlukan otentikasi login.*
 
 ### 8.2 Prosedur Verifikasi Keaslian Melalui QR Code
 Siapa pun (orang tua, pihak sekolah lanjutan, atau pengawas) dapat memverifikasi keaslian sertifikat tanpa perlu memiliki akun di aplikasi:
