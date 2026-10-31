@@ -45,6 +45,11 @@
         </div>
 
         <div class="flex items-center gap-2.5 flex-wrap">
+            <a href="{{ route('admin.users.export', request()->query()) }}"
+               class="inline-flex items-center gap-2 min-h-11 px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-colors shadow-xs">
+                <span class="material-symbols-outlined text-[18px]">download</span>
+                <span>Ekspor CSV</span>
+            </a>
             <button type="button"
                     @click="isAddStudentOpen = true"
                     class="inline-flex items-center gap-2 min-h-11 px-4 py-2 rounded-xl bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-semibold shadow-2xs transition-colors">

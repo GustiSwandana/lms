@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class UserController extends Controller
 {
@@ -227,5 +228,72 @@ class UserController extends Controller
         $user->save();
 
         return back()->with('success', "Kata sandi untuk {$user->name} ({$user->role_label}) berhasil direset menjadi '{$newPassword}'.");
+    }
+
+    /**
+     * Export all users to CSV.
+     */
+    public function exportCsv(Request $request): StreamedResponse
+    {
+        $query = User::with('school');
+
+        if ($request->filled('role')) {
+            $query->where('role', $request->query('role'));
+        }
+
+        if ($request->filled('q')) {
+            $search = $request->query('q');
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('school_name', 'like', "%{$search}%");
+            });
+        }
+
+        $filename = 'data_pengguna_siagabumi_ssk_'.now()->format('Y-m-d').'.csv';
+
+        return response()->stream(function () use ($query) {
+            $handle = fopen('php://output', 'w');
+            fprintf($handle, chr(0xEF).chr(0xBB).chr(0xBF));
+
+            fputcsv($handle, [
+                'ID',
+                'Nama Lengkap',
+                'Email',
+                'Peran (Role)',
+                'Label Peran',
+                'Status Akun',
+                'Satuan Sekolah',
+                'NPSN',
+                'NISN',
+                'Nomor Telepon/WA',
+                'Alamat Domisili',
+                'Waktu Pendaftaran',
+            ]);
+
+            $query->chunk(100, function ($users) use ($handle) {
+                foreach ($users as $user) {
+                    fputcsv($handle, [
+                        $user->id,
+                        $user->name,
+                        $user->email,
+                        $user->role,
+                        $user->role_label,
+                        $user->is_active ? 'Aktif' : 'Nonaktif',
+                        $user->school_name ?? ($user->school?->name ?? 'Pusat BKKBN / Lintas Sekolah'),
+                        $user->school?->npsn ?? '-',
+                        $user->nisn ?? '-',
+                        $user->phone ?? '-',
+                        $user->address ?? '-',
+                        $user->created_at?->format('Y-m-d H:i:s') ?? '-',
+                    ]);
+                }
+            });
+
+            fclose($handle);
+        }, 200, [
+            'Content-Type' => 'text/csv; charset=UTF-8',
+            'Content-Disposition' => "attachment; filename=\"{$filename}\"",
+        ]);
     }
 }

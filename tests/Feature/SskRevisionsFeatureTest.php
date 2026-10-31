@@ -158,4 +158,29 @@ class SskRevisionsFeatureTest extends TestCase
         $response->assertSee('Siswa Pembelajar');
         $response->assertSee('Penyuluh / Tamu');
     }
+
+    /**
+     * 8. Test Admin Pusat can export all users to CSV.
+     */
+    public function test_admin_pusat_can_export_all_users_to_csv(): void
+    {
+        $adminPusat = User::where('role', 'admin_pusat')->first();
+
+        $response = $this->actingAs($adminPusat)->get(route('admin.users.export'));
+        $response->assertStatus(200);
+        $response->assertHeader('Content-Type', 'text/csv; charset=UTF-8');
+        $this->assertStringContainsString('attachment; filename="data_pengguna_siagabumi_ssk_', $response->headers->get('Content-Disposition'));
+    }
+
+    /**
+     * 9. Test unauthorized roles (guru, student) cannot export all users to CSV.
+     */
+    public function test_unauthorized_roles_cannot_export_all_users_to_csv(): void
+    {
+        $guru = User::where('role', 'guru')->first();
+        $student = User::where('role', 'student')->first();
+
+        $this->actingAs($guru)->get(route('admin.users.export'))->assertStatus(403);
+        $this->actingAs($student)->get(route('admin.users.export'))->assertStatus(403);
+    }
 }

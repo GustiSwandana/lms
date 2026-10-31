@@ -115,6 +115,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // User & School Admin Management
         Route::get('/users', [UserController::class, 'index'])->name('users.index');
+        Route::get('/users/export', [UserController::class, 'exportCsv'])->name('users.export');
         Route::post('/users/school-admins', [UserController::class, 'storeSchoolAdmin'])->name('users.store-school-admin');
         Route::post('/users/students', [UserController::class, 'storeStudent'])->name('users.store-student');
         Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
