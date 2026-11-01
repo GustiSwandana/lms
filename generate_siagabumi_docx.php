@@ -649,10 +649,13 @@ $docBody .= '<w:p><w:pPr><w:spacing w:before="60" w:after="180"/><w:jc w:val="ce
 $docBody .= '<w:p><w:pPr><w:spacing w:before="0" w:after="400"/><w:jc w:val="center"/></w:pPr><w:r><w:rPr><w:rFonts w:ascii="Plus Jakarta Sans" w:hAnsi="Plus Jakarta Sans"/><w:sz w:val="26"/><w:color w:val="475569"/></w:rPr><w:t>Integrasi Wawasan Lingkungan dan Dinamika Kependudukan dalam Kurikulum Sekolah Siaga Kependudukan</w:t></w:r></w:p>';
 
 $docBody .= callout(
-    'KONSORSIUM PENGEMBANG & LEMBAGA PEMRAKARSA SULAWESI UTARA',
-    "Badan Kependudukan dan Keluarga Berencana Nasional (BKKBN) Perwakilan Provinsi Sulawesi Utara\n".
+    'LEMBAGA PENDANA, PENGARAH, & KONSORSIUM PELAKSANA NASIONAL',
+    "Lembaga Pengelola Dana Pendidikan (LPDP) — Badan Layanan Umum Pendana Riset Nasional (Kemenkeu RI)\n".
+    "Direktorat Jenderal Riset dan Pengembangan (Ditjen Risbang) — Pembina & Pengarah Riset Perguruan Tinggi\n".
+    "Program Hiliriset — Hilirisasi & Penerapan Riset Teknologi Pembelajaran ke Masyarakat Sekolah\n".
+    "Badan Kependudukan dan Keluarga Berencana Nasional (BKKBN) Perwakilan Sulawesi Utara — Regulasi & Pembina SSK\n".
     "Universitas Negeri Manado (UNIMA) — Kurikulum, Pedagogi & Evaluasi Kependudukan\n".
-    "Universitas Pembangunan Indonesia (UNPI) — Infrastruktur & Rekayasa Perangkat Lunak\n".
+    "Universitas Pembangunan Indonesia (UNPI) — Infrastruktur & Rekayasa Perangkat Lunak LMS\n".
     "Institut Pemerintahan Dalam Negeri (IPDN) Kampus Sulawesi Utara — Ketahanan Sosial & Kepamongprajaan\n".
     "Sekolah Pilot: SMP Negeri 1 Bitung & Sekolah Rakyat Menengah Atas 44 Minahasa\n".
     'Domain Produksi: https://demo.gustiswandana.space | Tahun Rilis: 2026',
@@ -683,12 +686,15 @@ $docBody .= pageBreak();
 $docBody .= h1('Bab 1: Pendahuluan & Gambaran Umum');
 $docBody .= p('SIAGA BUMI-SSK (Sekolah Siaga Kependudukan) adalah platform manajemen pembelajaran digital (Learning Management System / LMS) yang dirancang secara khusus untuk mengintegrasikan pendidikan wawasan kependudukan, pelestarian lingkungan hidup, serta pencegahan dan penanganan kekerasan seksual ke dalam ekosistem pendidikan sekolah menengah.');
 
-$docBody .= h2('1.1 Konsorsium Lembaga Pemrakarsa');
-$docBody .= p('Platform ini diinisiasi dengan komitmen bersama BKKBN Perwakilan Provinsi Sulawesi Utara bersama konsorsium perguruan tinggi dan lembaga kedinasan terkemuka:');
-$docBody .= bullet('UNIMA (Universitas Negeri Manado):', 0, '1.', 'Penyusunan kurikulum pedagogis dan evaluasi pembelajaran kependudukan.');
-$docBody .= bullet('UNPI (Universitas Pembangunan Indonesia):', 0, '2.', 'Pengembangan teknologi, infrastruktur server, dan arsitektur sistem informasi.');
-$docBody .= bullet('IPDN Kampus Sulawesi Utara:', 0, '3.', 'Wawasan ketahanan sosial, kepamongprajaan, dan tata kelola masyarakat.');
-$docBody .= bullet('BKKBN Perwakilan Sulawesi Utara:', 0, '4.', 'Regulasi program Bangga Kencana, penyuluhan Generasi Berencana (GenRe), dan koordinasi SSK.');
+$docBody .= h2('1.1 Lembaga Pendana, Pengarah, & Konsorsium Pelaksana');
+$docBody .= p('Platform ini dikembangkan dan didiseminasikan melalui dukungan kelembagaan tingkat nasional dan daerah:');
+$docBody .= bullet('LPDP (Lembaga Pengelola Dana Pendidikan):', 0, '1.', 'Badan Layanan Umum Kemenkeu RI sebagai lembaga pendana utama program riset dan diseminasi terapan.');
+$docBody .= bullet('Ditjen Risbang (Direktorat Jenderal Riset & Pengembangan):', 0, '2.', 'Pengarah kebijakan dan pembina standardisasi riset perguruan tinggi Indonesia.');
+$docBody .= bullet('Program Hiliriset:', 0, '3.', 'Skema hilirisasi hasil riset dan inovasi teknologi perguruan tinggi ke sekolah menengah.');
+$docBody .= bullet('UNIMA (Universitas Negeri Manado):', 0, '4.', 'Penyusunan kurikulum pedagogis dan evaluasi pembelajaran kependudukan.');
+$docBody .= bullet('UNPI (Universitas Pembangunan Indonesia):', 0, '5.', 'Pengembangan teknologi, infrastruktur server, dan arsitektur sistem informasi.');
+$docBody .= bullet('IPDN Kampus Sulawesi Utara:', 0, '6.', 'Wawasan ketahanan sosial, kepamongprajaan, dan tata kelola masyarakat.');
+$docBody .= bullet('BKKBN Perwakilan Sulawesi Utara:', 0, '7.', 'Regulasi program Bangga Kencana, penyuluhan Generasi Berencana (GenRe), dan koordinasi SSK.');
 
 $docBody .= imageDrawing('rId2', 'Gambar 1.1: Tampilan Beranda Utama SIAGA BUMI-SSK dengan kurasi 3 pilar kurikulum resmi, panduan belajar terarah, serta logo konsorsium BKKBN, UNIMA, UNPI, dan IPDN.', 1);
 

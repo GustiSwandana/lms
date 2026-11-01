@@ -1,15 +1,15 @@
 # BUKU PANDUAN PENGGUNA (MANUAL BOOK)
 # PLATFORM LMS "SIAGA BUMI-SSK"
 ### Integrasi Lingkungan dan Kependudukan Dalam Program Sekolah Siaga Kependudukan
-**BKKBN Perwakilan Provinsi Sulawesi Utara**  
-*Bekerja sama dengan Universitas Negeri Manado (UNIMA), Universitas Pembangunan Indonesia (UNPI), dan Institut Pemerintahan Dalam Negeri (IPDN) Kampus Sulawesi Utara*
+**Didanai oleh LPDP & Ditjen Risbang melalui Program Hiliriset**  
+*Kerja Sama BKKBN Sulawesi Utara bersama Universitas Negeri Manado (UNIMA), Universitas Pembangunan Indonesia (UNPI), dan Institut Pemerintahan Dalam Negeri (IPDN) Kampus Sulut*
 
 ---
 
 ## DAFTAR ISI
 1. [PENDAHULUAN & GAMBARAN UMUM](#1-pendahuluan--gambaran-umum)
    - 1.1 Mengenai SIAGA BUMI-SSK
-   - 1.2 Konsorsium Lembaga Pemrakarsa Sulawesi Utara
+   - 1.2 Lembaga Pendana, Pengarah, & Konsorsium Pelaksana
    - 1.3 Tiga Pilar Kurikulum Strategis
    - 1.4 Sekolah Mitra Percontohan (*Pilot Schools*)
    - 1.5 Matriks Hak Akses Pengguna (*Role-Based Access Control / RBAC*)
@@ -77,8 +77,15 @@ Platform ini mengadopsi standar desain modern yang bersih (*Light Mode* berwibaw
 ![Beranda & Katalog Kursus SSK](./screenshots/01-beranda-katalog.png)
 *Gambar 1.1: Tampilan Beranda Utama SIAGA BUMI-SSK dengan kurasi 3 pilar kurikulum resmi, panduan belajar terarah, serta logo konsorsium BKKBN, UNIMA, UNPI, dan IPDN.*
 
-### 1.2 Konsorsium Lembaga Pemrakarsa Sulawesi Utara
-Platform ini diinisiasi oleh **BKKBN Perwakilan Provinsi Sulawesi Utara** bersama konsorsium perguruan tinggi dan lembaga kedinasan:
+### 1.2 Lembaga Pendana, Pengarah, & Konsorsium Pelaksana
+Pengembangan dan diseminasi platform SIAGA BUMI-SSK didanai dan didukung secara lintas kelembagaan oleh institusi nasional dan regional:
+
+#### A. Lembaga Pendana & Program Hilirisasi Riset Nasional
+1. **Lembaga Pengelola Dana Pendidikan (LPDP)** — Badan Layanan Umum Kementerian Keuangan Republik Indonesia yang mendanai riset terapan dan pengabdian masyarakat nasional.
+2. **Direktorat Jenderal Riset dan Pengembangan (Ditjen Risbang)** — Instansi pembina riset dan inovasi perguruan tinggi di Indonesia.
+3. **Program Hiliriset** — Skema pendanaan dan akselerasi hilirisasi hasil riset perguruan tinggi agar dapat diterapkan langsung pada satuan pendidikan dan masyarakat.
+
+#### B. Perguruan Tinggi Pelaksana & Lembaga Pembina SSK
 1. **Universitas Negeri Manado (UNIMA)** — Penyusunan kurikulum pedagogis, metodologi pengajaran muatan lokal, dan evaluasi hasil belajar kependudukan.
 2. **Universitas Pembangunan Indonesia (UNPI)** — Pengembangan teknologi, infrastruktur server web, rekayasa perangkat lunak, dan keamanan sistem.
 3. **Institut Pemerintahan Dalam Negeri (IPDN) Kampus Sulawesi Utara** — Wawasan kepamongprajaan, ketahanan sosial masyarakat, dan tata kelola kependudukan terpadu.
