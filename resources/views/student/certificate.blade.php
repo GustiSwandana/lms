@@ -88,7 +88,7 @@
         <div class="absolute bottom-0 left-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
 
         <!-- Header: Logos & Serial -->
-        <div class="relative z-10 flex items-start justify-between border-b-2 border-amber-500/30 pb-5">
+        <div class="relative z-10 flex items-center justify-between border-b-2 border-amber-500/30 pb-5 gap-3">
             <div class="flex items-center gap-3.5 text-left">
                 <div class="w-14 h-14 rounded-2xl bg-[#062E1E] text-white flex items-center justify-center font-black text-2xl shadow-md border-2 border-amber-400 shrink-0">
                     <span class="material-symbols-outlined text-[32px] text-amber-300">school</span>
@@ -101,7 +101,16 @@
                 </div>
             </div>
 
-            <div class="text-right">
+            <!-- Sponsor Logos Cluster -->
+            <div class="hidden sm:flex items-center gap-3.5 bg-white/80 px-3.5 py-1.5 rounded-xl border border-amber-500/20 shadow-2xs">
+                <img src="{{ asset('images/logos/lpdp.png') }}" alt="LPDP" class="h-5 sm:h-6 w-auto object-contain"/>
+                <img src="{{ asset('images/logos/risbang.png') }}" alt="Ditjen Risbang" class="h-5 sm:h-6 w-auto object-contain"/>
+                <img src="{{ asset('images/logos/hiliriset.png') }}" alt="Hiliriset" class="h-5 sm:h-6 w-auto object-contain"/>
+                <div class="h-5 w-px bg-amber-500/20"></div>
+                <img src="{{ asset('images/logos/bkkbn.png') }}" alt="BKKBN" class="h-5 sm:h-6 w-auto object-contain"/>
+            </div>
+
+            <div class="text-right shrink-0">
                 <span class="text-[10px] uppercase tracking-widest text-slate-500 font-bold block">NOMOR SERTIFIKAT</span>
                 <span class="font-mono tabular-nums font-bold text-sm text-[#062E1E] bg-amber-100 px-3 py-1 rounded-md border border-amber-300/80 inline-block mt-0.5">
                     {{ $certificate->certificate_code }}

@@ -4,14 +4,20 @@
 <div class="min-h-screen w-full flex flex-col justify-center items-center py-10 px-4 sm:px-6 bg-slate-50 antialiased text-slate-800" x-data="{ showPassword: false }">
     <!-- Top Branding & Institutional Header -->
     <div class="text-center mb-6 max-w-lg w-full">
-        <a href="{{ route('student.dashboard') }}" class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-emerald-600 text-white shadow-xs mb-3 group hover:bg-emerald-700 transition-colors">
-            <span class="material-symbols-outlined text-[28px]">nature_people</span>
-        </a>
+        <!-- Sponsor Logos Strip -->
+        <div class="inline-flex items-center justify-center gap-3.5 sm:gap-4 px-4 py-2 rounded-2xl bg-white border border-slate-200 shadow-2xs mb-4">
+            <img src="{{ asset('images/logos/lpdp.png') }}" alt="LPDP" class="h-5 sm:h-6 w-auto object-contain"/>
+            <img src="{{ asset('images/logos/risbang.png') }}" alt="Ditjen Risbang" class="h-5 sm:h-6 w-auto object-contain"/>
+            <img src="{{ asset('images/logos/hiliriset.png') }}" alt="Hiliriset" class="h-5 sm:h-6 w-auto object-contain"/>
+            <div class="h-4 w-px bg-slate-200"></div>
+            <img src="{{ asset('images/logos/bkkbn.png') }}" alt="BKKBN" class="h-5 sm:h-6 w-auto object-contain"/>
+        </div>
+
         <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight leading-tight">
             SIAGA BUMI<span class="text-emerald-600">-SSK</span>
         </h1>
         <p class="text-[11px] font-bold text-emerald-800 uppercase tracking-wider mt-1">
-            BKKBN Perwakilan Sulawesi Utara
+            Program Hiliriset LPDP & Ditjen Risbang • BKKBN Sulut
         </p>
         <p class="text-xs text-slate-600 mt-2 leading-relaxed px-4">
             Integrasi Lingkungan dan Kependudukan Dalam Program Sekolah Siaga Kependudukan
@@ -153,6 +159,9 @@
                 <a href="{{ route('register') }}" class="font-bold text-emerald-700 hover:underline">
                     Daftar Akun Baru
                 </a>
+            </p>
+            <p class="text-[10px] text-slate-400 mt-3">
+                Didanai oleh LPDP & Ditjen Risbang (Program Hiliriset) • BKKBN Sulut
             </p>
         </div>
     </div>

@@ -22,9 +22,18 @@
                         </span>
                     @endif
                 </div>
-                <span class="text-[10px] text-slate-500 font-medium tracking-wide">BKKBN Sulawesi Utara</span>
+                <span class="text-[10px] text-slate-500 font-medium tracking-wide">Hiliriset LPDP • BKKBN Sulut</span>
             </div>
         </a>
+
+        <!-- Sponsor Logos Badge (Desktop) -->
+        <div class="hidden xl:flex items-center gap-2.5 px-3 py-1 rounded-xl bg-slate-50 border border-slate-200/80 shrink-0" title="Didanai oleh LPDP & Ditjen Risbang melalui Program Hiliriset">
+            <span class="text-[10px] font-semibold text-slate-400 font-mono uppercase tracking-wider">Hiliriset</span>
+            <div class="h-3.5 w-px bg-slate-200"></div>
+            <img src="{{ asset('images/logos/lpdp.png') }}" alt="LPDP" class="h-4 w-auto object-contain"/>
+            <img src="{{ asset('images/logos/risbang.png') }}" alt="Ditjen Risbang" class="h-4 w-auto object-contain"/>
+            <img src="{{ asset('images/logos/hiliriset.png') }}" alt="Hiliriset" class="h-4 w-auto object-contain"/>
+        </div>
 
         <!-- Quick Search Bar (Desktop) -->
         <form action="{{ route('student.dashboard') }}" method="GET" class="relative w-full max-w-sm hidden lg:block">

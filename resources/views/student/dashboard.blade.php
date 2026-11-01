@@ -183,58 +183,128 @@
          2. PARTNER & INSTITUTION LOGOS SECTION
          ========================================================================= -->
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm">
-            <div class="text-left max-w-2xl mb-6">
-                <span class="text-[10px] font-mono uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">
-                    Kemitraan Strategis & Kolaborasi Akademik
-                </span>
-                <h2 class="text-base sm:text-lg font-bold text-slate-900 mt-2">
-                    Didukung oleh Instansi Pemerintah & Lembaga Perguruan Tinggi
-                </h2>
-                <p class="text-xs text-slate-500 mt-1">
-                    Sinergi lintas institusi dalam mengintegrasikan kepedulian lingkungan dan kependudukan di sekolah
-                </p>
+        <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-100 pb-5">
+                <div class="text-left max-w-2xl">
+                    <span class="text-[10px] font-mono uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200 font-semibold">
+                        Program Hilirisasi Riset & Kolaborasi Nasional
+                    </span>
+                    <h2 class="text-base sm:text-xl font-bold text-slate-900 mt-2">
+                        Didanai oleh LPDP & Ditjen Risbang melalui Program Hiliriset
+                    </h2>
+                    <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                        Sinergi riset perguruan tinggi UNIMA, UNPI, dan IPDN bersama BKKBN Sulawesi Utara dalam mengintegrasikan kepedulian lingkungan dan kependudukan di sekolah.
+                    </p>
+                </div>
+                <div class="shrink-0 flex items-center gap-2 text-[11px] text-slate-500 font-medium">
+                    <span class="inline-block w-2 h-2 rounded-full bg-emerald-500"></span>
+                    <span>7 Institusi & Lembaga Pendukung</span>
+                </div>
             </div>
 
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 items-center">
-                <!-- 1. UNIMA -->
-                <div class="flex flex-col items-center justify-center p-4 rounded-xl bg-slate-50/70 border border-slate-200 hover:border-slate-300 transition-all text-center">
-                    <img src="{{ asset('images/logos/unima.png') }}" 
-                         alt="Logo UNIMA - Universitas Negeri Manado" 
-                         class="h-16 sm:h-20 max-w-[130px] object-contain"
-                         loading="lazy"/>
-                    <span class="text-xs font-bold text-slate-900 mt-3 block">UNIMA</span>
-                    <span class="text-[10px] text-slate-500 leading-tight">Universitas Negeri Manado</span>
+            <!-- Tier 1: Lembaga Pendana & Program Hilirisasi Riset -->
+            <div class="space-y-3">
+                <div class="flex items-center gap-2">
+                    <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400 font-mono">
+                        Lembaga Pendana & Pengarah Program
+                    </span>
+                    <div class="h-px bg-slate-100 flex-1"></div>
                 </div>
 
-                <!-- 2. UNPI -->
-                <div class="flex flex-col items-center justify-center p-4 rounded-xl bg-slate-50/70 border border-slate-200 hover:border-slate-300 transition-all text-center">
-                    <img src="{{ asset('images/logos/unpi.png') }}" 
-                         alt="Logo UNPI - Universitas Pembangunan Indonesia" 
-                         class="h-16 sm:h-20 max-w-[130px] object-contain"
-                         loading="lazy"/>
-                    <span class="text-xs font-bold text-slate-900 mt-3 block">UNPI</span>
-                    <span class="text-[10px] text-slate-500 leading-tight">Univ. Pembangunan Indonesia</span>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <!-- 1. LPDP -->
+                    <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50/80 border border-slate-200 hover:border-slate-300 hover:bg-white transition-all">
+                        <div class="w-24 h-14 flex items-center justify-center shrink-0">
+                            <img src="{{ asset('images/logos/lpdp.png') }}" 
+                                 alt="Logo LPDP - Lembaga Pengelola Dana Pendidikan" 
+                                 class="max-h-12 max-w-full object-contain"
+                                 loading="lazy"/>
+                        </div>
+                        <div class="min-w-0">
+                            <span class="text-xs font-bold text-slate-900 block truncate">LPDP</span>
+                            <span class="text-[11px] text-slate-500 leading-snug line-clamp-2">Lembaga Pengelola Dana Pendidikan</span>
+                        </div>
+                    </div>
+
+                    <!-- 2. Ditjen Risbang -->
+                    <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50/80 border border-slate-200 hover:border-slate-300 hover:bg-white transition-all">
+                        <div class="w-24 h-14 flex items-center justify-center shrink-0">
+                            <img src="{{ asset('images/logos/risbang.png') }}" 
+                                 alt="Logo Ditjen Risbang - Direktorat Jenderal Riset dan Pengembangan" 
+                                 class="max-h-12 max-w-full object-contain"
+                                 loading="lazy"/>
+                        </div>
+                        <div class="min-w-0">
+                            <span class="text-xs font-bold text-slate-900 block truncate">Ditjen Risbang</span>
+                            <span class="text-[11px] text-slate-500 leading-snug line-clamp-2">Direktorat Jenderal Riset & Pengembangan</span>
+                        </div>
+                    </div>
+
+                    <!-- 3. Hiliriset -->
+                    <div class="flex items-center gap-4 p-4 rounded-xl bg-slate-50/80 border border-slate-200 hover:border-slate-300 hover:bg-white transition-all">
+                        <div class="w-24 h-14 flex items-center justify-center shrink-0">
+                            <img src="{{ asset('images/logos/hiliriset.png') }}" 
+                                 alt="Logo Hiliriset" 
+                                 class="max-h-12 max-w-full object-contain"
+                                 loading="lazy"/>
+                        </div>
+                        <div class="min-w-0">
+                            <span class="text-xs font-bold text-slate-900 block truncate">Hiliriset</span>
+                            <span class="text-[11px] text-slate-500 leading-snug line-clamp-2">Program Hilirisasi Riset Perguruan Tinggi</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tier 2: Perguruan Tinggi Pengembang & Badan Pembina SSK -->
+            <div class="space-y-3 pt-2">
+                <div class="flex items-center gap-2">
+                    <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400 font-mono">
+                        Perguruan Tinggi Pelaksana & Lembaga Pembina
+                    </span>
+                    <div class="h-px bg-slate-100 flex-1"></div>
                 </div>
 
-                <!-- 3. IPDN -->
-                <div class="flex flex-col items-center justify-center p-4 rounded-xl bg-slate-50/70 border border-slate-200 hover:border-slate-300 transition-all text-center">
-                    <img src="{{ asset('images/logos/ipdn.png') }}" 
-                         alt="Logo IPDN - Institut Pemerintahan Dalam Negeri" 
-                         class="h-16 sm:h-20 max-w-[130px] object-contain"
-                         loading="lazy"/>
-                    <span class="text-xs font-bold text-slate-900 mt-3 block">IPDN</span>
-                    <span class="text-[10px] text-slate-500 leading-tight">Inst. Pemerintahan Dalam Negeri</span>
-                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    <!-- 1. UNIMA -->
+                    <div class="flex flex-col items-center justify-center p-4 rounded-xl bg-slate-50/80 border border-slate-200 hover:border-slate-300 hover:bg-white transition-all text-center">
+                        <img src="{{ asset('images/logos/unima.png') }}" 
+                             alt="Logo UNIMA - Universitas Negeri Manado" 
+                             class="h-14 sm:h-16 max-w-[110px] object-contain"
+                             loading="lazy"/>
+                        <span class="text-xs font-bold text-slate-900 mt-2.5 block">UNIMA</span>
+                        <span class="text-[10px] text-slate-500 leading-tight">Universitas Negeri Manado</span>
+                    </div>
 
-                <!-- 4. BKKBN -->
-                <div class="flex flex-col items-center justify-center p-4 rounded-xl bg-slate-50/70 border border-slate-200 hover:border-slate-300 transition-all text-center">
-                    <img src="{{ asset('images/logos/bkkbn.png') }}" 
-                         alt="Logo BKKBN - Badan Kependudukan dan Keluarga Berencana Nasional" 
-                         class="h-16 sm:h-20 max-w-[130px] object-contain"
-                         loading="lazy"/>
-                    <span class="text-xs font-bold text-slate-900 mt-3 block">BKKBN</span>
-                    <span class="text-[10px] text-slate-500 leading-tight">BKKBN Sulawesi Utara</span>
+                    <!-- 2. UNPI -->
+                    <div class="flex flex-col items-center justify-center p-4 rounded-xl bg-slate-50/80 border border-slate-200 hover:border-slate-300 hover:bg-white transition-all text-center">
+                        <img src="{{ asset('images/logos/unpi.png') }}" 
+                             alt="Logo UNPI - Universitas Pembangunan Indonesia" 
+                             class="h-14 sm:h-16 max-w-[110px] object-contain"
+                             loading="lazy"/>
+                        <span class="text-xs font-bold text-slate-900 mt-2.5 block">UNPI</span>
+                        <span class="text-[10px] text-slate-500 leading-tight">Univ. Pembangunan Indonesia</span>
+                    </div>
+
+                    <!-- 3. IPDN -->
+                    <div class="flex flex-col items-center justify-center p-4 rounded-xl bg-slate-50/80 border border-slate-200 hover:border-slate-300 hover:bg-white transition-all text-center">
+                        <img src="{{ asset('images/logos/ipdn.png') }}" 
+                             alt="Logo IPDN - Institut Pemerintahan Dalam Negeri" 
+                             class="h-14 sm:h-16 max-w-[110px] object-contain"
+                             loading="lazy"/>
+                        <span class="text-xs font-bold text-slate-900 mt-2.5 block">IPDN</span>
+                        <span class="text-[10px] text-slate-500 leading-tight">Inst. Pemerintahan Dalam Negeri</span>
+                    </div>
+
+                    <!-- 4. BKKBN -->
+                    <div class="flex flex-col items-center justify-center p-4 rounded-xl bg-slate-50/80 border border-slate-200 hover:border-slate-300 hover:bg-white transition-all text-center">
+                        <img src="{{ asset('images/logos/bkkbn.png') }}" 
+                             alt="Logo BKKBN - Badan Kependudukan dan Keluarga Berencana Nasional" 
+                             class="h-14 sm:h-16 max-w-[110px] object-contain"
+                             loading="lazy"/>
+                        <span class="text-xs font-bold text-slate-900 mt-2.5 block">BKKBN</span>
+                        <span class="text-[10px] text-slate-500 leading-tight">BKKBN Sulawesi Utara</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -802,17 +872,36 @@
     <!-- =========================================================================
          7. INSTITUTIONAL FOOTER
          ========================================================================= -->
-    <footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 border-t border-slate-200">
-        <div class="flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+    <footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 space-y-6 border-t border-slate-200">
+        <!-- Partner Logo Bar in Footer -->
+        <div class="flex flex-wrap items-center justify-between gap-6 py-4 px-6 rounded-2xl bg-white border border-slate-200 shadow-2xs">
+            <div class="flex items-center gap-2">
+                <span class="text-[11px] font-semibold text-slate-500">Program Kemitraan:</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-6 sm:gap-8 opacity-80 hover:opacity-100 transition-opacity">
+                <img src="{{ asset('images/logos/lpdp.png') }}" alt="LPDP" class="h-6 sm:h-7 w-auto object-contain grayscale hover:grayscale-0 transition-all"/>
+                <img src="{{ asset('images/logos/risbang.png') }}" alt="Ditjen Risbang" class="h-6 sm:h-7 w-auto object-contain grayscale hover:grayscale-0 transition-all"/>
+                <img src="{{ asset('images/logos/hiliriset.png') }}" alt="Hiliriset" class="h-6 sm:h-7 w-auto object-contain grayscale hover:grayscale-0 transition-all"/>
+                <div class="h-4 w-px bg-slate-200 hidden sm:block"></div>
+                <img src="{{ asset('images/logos/unima.png') }}" alt="UNIMA" class="h-6 sm:h-7 w-auto object-contain grayscale hover:grayscale-0 transition-all"/>
+                <img src="{{ asset('images/logos/unpi.png') }}" alt="UNPI" class="h-6 sm:h-7 w-auto object-contain grayscale hover:grayscale-0 transition-all"/>
+                <img src="{{ asset('images/logos/ipdn.png') }}" alt="IPDN" class="h-6 sm:h-7 w-auto object-contain grayscale hover:grayscale-0 transition-all"/>
+                <img src="{{ asset('images/logos/bkkbn.png') }}" alt="BKKBN" class="h-6 sm:h-7 w-auto object-contain grayscale hover:grayscale-0 transition-all"/>
+            </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4 pb-4">
             <div class="flex flex-wrap items-center gap-2">
-                <div class="w-7 h-7 rounded-lg bg-emerald-600 flex items-center justify-center text-white">
+                <div class="w-7 h-7 rounded-lg bg-emerald-600 flex items-center justify-center text-white shrink-0">
                     <span class="material-symbols-outlined text-[16px]">nature_people</span>
                 </div>
                 <span class="font-bold text-slate-900">SIAGA BUMI-SSK</span>
                 <span class="text-slate-300">•</span>
-                <span>Kolaborasi BKKBN Sulut, UNIMA, UNPI, & IPDN</span>
+                <span>Didanai LPDP & Ditjen Risbang (Hiliriset)</span>
                 <span class="text-slate-300">•</span>
-                <span class="font-mono tabular-nums">© {{ date('Y') }} Hak Cipta Dilindungi</span>
+                <span>UNIMA, UNPI, IPDN & BKKBN Sulut</span>
+                <span class="text-slate-300">•</span>
+                <span class="font-mono tabular-nums">© {{ date('Y') }}</span>
             </div>
 
             <div class="flex items-center gap-4 text-xs font-medium">
