@@ -4,13 +4,16 @@
 <div class="min-h-screen w-full flex flex-col justify-center items-center py-10 px-4 sm:px-6 bg-slate-50 antialiased text-slate-800" x-data="{ showPassword: false }">
     <!-- Top Branding & Institutional Header -->
     <div class="text-center mb-6 max-w-lg w-full">
-        <!-- Sponsor Logos Strip -->
-        <div class="inline-flex items-center justify-center gap-3.5 sm:gap-4 px-4 py-2 rounded-2xl bg-white border border-slate-200 shadow-2xs mb-4">
-            <img src="{{ asset('images/logos/lpdp.png') }}" alt="LPDP" class="h-5 sm:h-6 w-auto object-contain"/>
-            <img src="{{ asset('images/logos/risbang.png') }}" alt="Ditjen Risbang" class="h-5 sm:h-6 w-auto object-contain"/>
-            <img src="{{ asset('images/logos/hiliriset.png') }}" alt="Hiliriset" class="h-5 sm:h-6 w-auto object-contain"/>
-            <div class="h-4 w-px bg-slate-200"></div>
-            <img src="{{ asset('images/logos/bkkbn.png') }}" alt="BKKBN" class="h-5 sm:h-6 w-auto object-contain"/>
+        <!-- Sponsor & Partner Logos Strip (All 7 Institutional Logos) -->
+        <div class="inline-flex flex-wrap items-center justify-center gap-2.5 sm:gap-3.5 px-4 py-2 rounded-2xl bg-white border border-slate-200 shadow-2xs mb-4">
+            <img src="{{ asset('images/logos/lpdp.png') }}" alt="LPDP" class="h-5 sm:h-6 w-auto object-contain" title="Lembaga Pengelola Dana Pendidikan"/>
+            <img src="{{ asset('images/logos/risbang.png') }}" alt="Ditjen Risbang" class="h-5 sm:h-6 w-auto object-contain" title="Direktorat Jenderal Riset dan Pengembangan"/>
+            <img src="{{ asset('images/logos/hiliriset.png') }}" alt="Hiliriset" class="h-5 sm:h-6 w-auto object-contain" title="Program Hilirisasi Riset"/>
+            <div class="h-4 w-px bg-slate-200 hidden sm:block"></div>
+            <img src="{{ asset('images/logos/unima.png') }}" alt="UNIMA" class="h-5 sm:h-6 w-auto object-contain" title="Universitas Negeri Manado"/>
+            <img src="{{ asset('images/logos/unpi.png') }}" alt="UNPI" class="h-5 sm:h-6 w-auto object-contain" title="Universitas Pembangunan Indonesia"/>
+            <img src="{{ asset('images/logos/ipdn.png') }}" alt="IPDN" class="h-5 sm:h-6 w-auto object-contain" title="Institut Pemerintahan Dalam Negeri"/>
+            <img src="{{ asset('images/logos/bkkbn.png') }}" alt="BKKBN" class="h-5 sm:h-6 w-auto object-contain" title="BKKBN Sulawesi Utara"/>
         </div>
 
         <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight leading-tight">
@@ -160,8 +163,8 @@
                     Daftar Akun Baru
                 </a>
             </p>
-            <p class="text-[10px] text-slate-400 mt-3">
-                Didanai oleh LPDP & Ditjen Risbang (Program Hiliriset) • BKKBN Sulut
+            <p class="text-[10px] text-slate-400 mt-3 text-center">
+                Didanai oleh LPDP & Ditjen Risbang (Program Hiliriset) • Konsorsium UNIMA, UNPI, IPDN & BKKBN Sulut
             </p>
         </div>
     </div>

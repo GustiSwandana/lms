@@ -381,6 +381,18 @@
                     <span class="cert-institution">Sekolah Siaga Kependudukan (SSK) BKKBN</span>
                 </div>
 
+                <!-- 7 Institutional Consortium Logos -->
+                <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 1.25rem; flex-wrap: wrap;">
+                    <img src="{{ asset('images/logos/lpdp.png') }}" alt="LPDP" style="height: 22px; width: auto; object-fit: contain;"/>
+                    <img src="{{ asset('images/logos/risbang.png') }}" alt="Ditjen Risbang" style="height: 22px; width: auto; object-fit: contain;"/>
+                    <img src="{{ asset('images/logos/hiliriset.png') }}" alt="Hiliriset" style="height: 22px; width: auto; object-fit: contain;"/>
+                    <div style="height: 16px; width: 1px; background: #cbd5e1;"></div>
+                    <img src="{{ asset('images/logos/unima.png') }}" alt="UNIMA" style="height: 22px; width: auto; object-fit: contain;"/>
+                    <img src="{{ asset('images/logos/unpi.png') }}" alt="UNPI" style="height: 22px; width: auto; object-fit: contain;"/>
+                    <img src="{{ asset('images/logos/ipdn.png') }}" alt="IPDN" style="height: 22px; width: auto; object-fit: contain;"/>
+                    <img src="{{ asset('images/logos/bkkbn.png') }}" alt="BKKBN" style="height: 22px; width: auto; object-fit: contain;"/>
+                </div>
+
                 <h1 class="cert-title">Sertifikat Kelulusan</h1>
                 <p class="cert-subtitle">Certificate of Academic Completion</p>
 

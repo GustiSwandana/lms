@@ -165,13 +165,20 @@
             </a>
         </div>
 
-        <!-- Program Endorsement Snippet -->
-        <div class="px-2.5 py-2 rounded-xl bg-slate-50/80 border border-slate-200/80 flex items-center justify-between gap-2 mt-1">
-            <span class="text-[9px] font-semibold text-slate-400 uppercase font-mono tracking-wider">Hiliriset LPDP</span>
-            <div class="flex items-center gap-2">
-                <img src="{{ asset('images/logos/lpdp.png') }}" alt="LPDP" class="h-3.5 w-auto object-contain"/>
-                <img src="{{ asset('images/logos/risbang.png') }}" alt="Ditjen Risbang" class="h-3.5 w-auto object-contain"/>
-                <img src="{{ asset('images/logos/hiliriset.png') }}" alt="Hiliriset" class="h-3.5 w-auto object-contain"/>
+        <!-- Program Endorsement Snippet (All 7 Institutional Logos) -->
+        <div class="px-2.5 py-2 rounded-xl bg-slate-50/80 border border-slate-200/80 flex flex-col gap-1.5 mt-1">
+            <div class="flex items-center justify-between text-[9px] font-semibold text-slate-400 uppercase font-mono tracking-wider">
+                <span>Konsorsium Riset</span>
+                <span>7 Mitra</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-1.5 pt-0.5">
+                <img src="{{ asset('images/logos/lpdp.png') }}" alt="LPDP" class="h-3.5 w-auto object-contain" title="LPDP"/>
+                <img src="{{ asset('images/logos/risbang.png') }}" alt="Ditjen Risbang" class="h-3.5 w-auto object-contain" title="Ditjen Risbang"/>
+                <img src="{{ asset('images/logos/hiliriset.png') }}" alt="Hiliriset" class="h-3.5 w-auto object-contain" title="Hiliriset"/>
+                <img src="{{ asset('images/logos/unima.png') }}" alt="UNIMA" class="h-3.5 w-auto object-contain" title="UNIMA"/>
+                <img src="{{ asset('images/logos/unpi.png') }}" alt="UNPI" class="h-3.5 w-auto object-contain" title="UNPI"/>
+                <img src="{{ asset('images/logos/ipdn.png') }}" alt="IPDN" class="h-3.5 w-auto object-contain" title="IPDN"/>
+                <img src="{{ asset('images/logos/bkkbn.png') }}" alt="BKKBN" class="h-3.5 w-auto object-contain" title="BKKBN"/>
             </div>
         </div>
     </div>
