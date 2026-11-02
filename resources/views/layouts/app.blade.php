@@ -46,6 +46,17 @@
         </div>
     @endif
 
+    @if(session('error'))
+        <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)" 
+             class="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-xl bg-rose-50 text-rose-800 shadow-lg border border-rose-200 transition-all text-xs font-medium">
+            <span class="material-symbols-outlined text-[18px] text-rose-600">error</span>
+            <span>{{ session('error') }}</span>
+            <button @click="show = false" class="text-rose-400 hover:text-rose-700 transition-colors ml-2 min-h-11 min-w-11 inline-flex items-center justify-center">
+                <span class="material-symbols-outlined text-[16px]">close</span>
+            </button>
+        </div>
+    @endif
+
     @yield('content')
 
     @stack('scripts')

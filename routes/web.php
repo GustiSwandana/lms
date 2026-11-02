@@ -29,7 +29,10 @@ Route::match(['get', 'post'], '/switch-role/{role}', [AuthController::class, 'sw
 // Student / Learner Routes (Public Catalog, Curriculum Roadmap & Verification)
 Route::get('/', [StudentController::class, 'dashboard'])->name('student.dashboard');
 Route::get('/katalog', [StudentController::class, 'dashboard'])->name('student.catalog');
+Route::redirect('/materi', '/')->name('materi.alias');
+Route::redirect('/kursus', '/')->name('kursus.alias');
 Route::get('/alur-belajar', [StudentController::class, 'learningPaths'])->name('student.paths');
+Route::get('/sertifikat', fn () => auth()->check() ? redirect()->route('student.analytics') : redirect()->route('student.dashboard'))->name('student.certificate.index');
 Route::get('/sertifikat/{code}', [StudentController::class, 'viewCertificate'])->name('student.certificate');
 Route::get('/sertifikat/{code}/download', [StudentController::class, 'downloadCertificate'])->name('student.certificate.download');
 

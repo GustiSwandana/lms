@@ -40,19 +40,28 @@
     </form>
 
     <!-- Consortium Partner Logos Badge (Desktop Admin) -->
-    <div class="hidden xl:flex items-center gap-2 px-3 py-1 rounded-xl bg-slate-50 border border-slate-200/80 shrink-0" title="Konsorsium Hiliriset: LPDP, Ditjen Risbang, Hiliriset, UNIMA, UNPI, IPDN & BKKBN">
+    <div class="hidden xl:flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200/80 shrink-0" title="Konsorsium Hiliriset: LPDP, Ditjen Risbang, Hiliriset, UNIMA, UNPI, IPDN & BKKBN">
         <span class="text-[9px] font-semibold text-slate-400 font-mono uppercase tracking-wider">Mitra SSK</span>
-        <div class="h-3 w-px bg-slate-200"></div>
-        <img src="{{ asset('images/logos/lpdp.png') }}" alt="LPDP" class="h-3.5 w-auto object-contain" height="14" style="max-height: 14px; width: auto;" title="LPDP"/>
-        <img src="{{ asset('images/logos/risbang.png') }}" alt="Ditjen Risbang" class="h-3.5 w-auto object-contain" height="14" style="max-height: 14px; width: auto;" title="Ditjen Risbang"/>
-        <img src="{{ asset('images/logos/hiliriset.png') }}" alt="Hiliriset" class="h-3.5 w-auto object-contain" height="14" style="max-height: 14px; width: auto;" title="Hiliriset"/>
-        <img src="{{ asset('images/logos/unima.png') }}" alt="UNIMA" class="h-3.5 w-auto object-contain" height="14" style="max-height: 14px; width: auto;" title="UNIMA"/>
-        <img src="{{ asset('images/logos/unpi.png') }}" alt="UNPI" class="h-3.5 w-auto object-contain" height="14" style="max-height: 14px; width: auto;" title="UNPI"/>
-        <img src="{{ asset('images/logos/ipdn.png') }}" alt="IPDN" class="h-3.5 w-auto object-contain" height="14" style="max-height: 14px; width: auto;" title="IPDN"/>
-        <img src="{{ asset('images/logos/bkkbn.png') }}" alt="BKKBN" class="h-3.5 w-auto object-contain" height="14" style="max-height: 14px; width: auto;" title="BKKBN"/>
+        <div class="h-4 w-px bg-slate-200"></div>
+        <img src="{{ asset('images/logos/lpdp.png') }}" alt="LPDP" class="h-4.5 w-auto object-contain" height="18" style="max-height: 18px; width: auto;" title="LPDP"/>
+        <img src="{{ asset('images/logos/risbang.png') }}" alt="Ditjen Risbang" class="h-4.5 w-auto object-contain" height="18" style="max-height: 18px; width: auto;" title="Ditjen Risbang"/>
+        <img src="{{ asset('images/logos/hiliriset.png') }}" alt="Hiliriset" class="h-4.5 w-auto object-contain" height="18" style="max-height: 18px; width: auto;" title="Hiliriset"/>
+        <div class="h-4 w-px bg-slate-200"></div>
+        <img src="{{ asset('images/logos/unima.png') }}" alt="UNIMA" class="h-4.5 w-auto object-contain" height="18" style="max-height: 18px; width: auto;" title="UNIMA"/>
+        <img src="{{ asset('images/logos/unpi.png') }}" alt="UNPI" class="h-4.5 w-auto object-contain" height="18" style="max-height: 18px; width: auto;" title="UNPI"/>
+        <img src="{{ asset('images/logos/ipdn.png') }}" alt="IPDN" class="h-4.5 w-auto object-contain" height="18" style="max-height: 18px; width: auto;" title="IPDN"/>
+        <img src="{{ asset('images/logos/bkkbn.png') }}" alt="BKKBN" class="h-4.5 w-auto object-contain" height="18" style="max-height: 18px; width: auto;" title="BKKBN"/>
     </div>
 
     <div class="flex items-center gap-2">
+        <!-- Quick View Public Website in New Tab -->
+        <a href="{{ route('student.dashboard') }}" target="_blank" 
+           class="hidden lg:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 hover:bg-slate-100 text-slate-700 hover:text-slate-900 text-xs font-semibold transition-colors min-h-11" 
+           title="Buka Website Siswa / Publik di Tab Baru">
+            <span class="material-symbols-outlined text-[16px] text-emerald-600">open_in_new</span>
+            <span>Lihat Web</span>
+        </a>
+
         <!-- Support Ticket Quick Link & Badge -->
         <a href="{{ route('admin.support.index') }}" 
            class="min-h-11 min-w-11 inline-flex items-center justify-center p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-colors relative" 
@@ -131,12 +140,22 @@
 
                 <div class="px-2 py-1 space-y-0.5">
                     <a href="{{ route('student.dashboard') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-slate-50 text-slate-700 hover:text-slate-900 transition-colors">
-                        <span class="material-symbols-outlined text-[16px]">visibility</span>
+                        <span class="material-symbols-outlined text-[16px] text-emerald-600">visibility</span>
                         <span>Lihat Sebagai Siswa</span>
                     </a>
+                    @if(auth()->user()?->canManageSettings())
                     <a href="{{ route('admin.settings.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-slate-50 text-slate-700 hover:text-slate-900 transition-colors">
-                        <span class="material-symbols-outlined text-[16px]">settings</span>
+                        <span class="material-symbols-outlined text-[16px] text-slate-500">settings</span>
                         <span>Pengaturan LMS</span>
+                    </a>
+                    @endif
+                    <a href="{{ route('admin.docs.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-slate-50 text-slate-700 hover:text-slate-900 transition-colors">
+                        <span class="material-symbols-outlined text-[16px] text-slate-500">menu_book</span>
+                        <span>Dokumentasi API</span>
+                    </a>
+                    <a href="{{ route('admin.support.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-slate-50 text-slate-700 hover:text-slate-900 transition-colors">
+                        <span class="material-symbols-outlined text-[16px] text-slate-500">support_agent</span>
+                        <span>Dukungan & Log</span>
                     </a>
                 </div>
 

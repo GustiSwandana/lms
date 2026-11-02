@@ -31,10 +31,10 @@
     <div class="flex flex-col gap-4">
         <!-- Admin Header Brand with Mobile Close Button -->
         <div class="flex items-center justify-between pb-3 border-b border-slate-200">
-            <div class="flex items-center gap-3 px-1">
-                <img src="{{ asset('favicon.svg') }}" alt="Logo SIAGA BUMI-SSK" class="h-9 w-9 rounded-xl shadow-2xs shrink-0" width="36" height="36"/>
+            <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-1 group focus:outline-none" title="Dashboard Portal Kelola">
+                <img src="{{ asset('favicon.svg') }}" alt="Logo SIAGA BUMI-SSK" class="h-9 w-9 rounded-xl shadow-2xs group-hover:scale-105 transition-transform shrink-0" width="36" height="36"/>
                 <div class="flex flex-col">
-                    <span class="text-sm font-bold text-slate-900 tracking-tight leading-none">SIAGA BUMI<span class="text-emerald-600">-SSK</span></span>
+                    <span class="text-sm font-bold text-slate-900 group-hover:text-emerald-700 transition-colors tracking-tight leading-none">SIAGA BUMI<span class="text-emerald-600">-SSK</span></span>
                     <div class="flex items-center gap-1.5 mt-1">
                         <span class="text-[10px] text-slate-500 font-medium">Portal Kelola</span>
                         <span class="px-1.5 py-0.2 rounded-md bg-emerald-50 border border-emerald-200 text-emerald-800 text-[10px] font-semibold">
@@ -42,8 +42,8 @@
                         </span>
                     </div>
                 </div>
-            </div>
-            <button type="button" @click="sidebarOpen = false" class="md:hidden text-slate-400 hover:text-slate-700 p-2 rounded-xl hover:bg-slate-100 min-h-11 min-w-11 inline-flex items-center justify-center">
+            </a>
+            <button type="button" @click="sidebarOpen = false" class="md:hidden text-slate-400 hover:text-slate-700 p-2 rounded-xl hover:bg-slate-100 min-h-11 min-w-11 inline-flex items-center justify-center" aria-label="Tutup Menu">
                 <span class="material-symbols-outlined text-[20px]">close</span>
             </button>
         </div>

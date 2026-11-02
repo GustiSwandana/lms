@@ -55,8 +55,21 @@ class AuthController extends Controller
 
             $request->session()->regenerate();
 
+            $intended = session()->get('url.intended');
+
             if ($user->isAdmin()) {
-                return redirect()->intended(route('admin.dashboard'))->with('success', "Selamat datang kembali, {$user->name} ({$user->role_label})!");
+                if ($intended && ! str_contains($intended, '/login')) {
+                    return redirect()->intended(route('admin.dashboard'))->with('success', "Selamat datang kembali, {$user->name} ({$user->role_label})!");
+                }
+
+                return redirect()->route('admin.dashboard')->with('success', "Selamat datang kembali, {$user->name} ({$user->role_label})!");
+            }
+
+            // Students and non-admin roles must never be sent to an admin-restricted URL
+            if ($intended && str_contains($intended, '/admin')) {
+                session()->forget('url.intended');
+
+                return redirect()->route('student.dashboard')->with('success', "Selamat datang kembali, {$user->name}!");
             }
 
             return redirect()->intended(route('student.dashboard'))->with('success', "Selamat datang kembali, {$user->name}!");
