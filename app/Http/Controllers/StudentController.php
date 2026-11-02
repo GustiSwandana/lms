@@ -718,10 +718,10 @@ class StudentController extends Controller
      */
     public function learningPaths(): View
     {
-        /** @var User $student */
-        $student = $this->getActiveStudent() ?? abort(401);
+        /** @var User|null $student */
+        $student = $this->getActiveStudent();
 
-        $courses = Course::with(['category', 'lessons'])->get();
+        $courses = Course::with(['category', 'lessons'])->where('status', 'published')->get();
 
         $paths = [
             [

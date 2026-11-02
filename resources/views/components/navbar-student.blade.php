@@ -56,14 +56,18 @@
     <div class="flex items-center gap-4 sm:gap-6">
         <!-- Desktop Core Navigation Links -->
         <nav class="hidden md:flex items-center gap-6 text-xs font-semibold">
-            <a class="{{ request()->routeIs('student.dashboard') && !request('filter') ? 'text-emerald-700 font-bold border-b-2 border-emerald-600 pb-0.5' : 'text-slate-600 hover:text-slate-900' }} transition-colors min-h-11 inline-flex items-center" 
+            <a class="{{ request()->routeIs('student.dashboard', 'student.catalog') && !request('filter') ? 'text-emerald-700 font-bold border-b-2 border-emerald-600 pb-0.5' : 'text-slate-600 hover:text-slate-900' }} transition-colors min-h-11 inline-flex items-center" 
                href="{{ route('student.dashboard') }}">Beranda</a>
+            @auth
             <a class="{{ request('filter') === 'ongoing' ? 'text-emerald-700 font-bold border-b-2 border-emerald-600 pb-0.5' : 'text-slate-600 hover:text-slate-900' }} transition-colors min-h-11 inline-flex items-center" 
-               href="{{ route('student.dashboard', ['filter' => 'ongoing']) }}">Materi</a>
+               href="{{ route('student.dashboard', ['filter' => 'ongoing']) }}">Materi Saya</a>
+            @endauth
             <a class="{{ request()->routeIs('student.paths') ? 'text-emerald-700 font-bold border-b-2 border-emerald-600 pb-0.5' : 'text-slate-600 hover:text-slate-900' }} transition-colors min-h-11 inline-flex items-center" 
-               href="{{ route('student.paths') }}">Catatan Saya</a>
+               href="{{ route('student.paths') }}">Alur Belajar</a>
+            @auth
             <a class="{{ request()->routeIs('student.analytics') ? 'text-emerald-700 font-bold border-b-2 border-emerald-600 pb-0.5' : 'text-slate-600 hover:text-slate-900' }} transition-colors min-h-11 inline-flex items-center" 
-               href="{{ route('student.analytics') }}">Sertifikat</a>
+               href="{{ route('student.analytics') }}">Analitik Belajar</a>
+            @endauth
         </nav>
 
         <!-- Action & Profile Group -->
@@ -143,36 +147,50 @@
          x-cloak 
          class="md:hidden absolute top-16 left-0 right-0 bg-white border-b border-slate-200 shadow-xl p-4 flex flex-col gap-2 z-50">
         <a class="px-4 py-3 rounded-xl text-xs font-semibold min-h-11 flex items-center {{ request()->routeIs('student.dashboard', 'student.catalog') && !request('filter') ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' : 'text-slate-700 hover:bg-slate-50' }}" 
-           href="{{ route('student.dashboard') }}">Katalog Materi</a>
+           href="{{ route('student.dashboard') }}">Beranda (Katalog)</a>
+        @auth
         <a class="px-4 py-3 rounded-xl text-xs font-semibold min-h-11 flex items-center {{ request('filter') === 'ongoing' ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' : 'text-slate-700 hover:bg-slate-50' }}" 
            href="{{ route('student.dashboard', ['filter' => 'ongoing']) }}">Materi Saya</a>
-        <a class="px-4 py-3 rounded-xl text-xs font-semibold min-h-11 flex items-center text-slate-700 hover:bg-slate-50" 
+        @endauth
+        <a class="px-4 py-3 rounded-xl text-xs font-semibold min-h-11 flex items-center {{ request()->routeIs('student.paths') ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' : 'text-slate-700 hover:bg-slate-50' }}" 
            href="{{ route('student.paths') }}">Alur Belajar</a>
-        <a class="px-4 py-3 rounded-xl text-xs font-semibold min-h-11 flex items-center text-slate-700 hover:bg-slate-50" 
+        @auth
+        <a class="px-4 py-3 rounded-xl text-xs font-semibold min-h-11 flex items-center {{ request()->routeIs('student.analytics') ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' : 'text-slate-700 hover:bg-slate-50' }}" 
            href="{{ route('student.analytics') }}">Analitik Belajar</a>
+        @endauth
     </div>
 </header>
 
 <!-- Floating Bottom Navigation Dock on Mobile (< md) -->
 <nav class="md:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 px-4 py-1.5 flex items-center justify-around text-[10px] font-medium text-slate-600 shadow-md">
     <a href="{{ route('student.dashboard') }}" 
-       class="flex flex-col items-center justify-center min-h-12 min-w-12 px-2 rounded-xl transition-colors {{ request()->routeIs('student.dashboard') && !request('filter') ? 'text-emerald-700 font-bold' : 'hover:text-slate-900' }}">
+       class="flex flex-col items-center justify-center min-h-12 min-w-12 px-2 rounded-xl transition-colors {{ request()->routeIs('student.dashboard', 'student.catalog') && !request('filter') ? 'text-emerald-700 font-bold' : 'hover:text-slate-900' }}">
         <span class="material-symbols-outlined text-[20px]">home</span>
         <span class="mt-0.5">Beranda</span>
     </a>
+    @auth
     <a href="{{ route('student.dashboard', ['filter' => 'ongoing']) }}" 
        class="flex flex-col items-center justify-center min-h-12 min-w-12 px-2 rounded-xl transition-colors {{ request('filter') === 'ongoing' ? 'text-emerald-700 font-bold' : 'hover:text-slate-900' }}">
-        <span class="material-symbols-outlined text-[20px]">menu_book</span>
-        <span class="mt-0.5">Materi</span>
+        <span class="material-symbols-outlined text-[20px]">school</span>
+        <span class="mt-0.5">Materi Saya</span>
     </a>
+    @endauth
     <a href="{{ route('student.paths') }}" 
        class="flex flex-col items-center justify-center min-h-12 min-w-12 px-2 rounded-xl transition-colors {{ request()->routeIs('student.paths') ? 'text-emerald-700 font-bold' : 'hover:text-slate-900' }}">
-        <span class="material-symbols-outlined text-[20px]">edit_note</span>
-        <span class="mt-0.5">Catatan</span>
+        <span class="material-symbols-outlined text-[20px]">route</span>
+        <span class="mt-0.5">Alur Belajar</span>
     </a>
+    @auth
     <a href="{{ route('student.analytics') }}" 
        class="flex flex-col items-center justify-center min-h-12 min-w-12 px-2 rounded-xl transition-colors {{ request()->routeIs('student.analytics') ? 'text-emerald-700 font-bold' : 'hover:text-slate-900' }}">
-        <span class="material-symbols-outlined text-[20px]">workspace_premium</span>
-        <span class="mt-0.5">Sertifikat</span>
+        <span class="material-symbols-outlined text-[20px]">analytics</span>
+        <span class="mt-0.5">Analitik</span>
     </a>
+    @else
+    <a href="{{ route('login') }}" 
+       class="flex flex-col items-center justify-center min-h-12 min-w-12 px-2 rounded-xl transition-colors hover:text-slate-900">
+        <span class="material-symbols-outlined text-[20px]">login</span>
+        <span class="mt-0.5">Masuk</span>
+    </a>
+    @endauth
 </nav>

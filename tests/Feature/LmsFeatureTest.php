@@ -347,6 +347,14 @@ class LmsFeatureTest extends TestCase
         $response->assertSee('Roadmap Pembelajaran');
     }
 
+    public function test_guest_can_access_learning_paths_without_login(): void
+    {
+        $response = $this->get(route('student.paths'));
+        $response->assertStatus(200);
+        $response->assertSee('Alur Belajar Terstruktur');
+        $response->assertSee('Roadmap Pembelajaran');
+    }
+
     public function test_student_analytics_can_be_rendered(): void
     {
         $student = User::where('role', 'student')->first();

@@ -53,7 +53,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         @forelse($path['courses'] as $course)
                             @php
-                                $progress = $course->progressPercentageFor($student);
+                                $progress = $student ? $course->progressPercentageFor($student) : 0;
                             @endphp
                             <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col justify-between gap-3 hover:bg-slate-100/70 hover:border-slate-300 transition-all">
                                 <div class="space-y-2">
