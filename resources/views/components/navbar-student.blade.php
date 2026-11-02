@@ -68,17 +68,6 @@
                href="{{ route('student.analytics') }}">Sertifikat</a>
         </nav>
 
-        <div class="h-5 w-px bg-slate-200 hidden md:block"></div>
-
-        <!-- Portal Admin Shortcut (for Admins) -->
-        @if(auth()->check() && auth()->user()->isAdmin())
-        <a href="{{ route('admin.dashboard') }}" 
-           class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border border-emerald-200 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-semibold transition-all min-h-11">
-            <span class="material-symbols-outlined text-[18px]">admin_panel_settings</span>
-            <span class="hidden sm:inline">Portal Admin</span>
-        </a>
-        @endif
-
         <!-- Action & Profile Group -->
         <div class="flex items-center gap-2 relative">
             <div class="relative">
@@ -125,13 +114,6 @@
                             <span>Analitik Belajar</span>
                         </a>
 
-                        @if(auth()->user()->isAdmin())
-                        <div class="h-px bg-slate-100 my-1"></div>
-                        <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 font-semibold transition-colors">
-                            <span class="material-symbols-outlined text-[16px]">admin_panel_settings</span>
-                            <span>Buka Portal Admin</span>
-                        </a>
-                        @endif
                     </div>
 
                     <!-- Logout Button -->
@@ -170,13 +152,6 @@
            href="{{ route('student.paths') }}">Alur Belajar</a>
         <a class="px-4 py-3 rounded-xl text-xs font-semibold min-h-11 flex items-center text-slate-700 hover:bg-slate-50" 
            href="{{ route('student.analytics') }}">Analitik Belajar</a>
-        @if(auth()->check() && auth()->user()->isAdmin())
-        <a class="px-4 py-3 rounded-xl text-xs font-semibold bg-emerald-50 border border-emerald-200 text-emerald-800 flex items-center justify-between min-h-11" 
-           href="{{ route('admin.dashboard') }}">
-           <span class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">admin_panel_settings</span> Portal Admin</span>
-           <span>&rarr;</span>
-        </a>
-        @endif
     </div>
 </header>
 

@@ -34,12 +34,6 @@
             </a>
         @endif
 
-        <a href="{{ route('admin.dashboard') }}" 
-           class="inline-flex items-center justify-center gap-1.5 min-h-11 px-3.5 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 hover:text-slate-900 shadow-2xs text-xs font-semibold transition-all">
-            <span class="material-symbols-outlined text-[16px]">admin_panel_settings</span>
-            <span class="hidden md:inline">Portal Admin</span>
-        </a>
-
         <div class="h-6 w-px bg-slate-200 hidden sm:block"></div>
 
         <!-- Instructor/Student Account Menu -->

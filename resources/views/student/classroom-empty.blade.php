@@ -25,14 +25,6 @@
 
     <!-- Center/Right Navigation Links & Actions -->
     <div class="flex items-center gap-2.5 sm:gap-3 shrink-0">
-        <a href="{{ route('admin.dashboard') }}" 
-           class="inline-flex items-center justify-center gap-1.5 min-h-11 px-3.5 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 hover:text-slate-900 shadow-2xs text-xs font-semibold transition-all">
-            <span class="material-symbols-outlined text-[16px]">admin_panel_settings</span>
-            <span class="hidden md:inline">Portal Admin</span>
-        </a>
-
-        <div class="h-6 w-px bg-slate-200 hidden sm:block"></div>
-
         <!-- Instructor/Student Account Menu -->
         <div class="flex items-center gap-2.5 pl-1">
             <div class="w-9 h-9 rounded-full ring-1 ring-slate-200 overflow-hidden bg-slate-100 shrink-0">
@@ -118,7 +110,7 @@
                 Materi Video Belum Tersedia
             </h2>
             <p class="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-xl">
-                Kursus ini baru saja didaftarkan dan belum memiliki video materi yang dipublikasikan oleh tim instruktur. Silakan kembali lagi nanti atau tambahkan materi melalui portal admin kurikulum.
+                Kursus ini baru saja didaftarkan dan belum memiliki video materi yang dipublikasikan oleh tim instruktur. Silakan kembali lagi nanti saat materi telah tersedia.
             </p>
         </div>
 
