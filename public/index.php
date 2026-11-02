@@ -10,6 +10,21 @@ if (!file_exists(__DIR__.'/../.env') && file_exists(__DIR__.'/../../.env')) {
     @copy(__DIR__.'/../../.env', __DIR__.'/../.env');
 }
 
+// Maintenance / deploy cache purge trigger
+if (isset($_GET['purge_views'])) {
+    if (function_exists('opcache_reset')) {
+        @opcache_reset();
+    }
+    foreach (array_merge(glob(__DIR__.'/../storage/framework/views/*.php') ?: [], glob(__DIR__.'/../../storage/framework/views/*.php') ?: []) as $f) {
+        @unlink($f);
+    }
+    foreach (array_merge(glob(__DIR__.'/../bootstrap/cache/*.php') ?: [], glob(__DIR__.'/../../bootstrap/cache/*.php') ?: []) as $f) {
+        @unlink($f);
+    }
+    echo "PURGED_SUCCESS";
+    exit;
+}
+
 // Determine if the application is in maintenance mode...
 if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php')) {
     require $maintenance;
