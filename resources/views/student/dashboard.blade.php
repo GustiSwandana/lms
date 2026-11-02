@@ -84,7 +84,7 @@
                             <div class="flex items-center justify-between">
                                 <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-semibold border border-emerald-200">
                                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
-                                    <span>Lanjut Belajar</span>
+                                    <span>{{ auth()->check() && $featuredProgress > 0 ? 'Lanjut Belajar' : 'Materi Pilihan' }}</span>
                                 </span>
                                 <span class="text-xs font-mono tabular-nums text-slate-500 bg-slate-100 px-2.5 py-1 rounded-md border border-slate-200">
                                     {{ $continueLesson->duration_formatted }}
@@ -114,30 +114,43 @@
                                 </a>
                             </div>
 
-                            <!-- Linear Progress Bar -->
-                            <div class="space-y-1.5 pt-1">
-                                <div class="flex items-center justify-between text-xs text-slate-700 font-medium">
-                                    <span>
-                                        @if($featuredProgress >= 100)
-                                            Hebat, materi kursus ini sudah selesai!
-                                        @elseif($featuredProgress > 0)
-                                            Tinggal sedikit lagi untuk dapat sertifikat!
-                                        @else
-                                            Mulai tonton materi pertamamu hari ini
-                                        @endif
-                                    </span>
-                                    <span class="font-mono tabular-nums text-emerald-700 font-bold">{{ $featuredProgress }}%</span>
+                            @if(auth()->check())
+                                <!-- Linear Progress Bar -->
+                                <div class="space-y-1.5 pt-1">
+                                    <div class="flex items-center justify-between text-xs text-slate-700 font-medium">
+                                        <span>
+                                            @if($featuredProgress >= 100)
+                                                Hebat, materi kursus ini sudah selesai!
+                                            @elseif($featuredProgress > 0)
+                                                Tinggal sedikit lagi untuk dapat sertifikat!
+                                            @else
+                                                Mulai tonton materi pertamamu hari ini
+                                            @endif
+                                        </span>
+                                        <span class="font-mono tabular-nums text-emerald-700 font-bold">{{ $featuredProgress }}%</span>
+                                    </div>
+                                    <div class="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
+                                        <div class="h-full bg-emerald-600 rounded-full transition-all duration-300" style="width: {{ $featuredProgress }}%;"></div>
+                                    </div>
                                 </div>
-                                <div class="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
-                                    <div class="h-full bg-emerald-600 rounded-full transition-all duration-300" style="width: {{ $featuredProgress }}%;"></div>
-                                </div>
-                            </div>
 
-                            <a href="{{ route('student.classroom.lesson', [$featuredCourse->slug, $continueLesson->id]) }}" 
-                               class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs sm:text-sm transition-colors shadow-xs min-h-12">
-                                <span>Lanjutkan Video Terakhir</span>
-                                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-                            </a>
+                                <a href="{{ route('student.classroom.lesson', [$featuredCourse->slug, $continueLesson->id]) }}" 
+                                   class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs sm:text-sm transition-colors shadow-xs min-h-12">
+                                    <span>{{ $featuredProgress > 0 ? 'Lanjutkan Video Terakhir' : 'Mulai Belajar Sekarang' }}</span>
+                                    <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                                </a>
+                            @else
+                                <div class="flex items-center gap-2 py-1 text-xs text-slate-500">
+                                    <span class="material-symbols-outlined text-[18px] text-emerald-600">lock</span>
+                                    <span>Masuk untuk mencatat progres belajar dan klaim e-sertifikat</span>
+                                </div>
+
+                                <a href="{{ route('student.classroom.lesson', [$featuredCourse->slug, $continueLesson->id]) }}" 
+                                   class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs sm:text-sm transition-colors shadow-xs min-h-12">
+                                    <span>Mulai Belajar</span>
+                                    <span class="material-symbols-outlined text-[18px]">login</span>
+                                </a>
+                            @endif
                         </div>
                     @else
                         <!-- Institutional Overview Card -->
@@ -636,7 +649,7 @@
                 </div>
 
                 <!-- Multi-School Scope Filter -->
-                @if($student->school_name)
+                @if($student && $student->school_name)
                 <div class="flex items-center gap-1.5 text-xs">
                     <span class="text-slate-500 font-medium shrink-0">Sekolah:</span>
                     <a href="{{ route('student.dashboard', array_merge(request()->except('scope'), ['scope' => 'all'])) }}#katalog-kursus" 
@@ -708,6 +721,10 @@
                          x-data="{ 
                              bookmarked: {{ $isBookmarked ? 'true' : 'false' }},
                              toggleBookmark() {
+                                 @guest
+                                     window.location.href = '{{ route('login') }}';
+                                     return;
+                                 @endguest
                                  fetch('{{ route('student.course.bookmark', $course->slug) }}', {
                                      method: 'POST',
                                      headers: {

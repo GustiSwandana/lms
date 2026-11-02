@@ -26,23 +26,27 @@ Route::post('/profile/update-password', [AuthController::class, 'updatePassword'
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::match(['get', 'post'], '/switch-role/{role}', [AuthController::class, 'switchRole'])->name('switch-role');
 
-// Student / Learner Routes
+// Student / Learner Routes (Public Catalog & Verification)
 Route::get('/', [StudentController::class, 'dashboard'])->name('student.dashboard');
 Route::get('/katalog', [StudentController::class, 'dashboard'])->name('student.catalog');
-Route::get('/alur-belajar', [StudentController::class, 'learningPaths'])->name('student.paths');
-Route::get('/analitik', [StudentController::class, 'analytics'])->name('student.analytics');
-Route::get('/belajar/{course:slug}', [StudentController::class, 'classroom'])->name('student.classroom');
-Route::get('/belajar/{course:slug}/materi/{lesson}', [StudentController::class, 'classroom'])->name('student.classroom.lesson');
-Route::post('/pelajaran/{lesson}/toggle-complete', [StudentController::class, 'toggleCompletion'])->name('student.lesson.toggle');
-Route::post('/pelajaran/{lesson}/progress', [StudentController::class, 'saveProgress'])->name('student.lesson.progress');
-Route::post('/pelajaran/{lesson}/quiz', [StudentController::class, 'submitQuiz'])->name('student.lesson.quiz')->middleware('throttle:quiz-submissions');
-Route::post('/pelajaran/{lesson}/notes', [StudentController::class, 'storeNote'])->name('student.lesson.notes.store');
-Route::delete('/notes/{note}', [StudentController::class, 'destroyNote'])->name('student.notes.destroy');
-Route::post('/pelajaran/{lesson}/comments', [StudentController::class, 'storeComment'])->name('student.lesson.comments.store')->middleware('throttle:discussions');
-Route::post('/komentar/{comment}/like', [StudentController::class, 'toggleCommentLike'])->name('student.comment.like');
-Route::post('/kursus/{course:slug}/toggle-bookmark', [StudentController::class, 'toggleBookmark'])->name('student.course.bookmark');
 Route::get('/sertifikat/{code}', [StudentController::class, 'viewCertificate'])->name('student.certificate');
 Route::get('/sertifikat/{code}/download', [StudentController::class, 'downloadCertificate'])->name('student.certificate.download');
+
+// Protected Student / Learning Routes (Require Authentication)
+Route::middleware('auth')->group(function () {
+    Route::get('/alur-belajar', [StudentController::class, 'learningPaths'])->name('student.paths');
+    Route::get('/analitik', [StudentController::class, 'analytics'])->name('student.analytics');
+    Route::get('/belajar/{course:slug}', [StudentController::class, 'classroom'])->name('student.classroom');
+    Route::get('/belajar/{course:slug}/materi/{lesson}', [StudentController::class, 'classroom'])->name('student.classroom.lesson');
+    Route::post('/pelajaran/{lesson}/toggle-complete', [StudentController::class, 'toggleCompletion'])->name('student.lesson.toggle');
+    Route::post('/pelajaran/{lesson}/progress', [StudentController::class, 'saveProgress'])->name('student.lesson.progress');
+    Route::post('/pelajaran/{lesson}/quiz', [StudentController::class, 'submitQuiz'])->name('student.lesson.quiz')->middleware('throttle:quiz-submissions');
+    Route::post('/pelajaran/{lesson}/notes', [StudentController::class, 'storeNote'])->name('student.lesson.notes.store');
+    Route::delete('/notes/{note}', [StudentController::class, 'destroyNote'])->name('student.notes.destroy');
+    Route::post('/pelajaran/{lesson}/comments', [StudentController::class, 'storeComment'])->name('student.lesson.comments.store')->middleware('throttle:discussions');
+    Route::post('/komentar/{comment}/like', [StudentController::class, 'toggleCommentLike'])->name('student.comment.like');
+    Route::post('/kursus/{course:slug}/toggle-bookmark', [StudentController::class, 'toggleBookmark'])->name('student.course.bookmark');
+});
 
 // Admin Panel Routes
 Route::prefix('admin')->name('admin.')->group(function () {

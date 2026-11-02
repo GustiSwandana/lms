@@ -24,20 +24,11 @@ use Illuminate\View\View;
 class StudentController extends Controller
 {
     /**
-     * Get the active student user (authenticated or demonstration default).
+     * Get the active student user (authenticated user, or null for unauthenticated guests).
      */
-    protected function getActiveStudent(): User
+    protected function getActiveStudent(): ?User
     {
-        return auth()->user()
-            ?? User::where('role', 'student')->first()
-            ?? User::first()
-            ?? User::create([
-                'name' => 'Siswa Pengunjung',
-                'email' => 'guest@siagabumi.id',
-                'password' => bcrypt('password'),
-                'role' => 'student',
-                'school_name' => 'SMP Negeri 1 Bitung',
-            ]);
+        return auth()->user();
     }
 
     /**
@@ -49,33 +40,35 @@ class StudentController extends Controller
 
         // 1. Featured / Continue Watching Course
         $featuredQuery = Course::with(['category', 'lessons'])->where('status', 'published');
-        if ($student->isGuestRole()) {
+        if ($student?->isGuestRole()) {
             $featuredQuery->where('is_visible_to_guest', true);
         }
         $featuredCourse = $featuredQuery->first();
-        $featuredProgress = $featuredCourse ? $featuredCourse->progressPercentageFor($student) : 0;
-        $featuredCompletedCount = $featuredCourse ? $featuredCourse->completedLessonsCountFor($student) : 0;
+        $featuredProgress = ($featuredCourse && $student) ? $featuredCourse->progressPercentageFor($student) : 0;
+        $featuredCompletedCount = ($featuredCourse && $student) ? $featuredCourse->completedLessonsCountFor($student) : 0;
         $featuredTotalCount = $featuredCourse ? $featuredCourse->lessons->count() : 0;
 
         // Current active / next uncompleted lesson in featured course
         $continueLesson = null;
-        if ($featuredCourse) {
+        if ($featuredCourse && $student) {
             $completedIds = $student->lessonCompletions()->pluck('lesson_id')->toArray();
             $continueLesson = $featuredCourse->lessons->first(fn ($l) => ! in_array($l->id, $completedIds))
                 ?? $featuredCourse->lessons->first();
+        } elseif ($featuredCourse) {
+            $continueLesson = $featuredCourse->lessons->first();
         }
 
         // 2. Filter & Search Courses
         $query = Course::with(['category', 'lessons', 'creator'])->where('status', 'published');
 
         // Gallery Mode for Penyuluh / Guest: strictly view curated courses only
-        if ($student->isGuestRole()) {
+        if ($student?->isGuestRole()) {
             $query->where('is_visible_to_guest', true);
         }
 
         // Multi-school scope filter: "Kursus Sekolah Saya" vs "Semua Kursus Umum"
         $scope = $request->query('scope', 'all');
-        if ($scope === 'my_school' && $student->school_name) {
+        if ($scope === 'my_school' && $student?->school_name) {
             $query->where('school_name', $student->school_name);
         }
 
@@ -150,19 +143,19 @@ class StudentController extends Controller
 
         // Calculate counts for each filter tab
         $countAll = $allFetchedCourses->count();
-        $countOngoing = $allFetchedCourses->filter(fn ($c) => $c->progressPercentageFor($student) > 0 && $c->progressPercentageFor($student) < 100)->count();
-        $countCompleted = $allFetchedCourses->filter(fn ($c) => $c->progressPercentageFor($student) === 100)->count();
-        $countSaved = $allFetchedCourses->filter(fn ($c) => $c->isBookmarkedBy($student))->count();
+        $countOngoing = $student ? $allFetchedCourses->filter(fn ($c) => $c->progressPercentageFor($student) > 0 && $c->progressPercentageFor($student) < 100)->count() : 0;
+        $countCompleted = $student ? $allFetchedCourses->filter(fn ($c) => $c->progressPercentageFor($student) === 100)->count() : 0;
+        $countSaved = $student ? $allFetchedCourses->filter(fn ($c) => $c->isBookmarkedBy($student))->count() : 0;
 
-        $mySchoolTotalCount = $student->school_name
+        $mySchoolTotalCount = $student?->school_name
             ? Course::where('status', 'published')->where('school_name', $student->school_name)->count()
             : 0;
 
         $filter = $request->query('filter', 'all');
         $filteredCourses = match ($filter) {
-            'ongoing' => $allFetchedCourses->filter(fn ($c) => $c->progressPercentageFor($student) > 0 && $c->progressPercentageFor($student) < 100),
-            'completed' => $allFetchedCourses->filter(fn ($c) => $c->progressPercentageFor($student) === 100),
-            'saved' => $allFetchedCourses->filter(fn ($c) => $c->isBookmarkedBy($student)),
+            'ongoing' => $student ? $allFetchedCourses->filter(fn ($c) => $c->progressPercentageFor($student) > 0 && $c->progressPercentageFor($student) < 100) : collect(),
+            'completed' => $student ? $allFetchedCourses->filter(fn ($c) => $c->progressPercentageFor($student) === 100) : collect(),
+            'saved' => $student ? $allFetchedCourses->filter(fn ($c) => $c->isBookmarkedBy($student)) : collect(),
             default => $allFetchedCourses,
         };
 
@@ -209,7 +202,8 @@ class StudentController extends Controller
      */
     public function classroom(Course $course, ?Lesson $lesson = null): View
     {
-        $student = $this->getActiveStudent();
+        /** @var User $student */
+        $student = $this->getActiveStudent() ?? abort(401);
 
         // Gallery Mode restriction for Penyuluh / Guest
         if ($student->isGuestRole() && ! $course->is_visible_to_guest) {
@@ -308,7 +302,8 @@ class StudentController extends Controller
      */
     public function storeNote(Request $request, Lesson $lesson): JsonResponse|RedirectResponse
     {
-        $student = $this->getActiveStudent();
+        /** @var User $student */
+        $student = $this->getActiveStudent() ?? abort(401);
 
         if ($student->isGuestRole()) {
             abort(403, 'Akun Penyuluh/Tamu berada dalam Mode Galeri (Lihat-Saja) dan tidak dapat menyimpan catatan.');
@@ -357,7 +352,8 @@ class StudentController extends Controller
      */
     public function storeComment(Request $request, Lesson $lesson): JsonResponse|RedirectResponse
     {
-        $student = $this->getActiveStudent();
+        /** @var User $student */
+        $student = $this->getActiveStudent() ?? abort(401);
 
         if ($student->isGuestRole()) {
             abort(403, 'Akun Penyuluh/Tamu berada dalam Mode Galeri (Lihat-Saja) dan tidak dapat mengirim komentar.');
@@ -396,7 +392,8 @@ class StudentController extends Controller
      */
     public function toggleCommentLike(Request $request, LessonComment $comment): JsonResponse
     {
-        $student = $this->getActiveStudent();
+        /** @var User $student */
+        $student = $this->getActiveStudent() ?? abort(401);
 
         if ($student->isGuestRole()) {
             abort(403, 'Akun Penyuluh/Tamu berada dalam Mode Galeri (Lihat-Saja).');
@@ -431,7 +428,8 @@ class StudentController extends Controller
      */
     public function toggleBookmark(Request $request, Course $course): JsonResponse|RedirectResponse
     {
-        $student = $this->getActiveStudent();
+        /** @var User $student */
+        $student = $this->getActiveStudent() ?? abort(401);
 
         if ($student->isGuestRole()) {
             abort(403, 'Akun Penyuluh/Tamu berada dalam Mode Galeri (Lihat-Saja).');
@@ -470,7 +468,8 @@ class StudentController extends Controller
      */
     public function toggleCompletion(Request $request, Lesson $lesson): JsonResponse|RedirectResponse
     {
-        $student = $this->getActiveStudent();
+        /** @var User $student */
+        $student = $this->getActiveStudent() ?? abort(401);
 
         if ($student->isGuestRole()) {
             abort(403, 'Akun Penyuluh/Tamu berada dalam Mode Galeri (Lihat-Saja) dan tidak dapat mengubah progres pembelajaran.');
@@ -538,7 +537,8 @@ class StudentController extends Controller
      */
     public function saveProgress(Request $request, Lesson $lesson): JsonResponse
     {
-        $student = $this->getActiveStudent();
+        /** @var User $student */
+        $student = $this->getActiveStudent() ?? abort(401);
 
         if ($student->isGuestRole()) {
             return response()->json(['success' => false, 'message' => 'Akun Penyuluh/Tamu berada dalam Mode Galeri (Lihat-Saja) dan tidak menyimpan progres.'], 403);
@@ -605,7 +605,8 @@ class StudentController extends Controller
      */
     public function submitQuiz(Request $request, Lesson $lesson): JsonResponse
     {
-        $student = $this->getActiveStudent();
+        /** @var User $student */
+        $student = $this->getActiveStudent() ?? abort(401);
 
         if ($student->isGuestRole()) {
             abort(403, 'Akun Penyuluh/Tamu berada dalam Mode Galeri (Lihat-Saja) dan tidak dapat mengikuti evaluasi kuis.');
@@ -717,7 +718,8 @@ class StudentController extends Controller
      */
     public function learningPaths(): View
     {
-        $student = $this->getActiveStudent();
+        /** @var User $student */
+        $student = $this->getActiveStudent() ?? abort(401);
 
         $courses = Course::with(['category', 'lessons'])->get();
 
@@ -765,7 +767,8 @@ class StudentController extends Controller
      */
     public function analytics(): View
     {
-        $student = $this->getActiveStudent();
+        /** @var User $student */
+        $student = $this->getActiveStudent() ?? abort(401);
 
         $completedLessonIds = $student->lessonCompletions()->whereNotNull('completed_at')->pluck('lesson_id');
         $completedLessons = Lesson::whereIn('id', $completedLessonIds)->with('course.category')->get();

@@ -33,10 +33,19 @@ class LmsFeatureTest extends TestCase
         $response->assertSee('Katalog Kursus Pembelajaran');
     }
 
-    public function test_student_classroom_can_be_rendered(): void
+    public function test_guest_is_redirected_to_login_when_accessing_classroom(): void
     {
         $course = Course::first();
         $response = $this->get(route('student.classroom', $course->slug));
+
+        $response->assertRedirect(route('login'));
+    }
+
+    public function test_student_classroom_can_be_rendered(): void
+    {
+        $student = User::where('role', 'student')->first();
+        $course = Course::first();
+        $response = $this->actingAs($student)->get(route('student.classroom', $course->slug));
 
         $response->assertStatus(200);
         $response->assertSee($course->title);
@@ -45,6 +54,7 @@ class LmsFeatureTest extends TestCase
 
     public function test_student_classroom_with_empty_course_renders_empty_state(): void
     {
+        $student = User::where('role', 'student')->first();
         $category = Category::first();
         $course = Course::create([
             'category_id' => $category->id,
@@ -54,7 +64,7 @@ class LmsFeatureTest extends TestCase
             'status' => 'published',
         ]);
 
-        $response = $this->get(route('student.classroom', $course->slug));
+        $response = $this->actingAs($student)->get(route('student.classroom', $course->slug));
 
         $response->assertStatus(200);
         $response->assertSee('Kursus Kosong Tanpa Pelajaran');
@@ -330,7 +340,8 @@ class LmsFeatureTest extends TestCase
 
     public function test_student_learning_paths_can_be_rendered(): void
     {
-        $response = $this->get(route('student.paths'));
+        $student = User::where('role', 'student')->first();
+        $response = $this->actingAs($student)->get(route('student.paths'));
         $response->assertStatus(200);
         $response->assertSee('Alur Belajar Terstruktur');
         $response->assertSee('Roadmap Pembelajaran');
