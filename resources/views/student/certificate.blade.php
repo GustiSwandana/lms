@@ -103,14 +103,14 @@
 
             <!-- Sponsor & Partner Logos Cluster (All 7 Institutional Logos) -->
             <div class="hidden sm:flex items-center gap-2.5 bg-white/90 px-3.5 py-1.5 rounded-xl border border-amber-500/20 shadow-2xs">
-                <img src="{{ asset('images/logos/lpdp.png') }}" alt="LPDP" class="h-5 sm:h-6 w-auto object-contain" title="LPDP"/>
-                <img src="{{ asset('images/logos/risbang.png') }}" alt="Ditjen Risbang" class="h-5 sm:h-6 w-auto object-contain" title="Ditjen Risbang"/>
-                <img src="{{ asset('images/logos/hiliriset.png') }}" alt="Hiliriset" class="h-5 sm:h-6 w-auto object-contain" title="Hiliriset"/>
+                <img src="{{ asset('images/logos/lpdp.png') }}" alt="LPDP" class="h-5 sm:h-6 w-auto object-contain" height="24" style="max-height: 24px; width: auto;" title="LPDP"/>
+                <img src="{{ asset('images/logos/risbang.png') }}" alt="Ditjen Risbang" class="h-5 sm:h-6 w-auto object-contain" height="24" style="max-height: 24px; width: auto;" title="Ditjen Risbang"/>
+                <img src="{{ asset('images/logos/hiliriset.png') }}" alt="Hiliriset" class="h-5 sm:h-6 w-auto object-contain" height="24" style="max-height: 24px; width: auto;" title="Hiliriset"/>
                 <div class="h-4 w-px bg-amber-500/30"></div>
-                <img src="{{ asset('images/logos/unima.png') }}" alt="UNIMA" class="h-5 sm:h-6 w-auto object-contain" title="UNIMA"/>
-                <img src="{{ asset('images/logos/unpi.png') }}" alt="UNPI" class="h-5 sm:h-6 w-auto object-contain" title="UNPI"/>
-                <img src="{{ asset('images/logos/ipdn.png') }}" alt="IPDN" class="h-5 sm:h-6 w-auto object-contain" title="IPDN"/>
-                <img src="{{ asset('images/logos/bkkbn.png') }}" alt="BKKBN" class="h-5 sm:h-6 w-auto object-contain" title="BKKBN"/>
+                <img src="{{ asset('images/logos/unima.png') }}" alt="UNIMA" class="h-5 sm:h-6 w-auto object-contain" height="24" style="max-height: 24px; width: auto;" title="UNIMA"/>
+                <img src="{{ asset('images/logos/unpi.png') }}" alt="UNPI" class="h-5 sm:h-6 w-auto object-contain" height="24" style="max-height: 24px; width: auto;" title="UNPI"/>
+                <img src="{{ asset('images/logos/ipdn.png') }}" alt="IPDN" class="h-5 sm:h-6 w-auto object-contain" height="24" style="max-height: 24px; width: auto;" title="IPDN"/>
+                <img src="{{ asset('images/logos/bkkbn.png') }}" alt="BKKBN" class="h-5 sm:h-6 w-auto object-contain" height="24" style="max-height: 24px; width: auto;" title="BKKBN"/>
             </div>
 
             <div class="text-right shrink-0">

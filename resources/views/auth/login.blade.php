@@ -6,14 +6,14 @@
     <div class="text-center mb-6 max-w-lg w-full">
         <!-- Sponsor & Partner Logos Strip (All 7 Institutional Logos) -->
         <div class="inline-flex flex-wrap items-center justify-center gap-2.5 sm:gap-3.5 px-4 py-2 rounded-2xl bg-white border border-slate-200 shadow-2xs mb-4">
-            <img src="{{ asset('images/logos/lpdp.png') }}" alt="LPDP" class="h-5 sm:h-6 w-auto object-contain" title="Lembaga Pengelola Dana Pendidikan"/>
-            <img src="{{ asset('images/logos/risbang.png') }}" alt="Ditjen Risbang" class="h-5 sm:h-6 w-auto object-contain" title="Direktorat Jenderal Riset dan Pengembangan"/>
-            <img src="{{ asset('images/logos/hiliriset.png') }}" alt="Hiliriset" class="h-5 sm:h-6 w-auto object-contain" title="Program Hilirisasi Riset"/>
+            <img src="{{ asset('images/logos/lpdp.png') }}" alt="LPDP" class="h-5 sm:h-6 w-auto object-contain" height="24" style="max-height: 24px; width: auto;" title="Lembaga Pengelola Dana Pendidikan"/>
+            <img src="{{ asset('images/logos/risbang.png') }}" alt="Ditjen Risbang" class="h-5 sm:h-6 w-auto object-contain" height="24" style="max-height: 24px; width: auto;" title="Direktorat Jenderal Riset dan Pengembangan"/>
+            <img src="{{ asset('images/logos/hiliriset.png') }}" alt="Hiliriset" class="h-5 sm:h-6 w-auto object-contain" height="24" style="max-height: 24px; width: auto;" title="Program Hilirisasi Riset"/>
             <div class="h-4 w-px bg-slate-200 hidden sm:block"></div>
-            <img src="{{ asset('images/logos/unima.png') }}" alt="UNIMA" class="h-5 sm:h-6 w-auto object-contain" title="Universitas Negeri Manado"/>
-            <img src="{{ asset('images/logos/unpi.png') }}" alt="UNPI" class="h-5 sm:h-6 w-auto object-contain" title="Universitas Pembangunan Indonesia"/>
-            <img src="{{ asset('images/logos/ipdn.png') }}" alt="IPDN" class="h-5 sm:h-6 w-auto object-contain" title="Institut Pemerintahan Dalam Negeri"/>
-            <img src="{{ asset('images/logos/bkkbn.png') }}" alt="BKKBN" class="h-5 sm:h-6 w-auto object-contain" title="BKKBN Sulawesi Utara"/>
+            <img src="{{ asset('images/logos/unima.png') }}" alt="UNIMA" class="h-5 sm:h-6 w-auto object-contain" height="24" style="max-height: 24px; width: auto;" title="Universitas Negeri Manado"/>
+            <img src="{{ asset('images/logos/unpi.png') }}" alt="UNPI" class="h-5 sm:h-6 w-auto object-contain" height="24" style="max-height: 24px; width: auto;" title="Universitas Pembangunan Indonesia"/>
+            <img src="{{ asset('images/logos/ipdn.png') }}" alt="IPDN" class="h-5 sm:h-6 w-auto object-contain" height="24" style="max-height: 24px; width: auto;" title="Institut Pemerintahan Dalam Negeri"/>
+            <img src="{{ asset('images/logos/bkkbn.png') }}" alt="BKKBN" class="h-5 sm:h-6 w-auto object-contain" height="24" style="max-height: 24px; width: auto;" title="BKKBN Sulawesi Utara"/>
         </div>
 
         <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight leading-tight">

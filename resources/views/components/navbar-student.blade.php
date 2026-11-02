@@ -30,14 +30,14 @@
         <div class="hidden xl:flex items-center gap-2 px-3 py-1 rounded-xl bg-slate-50 border border-slate-200/80 shrink-0" title="Didanai LPDP & Ditjen Risbang (Hiliriset) • UNIMA, UNPI, IPDN & BKKBN">
             <span class="text-[9px] font-semibold text-slate-400 font-mono uppercase tracking-wider">Konsorsium</span>
             <div class="h-3.5 w-px bg-slate-200"></div>
-            <img src="{{ asset('images/logos/lpdp.png') }}" alt="LPDP" class="h-3.5 w-auto object-contain" title="LPDP"/>
-            <img src="{{ asset('images/logos/risbang.png') }}" alt="Ditjen Risbang" class="h-3.5 w-auto object-contain" title="Ditjen Risbang"/>
-            <img src="{{ asset('images/logos/hiliriset.png') }}" alt="Hiliriset" class="h-3.5 w-auto object-contain" title="Hiliriset"/>
+            <img src="{{ asset('images/logos/lpdp.png') }}" alt="LPDP" class="h-3.5 w-auto object-contain" height="14" style="max-height: 14px; width: auto;" title="LPDP"/>
+            <img src="{{ asset('images/logos/risbang.png') }}" alt="Ditjen Risbang" class="h-3.5 w-auto object-contain" height="14" style="max-height: 14px; width: auto;" title="Ditjen Risbang"/>
+            <img src="{{ asset('images/logos/hiliriset.png') }}" alt="Hiliriset" class="h-3.5 w-auto object-contain" height="14" style="max-height: 14px; width: auto;" title="Hiliriset"/>
             <div class="h-3.5 w-px bg-slate-200"></div>
-            <img src="{{ asset('images/logos/unima.png') }}" alt="UNIMA" class="h-3.5 w-auto object-contain" title="UNIMA"/>
-            <img src="{{ asset('images/logos/unpi.png') }}" alt="UNPI" class="h-3.5 w-auto object-contain" title="UNPI"/>
-            <img src="{{ asset('images/logos/ipdn.png') }}" alt="IPDN" class="h-3.5 w-auto object-contain" title="IPDN"/>
-            <img src="{{ asset('images/logos/bkkbn.png') }}" alt="BKKBN" class="h-3.5 w-auto object-contain" title="BKKBN"/>
+            <img src="{{ asset('images/logos/unima.png') }}" alt="UNIMA" class="h-3.5 w-auto object-contain" height="14" style="max-height: 14px; width: auto;" title="UNIMA"/>
+            <img src="{{ asset('images/logos/unpi.png') }}" alt="UNPI" class="h-3.5 w-auto object-contain" height="14" style="max-height: 14px; width: auto;" title="UNPI"/>
+            <img src="{{ asset('images/logos/ipdn.png') }}" alt="IPDN" class="h-3.5 w-auto object-contain" height="14" style="max-height: 14px; width: auto;" title="IPDN"/>
+            <img src="{{ asset('images/logos/bkkbn.png') }}" alt="BKKBN" class="h-3.5 w-auto object-contain" height="14" style="max-height: 14px; width: auto;" title="BKKBN"/>
         </div>
 
         <!-- Quick Search Bar (Desktop) -->

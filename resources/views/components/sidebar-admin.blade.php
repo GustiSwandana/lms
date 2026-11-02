@@ -172,13 +172,13 @@
                 <span>7 Mitra</span>
             </div>
             <div class="flex flex-wrap items-center gap-1.5 pt-0.5">
-                <img src="{{ asset('images/logos/lpdp.png') }}" alt="LPDP" class="h-3.5 w-auto object-contain" title="LPDP"/>
-                <img src="{{ asset('images/logos/risbang.png') }}" alt="Ditjen Risbang" class="h-3.5 w-auto object-contain" title="Ditjen Risbang"/>
-                <img src="{{ asset('images/logos/hiliriset.png') }}" alt="Hiliriset" class="h-3.5 w-auto object-contain" title="Hiliriset"/>
-                <img src="{{ asset('images/logos/unima.png') }}" alt="UNIMA" class="h-3.5 w-auto object-contain" title="UNIMA"/>
-                <img src="{{ asset('images/logos/unpi.png') }}" alt="UNPI" class="h-3.5 w-auto object-contain" title="UNPI"/>
-                <img src="{{ asset('images/logos/ipdn.png') }}" alt="IPDN" class="h-3.5 w-auto object-contain" title="IPDN"/>
-                <img src="{{ asset('images/logos/bkkbn.png') }}" alt="BKKBN" class="h-3.5 w-auto object-contain" title="BKKBN"/>
+                <img src="{{ asset('images/logos/lpdp.png') }}" alt="LPDP" class="h-3.5 w-auto object-contain" height="14" style="max-height: 14px; width: auto;" title="LPDP"/>
+                <img src="{{ asset('images/logos/risbang.png') }}" alt="Ditjen Risbang" class="h-3.5 w-auto object-contain" height="14" style="max-height: 14px; width: auto;" title="Ditjen Risbang"/>
+                <img src="{{ asset('images/logos/hiliriset.png') }}" alt="Hiliriset" class="h-3.5 w-auto object-contain" height="14" style="max-height: 14px; width: auto;" title="Hiliriset"/>
+                <img src="{{ asset('images/logos/unima.png') }}" alt="UNIMA" class="h-3.5 w-auto object-contain" height="14" style="max-height: 14px; width: auto;" title="UNIMA"/>
+                <img src="{{ asset('images/logos/unpi.png') }}" alt="UNPI" class="h-3.5 w-auto object-contain" height="14" style="max-height: 14px; width: auto;" title="UNPI"/>
+                <img src="{{ asset('images/logos/ipdn.png') }}" alt="IPDN" class="h-3.5 w-auto object-contain" height="14" style="max-height: 14px; width: auto;" title="IPDN"/>
+                <img src="{{ asset('images/logos/bkkbn.png') }}" alt="BKKBN" class="h-3.5 w-auto object-contain" height="14" style="max-height: 14px; width: auto;" title="BKKBN"/>
             </div>
         </div>
     </div>

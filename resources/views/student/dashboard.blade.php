@@ -218,6 +218,8 @@
                             <img src="{{ asset('images/logos/lpdp.png') }}" 
                                  alt="Logo LPDP - Lembaga Pengelola Dana Pendidikan" 
                                  class="max-h-12 max-w-full object-contain"
+                                 height="48"
+                                 style="max-height: 48px; width: auto;"
                                  loading="lazy"/>
                         </div>
                         <div class="min-w-0">
@@ -232,6 +234,8 @@
                             <img src="{{ asset('images/logos/risbang.png') }}" 
                                  alt="Logo Ditjen Risbang - Direktorat Jenderal Riset dan Pengembangan" 
                                  class="max-h-12 max-w-full object-contain"
+                                 height="48"
+                                 style="max-height: 48px; width: auto;"
                                  loading="lazy"/>
                         </div>
                         <div class="min-w-0">
@@ -246,6 +250,8 @@
                             <img src="{{ asset('images/logos/hiliriset.png') }}" 
                                  alt="Logo Hiliriset" 
                                  class="max-h-12 max-w-full object-contain"
+                                 height="48"
+                                 style="max-height: 48px; width: auto;"
                                  loading="lazy"/>
                         </div>
                         <div class="min-w-0">
@@ -271,6 +277,8 @@
                         <img src="{{ asset('images/logos/unima.png') }}" 
                              alt="Logo UNIMA - Universitas Negeri Manado" 
                              class="h-14 sm:h-16 max-w-[110px] object-contain"
+                             height="56"
+                             style="max-height: 56px; width: auto;"
                              loading="lazy"/>
                         <span class="text-xs font-bold text-slate-900 mt-2.5 block">UNIMA</span>
                         <span class="text-[10px] text-slate-500 leading-tight">Universitas Negeri Manado</span>
@@ -281,6 +289,8 @@
                         <img src="{{ asset('images/logos/unpi.png') }}" 
                              alt="Logo UNPI - Universitas Pembangunan Indonesia" 
                              class="h-14 sm:h-16 max-w-[110px] object-contain"
+                             height="56"
+                             style="max-height: 56px; width: auto;"
                              loading="lazy"/>
                         <span class="text-xs font-bold text-slate-900 mt-2.5 block">UNPI</span>
                         <span class="text-[10px] text-slate-500 leading-tight">Univ. Pembangunan Indonesia</span>
@@ -291,6 +301,8 @@
                         <img src="{{ asset('images/logos/ipdn.png') }}" 
                              alt="Logo IPDN - Institut Pemerintahan Dalam Negeri" 
                              class="h-14 sm:h-16 max-w-[110px] object-contain"
+                             height="56"
+                             style="max-height: 56px; width: auto;"
                              loading="lazy"/>
                         <span class="text-xs font-bold text-slate-900 mt-2.5 block">IPDN</span>
                         <span class="text-[10px] text-slate-500 leading-tight">Inst. Pemerintahan Dalam Negeri</span>
@@ -301,6 +313,8 @@
                         <img src="{{ asset('images/logos/bkkbn.png') }}" 
                              alt="Logo BKKBN - Badan Kependudukan dan Keluarga Berencana Nasional" 
                              class="h-14 sm:h-16 max-w-[110px] object-contain"
+                             height="56"
+                             style="max-height: 56px; width: auto;"
                              loading="lazy"/>
                         <span class="text-xs font-bold text-slate-900 mt-2.5 block">BKKBN</span>
                         <span class="text-[10px] text-slate-500 leading-tight">BKKBN Sulawesi Utara</span>
@@ -879,14 +893,14 @@
                 <span class="text-[11px] font-semibold text-slate-500">Program Kemitraan:</span>
             </div>
             <div class="flex flex-wrap items-center gap-6 sm:gap-8 opacity-80 hover:opacity-100 transition-opacity">
-                <img src="{{ asset('images/logos/lpdp.png') }}" alt="LPDP" class="h-6 sm:h-7 w-auto object-contain grayscale hover:grayscale-0 transition-all"/>
-                <img src="{{ asset('images/logos/risbang.png') }}" alt="Ditjen Risbang" class="h-6 sm:h-7 w-auto object-contain grayscale hover:grayscale-0 transition-all"/>
-                <img src="{{ asset('images/logos/hiliriset.png') }}" alt="Hiliriset" class="h-6 sm:h-7 w-auto object-contain grayscale hover:grayscale-0 transition-all"/>
+                <img src="{{ asset('images/logos/lpdp.png') }}" alt="LPDP" class="h-6 sm:h-7 w-auto object-contain grayscale hover:grayscale-0 transition-all" height="28" style="max-height: 28px; width: auto;"/>
+                <img src="{{ asset('images/logos/risbang.png') }}" alt="Ditjen Risbang" class="h-6 sm:h-7 w-auto object-contain grayscale hover:grayscale-0 transition-all" height="28" style="max-height: 28px; width: auto;"/>
+                <img src="{{ asset('images/logos/hiliriset.png') }}" alt="Hiliriset" class="h-6 sm:h-7 w-auto object-contain grayscale hover:grayscale-0 transition-all" height="28" style="max-height: 28px; width: auto;"/>
                 <div class="h-4 w-px bg-slate-200 hidden sm:block"></div>
-                <img src="{{ asset('images/logos/unima.png') }}" alt="UNIMA" class="h-6 sm:h-7 w-auto object-contain grayscale hover:grayscale-0 transition-all"/>
-                <img src="{{ asset('images/logos/unpi.png') }}" alt="UNPI" class="h-6 sm:h-7 w-auto object-contain grayscale hover:grayscale-0 transition-all"/>
-                <img src="{{ asset('images/logos/ipdn.png') }}" alt="IPDN" class="h-6 sm:h-7 w-auto object-contain grayscale hover:grayscale-0 transition-all"/>
-                <img src="{{ asset('images/logos/bkkbn.png') }}" alt="BKKBN" class="h-6 sm:h-7 w-auto object-contain grayscale hover:grayscale-0 transition-all"/>
+                <img src="{{ asset('images/logos/unima.png') }}" alt="UNIMA" class="h-6 sm:h-7 w-auto object-contain grayscale hover:grayscale-0 transition-all" height="28" style="max-height: 28px; width: auto;"/>
+                <img src="{{ asset('images/logos/unpi.png') }}" alt="UNPI" class="h-6 sm:h-7 w-auto object-contain grayscale hover:grayscale-0 transition-all" height="28" style="max-height: 28px; width: auto;"/>
+                <img src="{{ asset('images/logos/ipdn.png') }}" alt="IPDN" class="h-6 sm:h-7 w-auto object-contain grayscale hover:grayscale-0 transition-all" height="28" style="max-height: 28px; width: auto;"/>
+                <img src="{{ asset('images/logos/bkkbn.png') }}" alt="BKKBN" class="h-6 sm:h-7 w-auto object-contain grayscale hover:grayscale-0 transition-all" height="28" style="max-height: 28px; width: auto;"/>
             </div>
         </div>
 
