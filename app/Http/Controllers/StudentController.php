@@ -725,36 +725,52 @@ class StudentController extends Controller
 
         $paths = [
             [
-                'title' => 'Alur Rekayasa Web Full-Stack Modern',
-                'slug' => 'fullstack-web',
-                'description' => 'Dari perancangan frontend reaktif, Next.js 15 Server Components, hingga manajemen state optimistik dan caching enterprise.',
-                'icon' => 'code',
-                'badge' => 'Jalur Populer',
-                'courses' => $courses->filter(fn ($c) => in_array($c->category?->slug, ['frontend', 'backend'])),
-                'level' => 'Menengah ke Lanjut',
-                'total_modules' => 12,
+                'title' => 'Alur Literasi Kependudukan & Pembangunan Keluarga (BKKBN)',
+                'slug' => 'literasi-kependudukan-bkkbn',
+                'description' => 'Mempelajari peran strategis kelembagaan BKKBN, pembinaan ketahanan keluarga, program Bangga Kencana, pencegahan stunting, serta pembentukan Generasi Berencana (GenRe) yang tangguh dan berkarakter.',
+                'icon' => 'family_restroom',
+                'badge' => 'Fondasi Kependudukan',
+                'courses' => $courses->filter(fn ($c) => in_array($c->category?->slug, ['materi-umum-kependudukan', 'kependudukan']) || str_contains($c->slug, 'bkkbn')),
+                'level' => 'Tingkat Dasar (Pemula)',
+                'total_modules' => $courses->filter(fn ($c) => in_array($c->category?->slug, ['materi-umum-kependudukan', 'kependudukan']) || str_contains($c->slug, 'bkkbn'))->sum(fn ($c) => $c->lessons->count()) ?: 2,
             ],
             [
-                'title' => 'Alur Cloud, Kontainer & Site Reliability (SRE)',
-                'slug' => 'cloud-devops',
-                'description' => 'Kuasai otomatisasi container Docker multi-stage, orkestrasi pod Kubernetes, dan penyebaran pipeline CI/CD skalabel.',
-                'icon' => 'cloud',
-                'badge' => 'Industri Enterprise',
-                'courses' => $courses->filter(fn ($c) => $c->category?->slug === 'devops'),
-                'level' => 'Pemula ke Menengah',
-                'total_modules' => 6,
+                'title' => 'Alur Sekolah Siaga Kependudukan (SSK) & Aksi Siaga Bumi',
+                'slug' => 'sekolah-siaga-kependudukan-lingkungan',
+                'description' => 'Panduan komprehensif implementasi SSK di lingkungan satuan pendidikan, pembentukan Pojok Kependudukan (Population Corner), integrasi isu kependudukan ke dalam mata pelajaran, serta aksi peduli lingkungan hidup Siaga Bumi.',
+                'icon' => 'nature_people',
+                'badge' => 'Implementasi Sekolah',
+                'courses' => $courses->filter(fn ($c) => in_array($c->category?->slug, ['materi-umum-lingkungan', 'lingkungan']) || str_contains($c->slug, 'ssk')),
+                'level' => 'Tingkat Menengah',
+                'total_modules' => $courses->filter(fn ($c) => in_array($c->category?->slug, ['materi-umum-lingkungan', 'lingkungan']) || str_contains($c->slug, 'ssk'))->sum(fn ($c) => $c->lessons->count()) ?: 2,
             ],
             [
-                'title' => 'Alur Algoritma & Arsitektur Terdistribusi',
-                'slug' => 'algorithms-systems',
-                'description' => 'Eksplorasi struktur data kompleks, graf, optimasi kompleksitas Big-O, caching Redis, dan load balancer multi-region.',
-                'icon' => 'hub',
-                'badge' => 'Fondasi Inti',
-                'courses' => $courses->filter(fn ($c) => in_array($c->category?->slug, ['algoritma', 'backend'])),
-                'level' => 'Tingkat Lanjut',
-                'total_modules' => 10,
+                'title' => 'Alur Pencegahan Kekerasan Seksual & Satgas PPKS',
+                'slug' => 'pencegahan-kekerasan-seksual-ppks',
+                'description' => 'Edukasi batasan diri, pemahaman hak kesehatan reproduksi remaja, penguatan karakter, pembentukan Satgas PPKS di sekolah, serta mekanisme pelaporan kasus kekerasan yang aman dan ramah anak.',
+                'icon' => 'health_and_safety',
+                'badge' => 'Advokasi & Perlindungan',
+                'courses' => $courses->filter(fn ($c) => in_array($c->category?->slug, ['kekerasan-sexual', 'ppks']) || str_contains($c->slug, 'ppks') || str_contains($c->slug, 'kekerasan')),
+                'level' => 'Semua Jenjang',
+                'total_modules' => $courses->filter(fn ($c) => in_array($c->category?->slug, ['kekerasan-sexual', 'ppks']) || str_contains($c->slug, 'ppks') || str_contains($c->slug, 'kekerasan'))->sum(fn ($c) => $c->lessons->count()) ?: 2,
             ],
         ];
+
+        // Attach any extra unassigned courses into an enrichment track
+        $assignedCourseIds = collect($paths)->flatMap(fn ($p) => $p['courses']->pluck('id'))->unique();
+        $unassignedCourses = $courses->filter(fn ($c) => ! $assignedCourseIds->contains($c->id));
+        if ($unassignedCourses->isNotEmpty()) {
+            $paths[] = [
+                'title' => 'Alur Materi Pengayaan & Inovasi Kependudukan',
+                'slug' => 'pengayaan-kependudukan',
+                'description' => 'Koleksi materi tematik, riset kependudukan terbaru, dan modul pengayaan yang dikembangkan oleh para pendidik serta mitra konsorsium.',
+                'icon' => 'menu_book',
+                'badge' => 'Materi Pengayaan',
+                'courses' => $unassignedCourses,
+                'level' => 'Pengayaan',
+                'total_modules' => $unassignedCourses->sum(fn ($c) => $c->lessons->count()),
+            ];
+        }
 
         return view('student.paths', [
             'student' => $student,
