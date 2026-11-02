@@ -16,6 +16,10 @@
             <img src="{{ asset('images/logos/bkkbn.png') }}" alt="BKKBN" class="h-5 sm:h-6 w-auto object-contain" height="24" style="max-height: 24px; width: auto;" title="BKKBN Sulawesi Utara"/>
         </div>
 
+        <div class="flex items-center justify-center mb-2">
+            <img src="{{ asset('favicon.svg') }}" alt="Logo SIAGA BUMI-SSK" class="w-12 h-12 rounded-2xl shadow-xs" width="48" height="48"/>
+        </div>
+
         <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight leading-tight">
             SIAGA BUMI<span class="text-emerald-600">-SSK</span>
         </h1>

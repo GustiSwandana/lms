@@ -6,6 +6,15 @@
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <title>{{ $title ?? 'SIAGA BUMI-SSK — Platform Sekolah Siaga Kependudukan BKKBN' }}</title>
 
+    <!-- Favicon & Brand Icons -->
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}"/>
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}"/>
+    <link rel="manifest" href="{{ asset('site.webmanifest') }}"/>
+    <meta name="theme-color" content="#059669"/>
+
     <!-- Google Fonts: Plus Jakarta Sans, Inter, & JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>

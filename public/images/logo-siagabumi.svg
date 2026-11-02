@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" fill="none">
+    <defs>
+        <linearGradient id="brandBg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#059669"/>
+            <stop offset="100%" stop-color="#047857"/>
+        </linearGradient>
+        <linearGradient id="brandLeaf" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#6ee7b7"/>
+            <stop offset="100%" stop-color="#10b981"/>
+        </linearGradient>
+    </defs>
+
+    <!-- Icon Symbol (Left) -->
+    <rect x="6" y="6" width="68" height="68" rx="18" fill="url(#brandBg)"/>
+    <rect x="8" y="8" width="64" height="64" rx="16" stroke="#34d399" stroke-opacity="0.3" stroke-width="2" fill="none"/>
+
+    <g transform="translate(40, 40) scale(0.12)">
+        <ellipse cx="0" cy="20" rx="150" ry="60" stroke="#a7f3d0" stroke-opacity="0.3" stroke-width="12" stroke-dasharray="16 12" fill="none"/>
+        <path d="M -16,130 C -86,120 -136,70 -131,0 C -126,-75 -66,-120 0,-140 C -6,-90 -36,-40 -66,0 C -91,35 -76,90 -16,130 Z" fill="#ecfdf5"/>
+        <path d="M 16,130 C 86,120 136,70 131,0 C 126,-75 66,-120 0,-140 C 6,-90 36,-40 66,0 C 91,35 76,90 16,130 Z" fill="url(#brandLeaf)"/>
+        <circle cx="0" cy="-95" r="32" fill="#ffffff"/>
+        <circle cx="85" cy="-125" r="20" fill="#fbbf24"/>
+    </g>
+
+    <!-- Typography (Right) -->
+    <text x="88" y="38" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-size="20" font-weight="800" fill="#0f172a" letter-spacing="-0.5">SIAGA BUMI<tspan fill="#059669">-SSK</tspan></text>
+    <text x="88" y="58" font-family="'Inter', system-ui, -apple-system, sans-serif" font-size="10.5" font-weight="600" fill="#64748b" letter-spacing="0.2">Hiliriset LPDP • BKKBN Sulut</text>
+</svg>

@@ -923,9 +923,7 @@
 
         <div class="flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4 pb-4">
             <div class="flex flex-wrap items-center gap-2">
-                <div class="w-7 h-7 rounded-lg bg-emerald-600 flex items-center justify-center text-white shrink-0">
-                    <span class="material-symbols-outlined text-[16px]">nature_people</span>
-                </div>
+                <img src="{{ asset('favicon.svg') }}" alt="Logo SIAGA BUMI-SSK" class="w-7 h-7 rounded-lg shadow-2xs shrink-0" width="28" height="28"/>
                 <span class="font-bold text-slate-900">SIAGA BUMI-SSK</span>
                 <span class="text-slate-300">•</span>
                 <span>Didanai LPDP & Ditjen Risbang (Hiliriset)</span>

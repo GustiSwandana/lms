@@ -10,9 +10,7 @@
 
         <!-- Brand Identity -->
         <a class="flex items-center gap-3 shrink-0 group focus:outline-none" href="{{ route('student.dashboard') }}">
-            <div class="w-9 h-9 rounded-xl bg-emerald-600 flex items-center justify-center text-white border border-emerald-700/20 shadow-xs group-hover:bg-emerald-700 transition-all">
-                <span class="material-symbols-outlined text-[20px]">nature_people</span>
-            </div>
+            <img src="{{ asset('favicon.svg') }}" alt="Logo SIAGA BUMI-SSK" class="w-9 h-9 rounded-xl shadow-2xs group-hover:scale-105 transition-transform shrink-0" width="36" height="36"/>
             <div class="flex flex-col">
                 <div class="flex items-center gap-2">
                     <span class="text-sm font-bold tracking-tight text-slate-900 leading-none">SIAGA BUMI<span class="text-emerald-600">-SSK</span></span>
@@ -27,17 +25,17 @@
         </a>
 
         <!-- Sponsor & Partner Logos Badge (Desktop) -->
-        <div class="hidden xl:flex items-center gap-2 px-3 py-1 rounded-xl bg-slate-50 border border-slate-200/80 shrink-0" title="Didanai LPDP & Ditjen Risbang (Hiliriset) • UNIMA, UNPI, IPDN & BKKBN">
+        <div class="hidden xl:flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200/80 shrink-0" title="Didanai LPDP & Ditjen Risbang (Hiliriset) • UNIMA, UNPI, IPDN & BKKBN">
             <span class="text-[9px] font-semibold text-slate-400 font-mono uppercase tracking-wider">Konsorsium</span>
-            <div class="h-3.5 w-px bg-slate-200"></div>
-            <img src="{{ asset('images/logos/lpdp.png') }}" alt="LPDP" class="h-3.5 w-auto object-contain" height="14" style="max-height: 14px; width: auto;" title="LPDP"/>
-            <img src="{{ asset('images/logos/risbang.png') }}" alt="Ditjen Risbang" class="h-3.5 w-auto object-contain" height="14" style="max-height: 14px; width: auto;" title="Ditjen Risbang"/>
-            <img src="{{ asset('images/logos/hiliriset.png') }}" alt="Hiliriset" class="h-3.5 w-auto object-contain" height="14" style="max-height: 14px; width: auto;" title="Hiliriset"/>
-            <div class="h-3.5 w-px bg-slate-200"></div>
-            <img src="{{ asset('images/logos/unima.png') }}" alt="UNIMA" class="h-3.5 w-auto object-contain" height="14" style="max-height: 14px; width: auto;" title="UNIMA"/>
-            <img src="{{ asset('images/logos/unpi.png') }}" alt="UNPI" class="h-3.5 w-auto object-contain" height="14" style="max-height: 14px; width: auto;" title="UNPI"/>
-            <img src="{{ asset('images/logos/ipdn.png') }}" alt="IPDN" class="h-3.5 w-auto object-contain" height="14" style="max-height: 14px; width: auto;" title="IPDN"/>
-            <img src="{{ asset('images/logos/bkkbn.png') }}" alt="BKKBN" class="h-3.5 w-auto object-contain" height="14" style="max-height: 14px; width: auto;" title="BKKBN"/>
+            <div class="h-4 w-px bg-slate-200"></div>
+            <img src="{{ asset('images/logos/lpdp.png') }}" alt="LPDP" class="h-4.5 w-auto object-contain" height="18" style="max-height: 18px; width: auto;" title="LPDP"/>
+            <img src="{{ asset('images/logos/risbang.png') }}" alt="Ditjen Risbang" class="h-4.5 w-auto object-contain" height="18" style="max-height: 18px; width: auto;" title="Ditjen Risbang"/>
+            <img src="{{ asset('images/logos/hiliriset.png') }}" alt="Hiliriset" class="h-4.5 w-auto object-contain" height="18" style="max-height: 18px; width: auto;" title="Hiliriset"/>
+            <div class="h-4 w-px bg-slate-200"></div>
+            <img src="{{ asset('images/logos/unima.png') }}" alt="UNIMA" class="h-4.5 w-auto object-contain" height="18" style="max-height: 18px; width: auto;" title="UNIMA"/>
+            <img src="{{ asset('images/logos/unpi.png') }}" alt="UNPI" class="h-4.5 w-auto object-contain" height="18" style="max-height: 18px; width: auto;" title="UNPI"/>
+            <img src="{{ asset('images/logos/ipdn.png') }}" alt="IPDN" class="h-4.5 w-auto object-contain" height="18" style="max-height: 18px; width: auto;" title="IPDN"/>
+            <img src="{{ asset('images/logos/bkkbn.png') }}" alt="BKKBN" class="h-4.5 w-auto object-contain" height="18" style="max-height: 18px; width: auto;" title="BKKBN"/>
         </div>
 
         <!-- Quick Search Bar (Desktop) -->

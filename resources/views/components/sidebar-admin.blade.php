@@ -32,9 +32,7 @@
         <!-- Admin Header Brand with Mobile Close Button -->
         <div class="flex items-center justify-between pb-3 border-b border-slate-200">
             <div class="flex items-center gap-3 px-1">
-                <div class="h-9 w-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold shadow-xs">
-                    <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">nature_people</span>
-                </div>
+                <img src="{{ asset('favicon.svg') }}" alt="Logo SIAGA BUMI-SSK" class="h-9 w-9 rounded-xl shadow-2xs shrink-0" width="36" height="36"/>
                 <div class="flex flex-col">
                     <span class="text-sm font-bold text-slate-900 tracking-tight leading-none">SIAGA BUMI<span class="text-emerald-600">-SSK</span></span>
                     <div class="flex items-center gap-1.5 mt-1">
