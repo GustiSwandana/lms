@@ -11,7 +11,7 @@ if (!file_exists(__DIR__.'/.env') && file_exists(__DIR__.'/../.env')) {
 }
 
 // Maintenance / deploy cache purge trigger
-if (isset($_GET['purge_views'])) {
+if (str_contains($_SERVER['REQUEST_URI'] ?? '', 'purge_views')) {
     if (function_exists('opcache_reset')) {
         @opcache_reset();
     }
