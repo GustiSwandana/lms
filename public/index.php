@@ -35,4 +35,14 @@ if (file_exists(__DIR__.'/../bootstrap/app.php')) {
     exit(1);
 }
 
-$app->handleRequest(Request::capture());
+try {
+    $response = $app->handleRequest(Request::capture());
+    $response->send();
+} catch (\Throwable $e) {
+    header('HTTP/1.1 500 Internal Server Error');
+    header('Content-Type: text/plain; charset=utf-8');
+    echo "SIAGA_BUMI_EXCEPTION:\n";
+    echo $e->getMessage() . "\n";
+    echo "File: " . $e->getFile() . ":" . $e->getLine() . "\n";
+    echo "\nTrace:\n" . $e->getTraceAsString();
+}
