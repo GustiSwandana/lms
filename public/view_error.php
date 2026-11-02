@@ -20,9 +20,9 @@ echo "=== CHECKING LOG FILES ===\n";
 foreach ($candidates as $cand) {
     if (file_exists($cand)) {
         echo "Found log at: $cand (size: " . filesize($cand) . " bytes)\n";
-        echo "=== LAST 3000 BYTES ===\n";
+        echo "=== LAST 15000 BYTES ===\n";
         $content = file_get_contents($cand);
-        echo substr($content, -3000) . "\n";
+        echo substr($content, -15000) . "\n";
         break;
     }
 }
