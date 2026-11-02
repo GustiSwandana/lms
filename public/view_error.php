@@ -20,9 +20,15 @@ echo "=== CHECKING LOG FILES ===\n";
 foreach ($candidates as $cand) {
     if (file_exists($cand)) {
         echo "Found log at: $cand (size: " . filesize($cand) . " bytes)\n";
-        echo "=== LAST 15000 BYTES ===\n";
         $content = file_get_contents($cand);
-        echo substr($content, -15000) . "\n";
+        // Find all occurrences of production.ERROR
+        preg_match_all('/\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\] production\.ERROR: ([^\n]+)/', $content, $matches);
+        echo "Total ERROR entries: " . count($matches[0]) . "\n";
+        echo "=== LAST 10 ERROR MESSAGES ===\n";
+        $lastErrors = array_slice($matches[0], -10);
+        foreach ($lastErrors as $err) {
+            echo $err . "\n";
+        }
         break;
     }
 }
