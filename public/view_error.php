@@ -52,7 +52,23 @@ foreach ($viewDirs as $vdir) {
     }
 }
 
-// Clear bootstrap cache
+// Copy .env if missing
+$parentEnv = '/home/u299024447/domains/gustiswandana.space/public_html/lms/.env';
+$targetEnv = '/home/u299024447/domains/gustiswandana.space/public_html/lms/public/.env';
+if (file_exists($parentEnv)) {
+    echo "Parent .env found! (size: " . filesize($parentEnv) . " bytes)\n";
+    if (!file_exists($targetEnv)) {
+        if (copy($parentEnv, $targetEnv)) {
+            echo "Successfully copied .env to $targetEnv!\n";
+        } else {
+            echo "Failed to copy .env to $targetEnv.\n";
+        }
+    } else {
+        echo "Target .env already exists.\n";
+    }
+} else {
+    echo "Parent .env not found at $parentEnv.\n";
+}
 echo "\n=== CLEARING BOOTSTRAP CACHE ===\n";
 $bootDirs = [
     __DIR__ . '/../bootstrap/cache',

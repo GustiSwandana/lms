@@ -5,6 +5,11 @@ use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 
+// Ensure .env exists by inheriting from parent if missing
+if (!file_exists(__DIR__.'/../.env') && file_exists(__DIR__.'/../../.env')) {
+    @copy(__DIR__.'/../../.env', __DIR__.'/../.env');
+}
+
 // Determine if the application is in maintenance mode...
 if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php')) {
     require $maintenance;
