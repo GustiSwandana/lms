@@ -146,69 +146,6 @@
             </button>
         </form>
 
-        <!-- Quick Demo Account Switcher / Auto-fill (Convenient & Frictionless) -->
-        <div class="pt-4 border-t border-slate-100 text-center space-y-2.5" 
-             x-data="{
-                setAccount(email, pass) {
-                    const emailInput = document.getElementById('email');
-                    const passInput = document.getElementById('password');
-                    if (emailInput && passInput) {
-                        emailInput.value = email;
-                        passInput.value = pass;
-                    }
-                }
-             }">
-            <div class="flex items-center justify-between text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
-                <span>Pilih Akun Demo Cepat:</span>
-                <span class="text-[10px] text-emerald-700 lowercase font-medium">klik untuk isi otomatis</span>
-            </div>
-            <div class="grid grid-cols-2 gap-2 text-left">
-                <button type="button" @click="setAccount('adminpusat@siagabumi.id', 'password')"
-                        class="p-2.5 rounded-xl bg-slate-50 hover:bg-emerald-50/80 border border-slate-200 hover:border-emerald-300 text-left transition-all group focus:outline-none focus:ring-1 focus:ring-emerald-500">
-                    <div class="flex items-center gap-1.5 mb-0.5">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
-                        <span class="text-xs font-bold text-slate-900 group-hover:text-emerald-800 leading-tight">Admin Pusat</span>
-                    </div>
-                    <span class="text-[10px] text-slate-500 font-mono block truncate">adminpusat@siagabumi.id</span>
-                </button>
-                <button type="button" @click="setAccount('operator.bitung@siagabumi.id', 'password')"
-                        class="p-2.5 rounded-xl bg-slate-50 hover:bg-emerald-50/80 border border-slate-200 hover:border-emerald-300 text-left transition-all group focus:outline-none focus:ring-1 focus:ring-emerald-500">
-                    <div class="flex items-center gap-1.5 mb-0.5">
-                        <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
-                        <span class="text-xs font-bold text-slate-900 group-hover:text-emerald-800 leading-tight">Operator Sekolah</span>
-                    </div>
-                    <span class="text-[10px] text-slate-500 font-mono block truncate">operator.bitung@siagabumi.id</span>
-                </button>
-                <button type="button" @click="setAccount('guru1.bitung@siagabumi.id', 'password')"
-                        class="p-2.5 rounded-xl bg-slate-50 hover:bg-emerald-50/80 border border-slate-200 hover:border-emerald-300 text-left transition-all group focus:outline-none focus:ring-1 focus:ring-emerald-500">
-                    <div class="flex items-center gap-1.5 mb-0.5">
-                        <span class="w-1.5 h-1.5 rounded-full bg-amber-600"></span>
-                        <span class="text-xs font-bold text-slate-900 group-hover:text-emerald-800 leading-tight">Guru / Pendidik</span>
-                    </div>
-                    <span class="text-[10px] text-slate-500 font-mono block truncate">guru1.bitung@siagabumi.id</span>
-                </button>
-                <button type="button" @click="setAccount('siswa1.bitung@siagabumi.id', 'password')"
-                        class="p-2.5 rounded-xl bg-slate-50 hover:bg-emerald-50/80 border border-slate-200 hover:border-emerald-300 text-left transition-all group focus:outline-none focus:ring-1 focus:ring-emerald-500">
-                    <div class="flex items-center gap-1.5 mb-0.5">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
-                        <span class="text-xs font-bold text-slate-900 group-hover:text-emerald-800 leading-tight">Siswa Pembelajar</span>
-                    </div>
-                    <span class="text-[10px] text-slate-500 font-mono block truncate">siswa1.bitung@siagabumi.id</span>
-                </button>
-                <button type="button" @click="setAccount('penyuluh@siagabumi.id', 'password')"
-                        class="col-span-2 p-2 rounded-xl bg-slate-50 hover:bg-amber-50/80 border border-slate-200 hover:border-amber-300 text-left transition-all group focus:outline-none focus:ring-1 focus:ring-amber-500">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-1.5">
-                            <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-                            <span class="text-xs font-bold text-slate-900 group-hover:text-amber-800 leading-tight">Penyuluh / Tamu</span>
-                        </div>
-                        <span class="text-[10px] text-slate-500 font-mono">penyuluh@siagabumi.id</span>
-                    </div>
-                </button>
-            </div>
-            <p class="text-[10px] text-slate-400">Kata sandi seluruh akun demo di atas: <code class="font-mono bg-slate-100 px-1.5 py-0.5 rounded text-slate-700 font-semibold">password</code></p>
-        </div>
-
         <!-- Footer Link -->
         <div class="text-center pt-2">
             <p class="text-xs text-slate-600">
