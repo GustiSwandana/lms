@@ -37,7 +37,7 @@ DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE={$dbName}
 DB_USERNAME={$dbUser}
-DB_PASSWORD={$dbPass}
+DB_PASSWORD="{$dbPass}"
 
 SESSION_DRIVER=database
 SESSION_LIFETIME=120
@@ -97,14 +97,14 @@ if (str_contains($_SERVER['REQUEST_URI'] ?? '', 'sync_production_db')) {
     foreach ($envPaths as $p) {
         $c = file_exists($p) ? file_get_contents($p) : '';
         if (empty($c)) {
-            $c = "APP_NAME=\"SIAGA BUMI-SSK\"\nAPP_ENV=production\nAPP_KEY=base64:u87i0IMtka4nYRXc2YbI2FLwa372fS+UlPzRhZieWVQ=\nAPP_DEBUG=false\nAPP_URL=$appUrl\nDB_CONNECTION=mysql\nDB_HOST=$bestHost\nDB_PORT=3306\nDB_DATABASE=$dbName\nDB_USERNAME=$dbUser\nDB_PASSWORD=$dbPass\nSESSION_DRIVER=database\nCACHE_STORE=database\nQUEUE_CONNECTION=database\n";
+            $c = "APP_NAME=\"SIAGA BUMI-SSK\"\nAPP_ENV=production\nAPP_KEY=base64:u87i0IMtka4nYRXc2YbI2FLwa372fS+UlPzRhZieWVQ=\nAPP_DEBUG=false\nAPP_URL=$appUrl\nDB_CONNECTION=mysql\nDB_HOST=$bestHost\nDB_PORT=3306\nDB_DATABASE=$dbName\nDB_USERNAME=$dbUser\nDB_PASSWORD=\"$dbPass\"\nSESSION_DRIVER=database\nCACHE_STORE=database\nQUEUE_CONNECTION=database\n";
         } else {
             $c = preg_replace('/^DB_CONNECTION=.*$/m', 'DB_CONNECTION=mysql', $c);
             $c = preg_replace('/^DB_HOST=.*$/m', "DB_HOST=$bestHost", $c);
             $c = preg_replace('/^DB_PORT=.*$/m', 'DB_PORT=3306', $c);
             $c = preg_replace('/^DB_DATABASE=.*$/m', "DB_DATABASE=$dbName", $c);
             $c = preg_replace('/^DB_USERNAME=.*$/m', "DB_USERNAME=$dbUser", $c);
-            $c = preg_replace('/^DB_PASSWORD=.*$/m', "DB_PASSWORD=$dbPass", $c);
+            $c = preg_replace('/^DB_PASSWORD=.*$/m', "DB_PASSWORD=\"$dbPass\"", $c);
             $c = preg_replace('/^APP_URL=.*$/m', "APP_URL=$appUrl", $c);
         }
         file_put_contents($p, $c);
