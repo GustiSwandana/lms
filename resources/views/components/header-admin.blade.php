@@ -54,6 +54,63 @@
     </div>
 
     <div class="flex items-center gap-2">
+        @demo
+        <!-- Demo Quick Role Switcher (Demo Only) -->
+        <div class="relative" x-data="{ openDemoRoles: false }">
+            <button type="button" @click="openDemoRoles = !openDemoRoles"
+                    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-900 text-xs font-bold transition-all min-h-11 shadow-2xs"
+                    title="Ganti Peran Demo 1-Klik">
+                <span class="material-symbols-outlined text-[16px] text-amber-600">bolt</span>
+                <span class="hidden sm:inline">Peran Demo</span>
+                <span class="material-symbols-outlined text-[14px]">expand_more</span>
+            </button>
+            <div x-show="openDemoRoles" @click.away="openDemoRoles = false" x-cloak
+                 class="absolute right-0 mt-2 w-60 bg-white rounded-2xl border border-slate-200 shadow-xl py-2 z-50 text-xs">
+                <div class="px-3.5 py-1.5 border-b border-slate-100 flex items-center justify-between">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Ganti Peran Demo</span>
+                    <span class="text-[9px] bg-amber-100 text-amber-800 font-bold px-1.5 py-0.5 rounded">1-Klik</span>
+                </div>
+                <div class="p-1 space-y-0.5">
+                    <a href="{{ route('switch-role', ['role' => 'admin_pusat']) }}" class="flex items-center justify-between px-3 py-2 rounded-xl hover:bg-emerald-50 text-slate-800 hover:text-emerald-900 transition-colors">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-emerald-600 shrink-0"></span>
+                            <span class="font-bold">Admin Pusat</span>
+                        </div>
+                        <span class="text-[10px] text-slate-400 font-mono">BKKBN</span>
+                    </a>
+                    <a href="{{ route('switch-role', ['role' => 'operator_sekolah']) }}" class="flex items-center justify-between px-3 py-2 rounded-xl hover:bg-blue-50 text-slate-800 hover:text-blue-900 transition-colors">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-blue-600 shrink-0"></span>
+                            <span class="font-bold">Operator Sekolah</span>
+                        </div>
+                        <span class="text-[10px] text-slate-400 font-mono">SMPN 1</span>
+                    </a>
+                    <a href="{{ route('switch-role', ['role' => 'guru']) }}" class="flex items-center justify-between px-3 py-2 rounded-xl hover:bg-amber-50 text-slate-800 hover:text-amber-900 transition-colors">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-amber-600 shrink-0"></span>
+                            <span class="font-bold">Guru / Pendidik</span>
+                        </div>
+                        <span class="text-[10px] text-slate-400 font-mono">SRMA 44</span>
+                    </a>
+                    <a href="{{ route('switch-role', ['role' => 'siswa']) }}" class="flex items-center justify-between px-3 py-2 rounded-xl hover:bg-teal-50 text-slate-800 hover:text-teal-900 transition-colors">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-teal-600 shrink-0"></span>
+                            <span class="font-bold">Siswa Pembelajar</span>
+                        </div>
+                        <span class="text-[10px] text-slate-400 font-mono">Murid</span>
+                    </a>
+                    <a href="{{ route('switch-role', ['role' => 'penyuluh']) }}" class="flex items-center justify-between px-3 py-2 rounded-xl hover:bg-violet-50 text-slate-800 hover:text-violet-900 transition-colors">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-violet-600 shrink-0"></span>
+                            <span class="font-bold">Penyuluh KB</span>
+                        </div>
+                        <span class="text-[10px] text-slate-400 font-mono">Tamu</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        @enddemo
+
         <!-- Quick View Public Website in New Tab -->
         <a href="{{ route('student.dashboard') }}" target="_blank" 
            class="hidden lg:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 hover:bg-slate-100 text-slate-700 hover:text-slate-900 text-xs font-semibold transition-colors min-h-11" 

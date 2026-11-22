@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 
@@ -22,6 +24,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Blade::if('demo', function () {
+            return AuthController::isDemoEnvironment();
+        });
+
         RateLimiter::for('quiz-submissions', function (Request $request) {
             return Limit::perMinute(10)->by($request->user()?->id ?: $request->ip());
         });

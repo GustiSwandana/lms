@@ -12,6 +12,28 @@ use Illuminate\View\View;
 class AuthController extends Controller
 {
     /**
+     * Check if the current request is running in a demo or local testing environment.
+     * Strictly returns false on production domain (siagabumissk.com).
+     */
+    public static function isDemoEnvironment(): bool
+    {
+        $host = request()->getHost();
+
+        // Absolute production safeguard: never activate demo features on official domain
+        if (str_contains($host, 'siagabumi')) {
+            return false;
+        }
+
+        // Demo domain or explicit demo configuration
+        if (str_contains($host, 'demo') || str_contains($host, 'gustiswandana') || (bool) config('app.demo_mode', false)) {
+            return true;
+        }
+
+        // Local development environments
+        return app()->environment('local', 'testing') && in_array($host, ['localhost', '127.0.0.1', 'lms.test'], true);
+    }
+
+    /**
      * Show login form.
      */
     public function showLogin(): View|RedirectResponse
@@ -25,7 +47,9 @@ class AuthController extends Controller
             return redirect()->route('student.dashboard');
         }
 
-        return view('auth.login');
+        return view('auth.login', [
+            'isDemo' => self::isDemoEnvironment(),
+        ]);
     }
 
     /**
@@ -156,7 +180,7 @@ class AuthController extends Controller
      */
     public function switchRole(Request $request, string $role): RedirectResponse
     {
-        if (! app()->environment('local', 'testing') && ! config('app.debug') && ! str_contains(request()->getHost(), 'demo')) {
+        if (! self::isDemoEnvironment()) {
             abort(403, 'Aksi peralihan peran demo dinonaktifkan pada lingkungan produksi.');
         }
 
@@ -168,8 +192,17 @@ class AuthController extends Controller
             default => 'siswa',
         };
 
-        // Find existing user or fallback to compatibility role
-        $user = User::where('role', $targetRole)->first();
+        $canonicalEmail = match ($targetRole) {
+            'admin_pusat' => 'adminpusat@siagabumi.id',
+            'operator_sekolah' => 'operator.bitung@siagabumi.id',
+            'guru' => 'guru.minahasa@siagabumi.id',
+            'penyuluh' => 'penyuluh@siagabumi.id',
+            default => 'siswa.bitung@siagabumi.id',
+        };
+
+        // Prefer official seeded demo account, fallback to first user with role
+        $user = User::where('email', $canonicalEmail)->first()
+            ?? User::where('role', $targetRole)->first();
 
         if (! $user) {
             if ($targetRole === 'admin_pusat') {

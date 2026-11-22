@@ -146,6 +146,124 @@
             </button>
         </form>
 
+        @demo
+        <!-- Easy Access Demo Role Quick-Login (1-Click Switcher) -->
+        <div class="pt-5 border-t border-slate-200/90 space-y-3"
+             x-data="{
+                fillOnly(email, pass) {
+                    const emailInput = document.getElementById('email');
+                    const passInput = document.getElementById('password');
+                    if (emailInput && passInput) {
+                        emailInput.value = email;
+                        passInput.value = pass;
+                        emailInput.focus();
+                    }
+                }
+             }">
+            <div class="flex items-center justify-between gap-2">
+                <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-900 text-[11px] font-bold">
+                    <span class="material-symbols-outlined text-[15px] text-emerald-600">bolt</span>
+                    <span>Akses Cepat Demo (1-Klik Masuk)</span>
+                </div>
+                <span class="text-[10px] text-slate-400 font-mono">Demo Environment</span>
+            </div>
+            
+            <p class="text-[11px] text-slate-600 leading-snug">
+                Pilih peran di bawah ini untuk <strong>langsung masuk ke dashboard</strong> tanpa perlu memasukkan kata sandi:
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-left">
+                <!-- 1. Admin Pusat -->
+                <a href="{{ route('switch-role', ['role' => 'admin_pusat']) }}"
+                   class="group relative p-3 rounded-xl bg-slate-50 hover:bg-emerald-50/80 border border-slate-200 hover:border-emerald-300 text-left transition-all focus:outline-none focus:ring-2 focus:ring-emerald-500 shadow-2xs hover:shadow-xs min-h-12 flex flex-col justify-between"
+                   title="Masuk langsung 1-klik sebagai Admin Pusat BKKBN">
+                    <div class="flex items-center justify-between w-full mb-1">
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-emerald-600 shrink-0"></span>
+                            <span class="text-xs font-bold text-slate-900 group-hover:text-emerald-900">Admin Pusat</span>
+                        </div>
+                        <span class="text-[10px] font-bold text-emerald-700 bg-emerald-100/70 group-hover:bg-emerald-200 px-1.5 py-0.5 rounded transition-colors flex items-center gap-0.5">
+                            Masuk <span class="material-symbols-outlined text-[12px]">arrow_forward</span>
+                        </span>
+                    </div>
+                    <span class="text-[10px] text-slate-500 font-mono block truncate">adminpusat@siagabumi.id</span>
+                </a>
+
+                <!-- 2. Operator Sekolah -->
+                <a href="{{ route('switch-role', ['role' => 'operator_sekolah']) }}"
+                   class="group relative p-3 rounded-xl bg-slate-50 hover:bg-blue-50/80 border border-slate-200 hover:border-blue-300 text-left transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-2xs hover:shadow-xs min-h-12 flex flex-col justify-between"
+                   title="Masuk langsung 1-klik sebagai Operator Sekolah (SMPN 1 Bitung)">
+                    <div class="flex items-center justify-between w-full mb-1">
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-blue-600 shrink-0"></span>
+                            <span class="text-xs font-bold text-slate-900 group-hover:text-blue-900">Operator Sekolah</span>
+                        </div>
+                        <span class="text-[10px] font-bold text-blue-700 bg-blue-100/70 group-hover:bg-blue-200 px-1.5 py-0.5 rounded transition-colors flex items-center gap-0.5">
+                            Masuk <span class="material-symbols-outlined text-[12px]">arrow_forward</span>
+                        </span>
+                    </div>
+                    <span class="text-[10px] text-slate-500 font-mono block truncate">operator.bitung@siagabumi.id</span>
+                </a>
+
+                <!-- 3. Guru / Pendidik -->
+                <a href="{{ route('switch-role', ['role' => 'guru']) }}"
+                   class="group relative p-3 rounded-xl bg-slate-50 hover:bg-amber-50/80 border border-slate-200 hover:border-amber-300 text-left transition-all focus:outline-none focus:ring-2 focus:ring-amber-500 shadow-2xs hover:shadow-xs min-h-12 flex flex-col justify-between"
+                   title="Masuk langsung 1-klik sebagai Guru / Pendidik (SRMA 44 Minahasa)">
+                    <div class="flex items-center justify-between w-full mb-1">
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-amber-600 shrink-0"></span>
+                            <span class="text-xs font-bold text-slate-900 group-hover:text-amber-900">Guru / Pendidik</span>
+                        </div>
+                        <span class="text-[10px] font-bold text-amber-700 bg-amber-100/70 group-hover:bg-amber-200 px-1.5 py-0.5 rounded transition-colors flex items-center gap-0.5">
+                            Masuk <span class="material-symbols-outlined text-[12px]">arrow_forward</span>
+                        </span>
+                    </div>
+                    <span class="text-[10px] text-slate-500 font-mono block truncate">guru.minahasa@siagabumi.id</span>
+                </a>
+
+                <!-- 4. Siswa Pembelajar -->
+                <a href="{{ route('switch-role', ['role' => 'siswa']) }}"
+                   class="group relative p-3 rounded-xl bg-slate-50 hover:bg-teal-50/80 border border-slate-200 hover:border-teal-300 text-left transition-all focus:outline-none focus:ring-2 focus:ring-teal-500 shadow-2xs hover:shadow-xs min-h-12 flex flex-col justify-between"
+                   title="Masuk langsung 1-klik sebagai Siswa Pembelajar (SMPN 1 Bitung)">
+                    <div class="flex items-center justify-between w-full mb-1">
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-teal-600 shrink-0"></span>
+                            <span class="text-xs font-bold text-slate-900 group-hover:text-teal-900">Siswa Pembelajar</span>
+                        </div>
+                        <span class="text-[10px] font-bold text-teal-700 bg-teal-100/70 group-hover:bg-teal-200 px-1.5 py-0.5 rounded transition-colors flex items-center gap-0.5">
+                            Masuk <span class="material-symbols-outlined text-[12px]">arrow_forward</span>
+                        </span>
+                    </div>
+                    <span class="text-[10px] text-slate-500 font-mono block truncate">siswa.bitung@siagabumi.id</span>
+                </a>
+
+                <!-- 5. Penyuluh / Tamu SSK (Full Width) -->
+                <a href="{{ route('switch-role', ['role' => 'penyuluh']) }}"
+                   class="sm:col-span-2 group relative p-3 rounded-xl bg-slate-50 hover:bg-violet-50/80 border border-slate-200 hover:border-violet-300 text-left transition-all focus:outline-none focus:ring-2 focus:ring-violet-500 shadow-2xs hover:shadow-xs min-h-12 flex items-center justify-between"
+                   title="Masuk langsung 1-klik sebagai Penyuluh KB / Tamu SSK">
+                    <div>
+                        <div class="flex items-center gap-1.5 mb-0.5">
+                            <span class="w-2 h-2 rounded-full bg-violet-600 shrink-0"></span>
+                            <span class="text-xs font-bold text-slate-900 group-hover:text-violet-900">Penyuluh KB / Tamu SSK</span>
+                        </div>
+                        <span class="text-[10px] text-slate-500 font-mono">penyuluh@siagabumi.id</span>
+                    </div>
+                    <span class="text-[10px] font-bold text-violet-700 bg-violet-100/70 group-hover:bg-violet-200 px-2 py-1 rounded transition-colors flex items-center gap-1">
+                        Masuk <span class="material-symbols-outlined text-[12px]">arrow_forward</span>
+                    </span>
+                </a>
+            </div>
+
+            <!-- Hint & Form Auto-fill Toggle -->
+            <div class="flex items-center justify-between pt-1 text-[11px] text-slate-500">
+                <span>Kata sandi seluruh akun demo: <code class="font-mono bg-slate-100 px-1 py-0.5 rounded text-slate-700 font-semibold">password</code></span>
+                <button type="button" @click="fillOnly('adminpusat@siagabumi.id', 'password')" class="text-emerald-700 hover:text-emerald-800 hover:underline font-semibold focus:outline-none">
+                    Isi form saja
+                </button>
+            </div>
+        </div>
+        @enddemo
+
         <!-- Footer Link -->
         <div class="text-center pt-2">
             <p class="text-xs text-slate-600">

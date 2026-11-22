@@ -115,8 +115,27 @@
                             <span class="material-symbols-outlined text-[16px]">analytics</span>
                             <span>Analitik Belajar</span>
                         </a>
-
                     </div>
+
+                    @demo
+                    <!-- Demo Role Switcher inside Student Profile (Demo Only) -->
+                    <div class="p-2 border-t border-slate-100 bg-amber-50/60 rounded-xl mx-2 my-1.5">
+                        <div class="text-[10px] font-bold text-amber-900 mb-1.5 flex items-center justify-between">
+                            <div class="flex items-center gap-1">
+                                <span class="material-symbols-outlined text-[14px] text-amber-600">bolt</span>
+                                <span>Ganti Peran Demo</span>
+                            </div>
+                            <span class="text-[9px] bg-amber-200/80 text-amber-900 font-bold px-1 py-0.5 rounded">1-Klik</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-1 text-[10px]">
+                            <a href="{{ route('switch-role', ['role' => 'admin_pusat']) }}" class="p-1.5 rounded-lg bg-white border border-slate-200 hover:border-emerald-400 font-semibold text-slate-800 text-center truncate hover:bg-emerald-50 transition-colors">Admin</a>
+                            <a href="{{ route('switch-role', ['role' => 'operator_sekolah']) }}" class="p-1.5 rounded-lg bg-white border border-slate-200 hover:border-blue-400 font-semibold text-slate-800 text-center truncate hover:bg-blue-50 transition-colors">Operator</a>
+                            <a href="{{ route('switch-role', ['role' => 'guru']) }}" class="p-1.5 rounded-lg bg-white border border-slate-200 hover:border-amber-400 font-semibold text-slate-800 text-center truncate hover:bg-amber-50 transition-colors">Guru</a>
+                            <a href="{{ route('switch-role', ['role' => 'siswa']) }}" class="p-1.5 rounded-lg bg-white border border-slate-200 hover:border-teal-400 font-semibold text-slate-800 text-center truncate hover:bg-teal-50 transition-colors">Siswa</a>
+                            <a href="{{ route('switch-role', ['role' => 'penyuluh']) }}" class="col-span-2 p-1.5 rounded-lg bg-white border border-slate-200 hover:border-violet-400 font-semibold text-slate-800 text-center truncate hover:bg-violet-50 transition-colors">Penyuluh KB / Tamu</a>
+                        </div>
+                    </div>
+                    @enddemo
 
                     <!-- Logout Button -->
                     <div class="pt-1 border-t border-slate-100">
